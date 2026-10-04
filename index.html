@@ -631,25 +631,39 @@ main > section[id]::before{content:"";position:absolute;top:0;left:50%;transform
 .nerv-txt{font:900 13px/1 "Noto Serif JP",Georgia,serif;letter-spacing:.18em;color:var(--bone)}
 .nerv:hover img,.nerv[aria-expanded="true"] img{animation:nervPulse 1.6s ease-in-out infinite}
 @keyframes nervPulse{50%{filter:drop-shadow(0 0 8px rgba(200,16,46,.9))}}
-.magi{position:absolute;left:clamp(16px,4vw,32px);bottom:calc(100% + 12px);z-index:6;width:min(380px,calc(100vw - 32px));padding:16px;border-radius:14px;background:rgba(10,9,13,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid #FF8A1F;box-shadow:0 0 0 1px rgba(255,138,31,.15),0 20px 50px -20px rgba(255,138,31,.45);color:#FFB15C;font:700 12px/1.3 var(--mono);cursor:pointer;animation:magiIn .3s ease-out}
+.magi-back{position:fixed;inset:0;z-index:170;display:grid;place-items:center;padding:16px;background:rgba(5,4,8,.74);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);animation:magiFade .25s ease-out}
+.magi-back[hidden]{display:none}
+@keyframes magiFade{from{opacity:0}to{opacity:1}}
+.magi-back.in-frame{position:absolute;display:block}
+.magi-back.in-frame .magi{position:absolute;left:50%;top:var(--mt,40px);transform:translateX(-50%)}
+.magi{position:relative;overflow:hidden;width:min(560px,100%);padding:22px 22px 18px;border-radius:16px;background:rgba(10,9,13,.97);border:1px solid #FF8A1F;box-shadow:0 0 0 1px rgba(255,138,31,.15),0 30px 80px -20px rgba(255,138,31,.5);color:#FFB15C;font:700 13px/1.3 var(--mono);animation:magiIn .35s cubic-bezier(.2,.9,.3,1.2)}
+.magi::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,138,31,.05) 0 1px,transparent 1px 3px)}
+.magi-hz{display:block;height:10px;margin:-22px -22px 18px;background:repeating-linear-gradient(-45deg,#FF8A1F 0 12px,#0a090d 12px 24px);background-size:34px 34px;animation:magiHz 1s linear infinite}
+@keyframes magiHz{to{background-position:34px 0}}
+.magi-hd{display:flex;align-items:center;gap:14px;padding-bottom:14px;border-bottom:1px dashed rgba(255,138,31,.45)}
+.magi-hd img{height:52px;width:auto;filter:drop-shadow(0 0 10px rgba(200,16,46,.6))}
+.magi-hd b{display:block;font-size:17px;letter-spacing:.16em;color:#FF8A1F}
+.magi-hd small{display:block;margin-top:4px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#FFB15C;opacity:.75}
+.magi-hd .magi-st{margin-left:auto;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.magi-hint{display:block;margin-top:12px;text-align:center;font:600 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
 @keyframes magiIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.magi-top{display:flex;justify-content:space-between;gap:10px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px dashed rgba(255,138,31,.45)}
+.magi-top-old{display:flex;justify-content:space-between;gap:10px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px dashed rgba(255,138,31,.45)}
 .magi-st{color:#FF8A1F;animation:magiBlink .7s steps(1,end) infinite}
 .magi.done .magi-st{color:var(--mint);animation:none}
 @keyframes magiBlink{50%{opacity:.25}}
-.magi-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0}
+.magi-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0 14px}
 .mg{display:grid;gap:8px;justify-items:center;padding:12px 6px;border:1px solid rgba(255,138,31,.55);clip-path:polygon(10% 0,90% 0,100% 18%,100% 100%,0 100%,0 18%);background:rgba(255,138,31,.07);transition:background .3s ease,border-color .3s ease,color .3s ease}
-.mg b{font-size:10px;letter-spacing:.08em;color:#FFB15C}
-.mg i{font:900 20px/1 "Noto Serif JP",serif;font-style:normal;color:#FF8A1F}
+.mg b{font-size:11px;letter-spacing:.08em;color:#FFB15C}
+.mg i{font:900 30px/1 "Noto Serif JP",serif;font-style:normal;color:#FF8A1F}
 .mg.ok{background:rgba(43,230,168,.12);border-color:var(--mint)}
 .mg.ok i{color:var(--mint)}
-.magi-res{margin:0;color:var(--bone);font:600 13px/1.4 var(--body);opacity:0;transition:opacity .4s ease}
+.magi-res{margin:0;color:var(--bone);font:600 15px/1.4 var(--body);opacity:0;transition:opacity .4s ease}
 .magi.done .magi-res{opacity:1}
 .magi-motto{display:block;margin-top:6px;color:var(--faint);font:italic 500 11.5px/1.4 Georgia,serif;opacity:0;transition:opacity .4s ease .2s}
 .magi.done .magi-motto{opacity:1}/* ===== cursor de patinha + fio vermelho seguindo ===== */
 @media (pointer:fine){
   *{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg transform='rotate(-20 16 16)' fill='%23AC00FF' stroke='%23FFFFFF' stroke-width='1.5'%3E%3Cpath d='M16 15.5c4.2 0 7.6 3.2 7.6 6.6 0 2.9-2.4 4.4-4.6 4.4-1.3 0-2-.6-3-.6s-1.7.6-3 .6c-2.2 0-4.6-1.5-4.6-4.4 0-3.4 3.4-6.6 7.6-6.6z'/%3E%3Cellipse cx='8' cy='13.2' rx='2.5' ry='3.2'/%3E%3Cellipse cx='12.6' cy='8.4' rx='2.6' ry='3.4'/%3E%3Cellipse cx='19.4' cy='8.4' rx='2.6' ry='3.4'/%3E%3Cellipse cx='24' cy='13.2' rx='2.5' ry='3.2'/%3E%3C/g%3E%3C/svg%3E") 8 3,auto !important}
-  a,button,summary,label,[role="button"],[data-copy],[data-hex],.emblem,.bsod,.magi,.shot,.stage,.big-heart,.px-stage{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg transform='rotate(-20 16 16)' fill='%23E10022' stroke='%23FFFFFF' stroke-width='1.5'%3E%3Cpath d='M16 15.5c4.2 0 7.6 3.2 7.6 6.6 0 2.9-2.4 4.4-4.6 4.4-1.3 0-2-.6-3-.6s-1.7.6-3 .6c-2.2 0-4.6-1.5-4.6-4.4 0-3.4 3.4-6.6 7.6-6.6z'/%3E%3Cellipse cx='8' cy='13.2' rx='2.5' ry='3.2'/%3E%3Cellipse cx='12.6' cy='8.4' rx='2.6' ry='3.4'/%3E%3Cellipse cx='19.4' cy='8.4' rx='2.6' ry='3.4'/%3E%3Cellipse cx='24' cy='13.2' rx='2.5' ry='3.2'/%3E%3C/g%3E%3C/svg%3E") 8 3,pointer !important}
+  a,button,summary,label,[role="button"],[data-copy],[data-hex],.emblem,.bsod,.magi,.magi-back,.shot,.stage,.big-heart,.px-stage{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg transform='rotate(-20 16 16)' fill='%23E10022' stroke='%23FFFFFF' stroke-width='1.5'%3E%3Cpath d='M16 15.5c4.2 0 7.6 3.2 7.6 6.6 0 2.9-2.4 4.4-4.6 4.4-1.3 0-2-.6-3-.6s-1.7.6-3 .6c-2.2 0-4.6-1.5-4.6-4.4 0-3.4 3.4-6.6 7.6-6.6z'/%3E%3Cellipse cx='8' cy='13.2' rx='2.5' ry='3.2'/%3E%3Cellipse cx='12.6' cy='8.4' rx='2.6' ry='3.4'/%3E%3Cellipse cx='19.4' cy='8.4' rx='2.6' ry='3.4'/%3E%3Cellipse cx='24' cy='13.2' rx='2.5' ry='3.2'/%3E%3C/g%3E%3C/svg%3E") 8 3,pointer !important}
 }
 .red-thread{position:fixed;inset:0;width:100%;height:100%;z-index:150;pointer-events:none;overflow:visible;transition:opacity .3s ease}
 .red-thread g{filter:drop-shadow(0 0 4px rgba(255,0,40,.75))}
@@ -683,6 +697,26 @@ main > section[id]::before{content:"";position:absolute;top:0;left:50%;transform
 @keyframes pxDot{50%{transform:scale(.7);opacity:.6}}
 .px-call.in-frame{position:absolute;top:var(--py,140px);bottom:auto}
 @media (pointer:fine){ .px-stage,.px-call,.px-x{cursor:pointer} }
+/* modo mini: só a cabecinha dela numa bolinha, seguindo o mouse */
+.pixel.px-mini{--pw:84px;--ph:84px;--pl:12px;bottom:12px}
+.pixel.px-mini .px-stage{border-radius:50%;overflow:hidden;background:radial-gradient(circle at 50% 30%,#2b2140,#0E0D12 72%);border:2px solid rgba(43,230,168,.6);box-shadow:0 10px 26px -10px rgba(43,230,168,.75),0 0 0 4px rgba(14,13,18,.65);transition:opacity .6s ease,transform .25s cubic-bezier(.2,.8,.2,1)}
+.pixel.px-mini .px-stage:hover{transform:scale(1.07)}
+.pixel.px-mini .px-glow,.pixel.px-mini .px-x,.pixel.px-mini .px-snd,.pixel.px-mini .px-bubble{display:none}
+.pixel.px-mini.news::after{content:"";position:absolute;top:2px;right:2px;z-index:5;width:13px;height:13px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 2px var(--night),0 0 10px var(--mint);animation:pxDot 1.4s ease-in-out infinite}
+@media (max-width:600px){ .pixel.px-mini{--pw:68px;--ph:68px;--pl:10px;bottom:10px} }
+.px-snd{position:absolute;top:14%;left:2%;z-index:3;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:rgba(23,21,29,.9);color:var(--muted);display:grid;place-items:center;pointer-events:auto;opacity:0;transition:opacity .2s ease,color .2s ease,border-color .2s ease;padding:0}
+.px-snd svg{width:15px;height:15px;fill:currentColor}
+.px-snd svg .w{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.px-snd .off,.px-snd[aria-pressed="false"] .on{display:none}
+.px-snd[aria-pressed="false"] .off{display:block}
+.pixel:hover .px-snd,.px-snd:focus-visible,.pixel.visit .px-snd{opacity:1}
+@media (hover:none){ .px-snd{opacity:.85} }
+.px-snd:hover{color:var(--bone);border-color:var(--mint)}
+.px-stage{touch-action:none}
+.px-hearts{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:visible}
+.px-heart{position:absolute;width:18px;height:18px;margin:-9px 0 0 -9px;filter:drop-shadow(0 0 6px currentColor)}
+.px-heart svg{width:100%;height:100%;fill:currentColor}
+@media (pointer:fine){ .px-snd{cursor:pointer} }
 /* tela cheia */
 .kanji-note{display:flex;align-items:center;gap:14px;color:var(--muted);font-size:15px;max-width:62ch}
 .kanji-note b{color:var(--bone)}
@@ -1695,6 +1729,8 @@ footer .brand{font-size:20px;color:var(--bone)}
   <div class="px-bubble" id="px-bubble" role="status" aria-live="polite" hidden><span class="px-who">Pixel</span><span class="px-txt" id="px-txt"></span></div>
   <div class="px-stage" id="px-stage" title="Toca na Pixel!"><span class="px-glow" aria-hidden="true"></span><canvas id="px-cv" aria-hidden="true"></canvas></div>
   <button class="px-x" id="px-x" type="button" aria-label="Esconder a Pixel">×</button>
+  <button class="px-snd" id="px-snd" type="button" aria-label="Som da Pixel ligado" aria-pressed="true"><svg class="on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path class="w" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg><svg class="off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path class="w" d="M16.5 9.5l5 5M21.5 9.5l-5 5"/></svg></button>
+  <div class="px-hearts" id="px-hearts" aria-hidden="true"></div>
 </aside>
 <button class="px-call" id="px-call" type="button" hidden aria-label="Chamar a Pixel de volta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 11.5c3 0 5.5 2.3 5.5 4.8 0 2.1-1.7 3.2-3.3 3.2-1 0-1.5-.5-2.2-.5s-1.2.5-2.2.5c-1.6 0-3.3-1.1-3.3-3.2 0-2.5 2.5-4.8 5.5-4.8z"/><ellipse cx="6.2" cy="9.6" rx="1.8" ry="2.3"/><ellipse cx="9.6" cy="6.2" rx="1.9" ry="2.4"/><ellipse cx="14.4" cy="6.2" rx="1.9" ry="2.4"/><ellipse cx="17.8" cy="9.6" rx="1.8" ry="2.3"/></svg>Pixel</button>
 <footer>
@@ -1704,16 +1740,6 @@ footer .brand{font-size:20px;color:var(--bone)}
       <img src="img/nerv.webp" alt="" width="310" height="349">
     </button>
     <span class="foot-txt">Feito originalmente por Sr_Bjørn</span>
-    <div class="magi" id="magi" hidden>
-      <div class="magi-top"><span>MAGI SYSTEM</span><span class="magi-st" id="magi-st">Deliberando…</span></div>
-      <div class="magi-grid">
-        <div class="mg"><b>MELCHIOR·1</b><i lang="ja">審議中</i></div>
-        <div class="mg"><b>BALTHASAR·2</b><i lang="ja">審議中</i></div>
-        <div class="mg"><b>CASPER·3</b><i lang="ja">審議中</i></div>
-      </div>
-      <p class="magi-res">Sr_Bjørn: piloto autorizado. Bem-vindo à NERV.</p>
-      <small class="magi-motto">God's in his heaven. All's right with the world.</small>
-    </div>
     <button type="button" class="peki" id="peki" aria-label="Peki, o gatinho travesso. Não clique!">
       <span class="peki-bubble" id="peki-bubble">Não toque em mim! <b>Hehehe</b></span>
       <img src="img/peki.webp" alt="" width="336" height="360">
@@ -1721,6 +1747,20 @@ footer .brand{font-size:20px;color:var(--bone)}
   </div>
 </footer>
 
+<div class="magi-back" id="magi-back" hidden>
+  <div class="magi" id="magi" role="dialog" aria-modal="true" aria-label="Sistema MAGI">
+    <span class="magi-hz" aria-hidden="true"></span>
+    <div class="magi-hd"><img src="img/nerv.webp" alt="" width="310" height="349"><div><b>MAGI SYSTEM</b><small>NERV · votação de emergência</small></div><span class="magi-st" id="magi-st">Deliberando…</span></div>
+    <div class="magi-grid">
+      <div class="mg"><b>MELCHIOR·1</b><i lang="ja">審議中</i></div>
+      <div class="mg"><b>BALTHASAR·2</b><i lang="ja">審議中</i></div>
+      <div class="mg"><b>CASPER·3</b><i lang="ja">審議中</i></div>
+    </div>
+    <p class="magi-res">Sr_Bjørn: piloto autorizado. Bem-vindo à NERV.</p>
+    <small class="magi-motto">God's in his heaven. All's right with the world.</small>
+    <span class="magi-hint">toque em qualquer lugar pra fechar</span>
+  </div>
+</div>
 <div class="bsod" id="bsod" hidden aria-hidden="true">
   <div class="bsod-black"></div>
   <div class="bsod-screen">
@@ -2093,18 +2133,32 @@ footer .brand{font-size:20px;color:var(--bone)}
   window.addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(update) } },{passive:true});
   window.addEventListener('resize',update); update();
 })();
-// ---- easter egg: a folha da NERV chama os MAGI pra votar ----
+// ---- easter egg: a folha da NERV chama os MAGI pra votar (no centro, com som de alerta) ----
 (function(){
-  var btn=document.getElementById('nerv'), box=document.getElementById('magi'); if(!btn||!box) return;
-  var st=document.getElementById('magi-st'), cells=box.querySelectorAll('.mg'), timers=[];
-  function close(){ timers.forEach(clearTimeout); timers=[]; box.hidden=true; box.classList.remove('done'); btn.setAttribute('aria-expanded','false'); }
-  function open(){ close(); box.hidden=false; btn.setAttribute('aria-expanded','true'); st.textContent='Deliberando…';
+  var btn=document.getElementById('nerv'), back=document.getElementById('magi-back'), box=document.getElementById('magi'); if(!btn||!back||!box) return;
+  var st=document.getElementById('magi-st'), cells=box.querySelectorAll('.mg'), timers=[], ac=null, nodes=[];
+  function muted(){ try{ return localStorage.getItem('pixel-sound')==='0' }catch(e){ return false } }
+  function ctx(){ if(muted()) return null; if(!ac){ var C=window.AudioContext||window.webkitAudioContext; if(!C) return null; ac=new C() } if(ac.state==='suspended') ac.resume(); return ac }
+  function tone(type,f1,f2,at,dur,vol,cut){ var a=ctx(); if(!a) return; var t=a.currentTime+at, o=a.createOscillator(), g=a.createGain(), lp=a.createBiquadFilter();
+    o.type=type; o.frequency.setValueAtTime(f1,t); if(f2!==f1) o.frequency.exponentialRampToValueAtTime(f2,t+dur*.9); lp.type='lowpass'; lp.frequency.setValueAtTime(cut||1800,t);
+    g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vol,t+.02); g.gain.setValueAtTime(vol,t+dur*.6); g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+    o.connect(lp); lp.connect(g); g.connect(a.destination); o.start(t); o.stop(t+dur+.05); nodes.push(o) }
+  function alarm(){ for(var k=0;k<4;k++){ tone('sawtooth',740,740,k*.36,.17,.045,1500); tone('sawtooth',554,554,k*.36+.18,.17,.045,1500) } }
+  function vote(){ tone('square',1046,1318,0,.09,.035,2600); tone('square',1568,1568,.1,.07,.025,2600) }
+  function fanfare(){ var a=ctx(); if(!a) return; [146.8,220,293.7,370,440].forEach(function(f,i){ tone('sawtooth',f,f,i*.03,1.9,.022,2200) }); tone('sine',90,42,0,.5,.12,400) }
+  function close(){ timers.forEach(clearTimeout); timers=[]; nodes.forEach(function(o){ try{ o.stop() }catch(e){} }); nodes=[];
+    back.hidden=true; box.classList.remove('done'); btn.setAttribute('aria-expanded','false'); }
+  function open(){ close(); back.hidden=false; btn.setAttribute('aria-expanded','true'); st.textContent='Deliberando…';
+    var inFrame=window.innerHeight>=document.documentElement.scrollHeight-4;
+    back.classList.toggle('in-frame',inFrame);
+    if(inFrame){ back.style.height=document.documentElement.scrollHeight+'px'; box.style.setProperty('--mt',Math.max(20,btn.getBoundingClientRect().top+window.scrollY-420)+'px') } else { back.style.height='' }
+    alarm();
     [].forEach.call(cells,function(c,i){ c.classList.remove('ok'); c.querySelector('i').textContent='審議中';
-      timers.push(setTimeout(function(){ c.classList.add('ok'); c.querySelector('i').textContent='承認'; },700+i*650)); });
-    timers.push(setTimeout(function(){ st.textContent='Aprovado 3/3'; box.classList.add('done'); },700+3*650)); }
-  btn.addEventListener('click',function(){ if(box.hidden) open(); else close(); });
-  box.addEventListener('click',close);
-  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!box.hidden) close(); });
+      timers.push(setTimeout(function(){ c.classList.add('ok'); c.querySelector('i').textContent='承認'; vote() },1600+i*650)); });
+    timers.push(setTimeout(function(){ st.textContent='Aprovado 3/3'; box.classList.add('done'); fanfare() },1600+3*650)); }
+  btn.addEventListener('click',function(){ if(back.hidden) open(); else close(); });
+  back.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!back.hidden) close(); });
 })();
 
 // ---- o rastro vermelho que a patinha deixa pelo caminho ----
@@ -2137,47 +2191,70 @@ footer .brand{font-size:20px;color:var(--bone)}
 </script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <script type="module">
-// ---- Pixel: a pet 3D do site — olha pro cursor, fala, reage e se move com molas suaves ----
+// ---- Pixel: a pet 3D do site — olha pro cursor, fala, bipa, ronrona e se move com molas suaves ----
 const root=document.getElementById('pixel'), call=document.getElementById('px-call');
-const stage=document.getElementById('px-stage'), cv=document.getElementById('px-cv');
-const bubble=document.getElementById('px-bubble'), txt=document.getElementById('px-txt'), closeBtn=document.getElementById('px-x');
+const stage=document.getElementById('px-stage'), cv=document.getElementById('px-cv'), heartsEl=document.getElementById('px-hearts');
+const bubble=document.getElementById('px-bubble'), txt=document.getElementById('px-txt'), closeBtn=document.getElementById('px-x'), sndBtn=document.getElementById('px-snd');
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches, touch=matchMedia('(hover:none)').matches;
 const store={ get(k){ try{ return localStorage.getItem(k) }catch(e){ return null } }, set(k,v){ try{ localStorage.setItem(k,v) }catch(e){} } };
 const inFrame=()=>window.innerHeight>=document.documentElement.scrollHeight-4;
 function hasGL(){ try{ const c=document.createElement('canvas'); return !!(c.getContext('webgl2')||c.getContext('webgl')) }catch(e){ return false } }
 
+// ---------- sons (gerados na hora: bip de protogen e ronrono) ----------
+let actx=null, soundOn=store.get('pixel-sound')!=='0', purr=null;
+function audio(){ if(!soundOn) return null; if(!actx){ const C=window.AudioContext||window.webkitAudioContext; if(!C) return null; actx=new C() } if(actx.state==='suspended') actx.resume(); return actx }
+function blip(f1,f2,at,dur,vol){ const a=audio(); if(!a) return; const t=a.currentTime+at, o=a.createOscillator(), g=a.createGain(), lp=a.createBiquadFilter();
+  o.type='square'; o.frequency.setValueAtTime(f1,t); o.frequency.exponentialRampToValueAtTime(f2,t+dur); lp.type='lowpass'; lp.frequency.value=2600;
+  g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vol,t+.008); g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  o.connect(lp); lp.connect(g); g.connect(a.destination); o.start(t); o.stop(t+dur+.02) }
+const beep={ talk(){ blip(1300,1500,0,.06,.035); blip(1650,1900,.085,.05,.03) }, tap(){ blip(900,1900,0,.13,.04) }, hello(){ blip(1100,1300,0,.05,.03); blip(1400,1600,.07,.05,.03); blip(1800,2100,.14,.07,.03) } };
+function purrStart(){ const a=audio(); if(!a||purr) return;
+  const len=a.sampleRate*2, buf=a.createBuffer(1,len,a.sampleRate), d=buf.getChannelData(0); for(let i=0;i<len;i++) d[i]=Math.random()*2-1;
+  const n=a.createBufferSource(); n.buffer=buf; n.loop=true; const lp=a.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=320;
+  const am=a.createGain(); am.gain.value=.5; const lfo=a.createOscillator(); lfo.frequency.value=24; const depth=a.createGain(); depth.gain.value=.5; lfo.connect(depth); depth.connect(am.gain);
+  const hum=a.createOscillator(); hum.frequency.value=52; const hg=a.createGain(); hg.gain.value=.35;
+  const out=a.createGain(); out.gain.value=0; out.gain.linearRampToValueAtTime(.16,a.currentTime+.35);
+  n.connect(lp); lp.connect(am); hum.connect(hg); hg.connect(am); am.connect(out); out.connect(a.destination); n.start(); lfo.start(); hum.start();
+  purr={out,stop(){ const t=a.currentTime; out.gain.cancelScheduledValues(t); out.gain.setValueAtTime(out.gain.value,t); out.gain.linearRampToValueAtTime(0,t+.5); setTimeout(()=>{ try{ n.stop(); lfo.stop(); hum.stop() }catch(e){} },600) }} }
+function purrStop(){ if(purr){ purr.stop(); purr=null } }
+function setSound(on){ soundOn=on; store.set('pixel-sound',on?'1':'0'); sndBtn.setAttribute('aria-pressed',on?'true':'false'); sndBtn.setAttribute('aria-label','Som da Pixel '+(on?'ligado':'desligado')); if(!on) purrStop() }
+setSound(soundOn);
+sndBtn.addEventListener('click',e=>{ e.stopPropagation(); setSound(!soundOn); if(soundOn) beep.hello() });
+
 // ---------- espaço livre: a Pixel nunca fica na frente do conteúdo ----------
-let mode='off';                      // 'dock' (na margem), 'mini' (só o botão), 'visit' (chamada pelo botão), 'off' (escondida)
+let mode='off';                      // 'dock' (na margem), 'mini' (cabecinha), 'visit' (corpo inteiro, chamada), 'off' (escondida, só o botão)
 const wrapEl=document.querySelector('main .wrap');
 function space(){
   const edge=wrapEl ? wrapEl.getBoundingClientRect().left + (parseFloat(getComputedStyle(wrapEl).paddingLeft)||0) : 0;
-  const avail=edge-24;
-  if(avail<130) return null;
+  const avail=edge-24; if(avail<130) return null;
   let pw=Math.min(260,avail), ph=pw*1.5; const maxH=innerHeight*.62; if(ph>maxH){ ph=maxH; pw=ph/1.5 }
   return {pw:Math.round(pw),ph:Math.round(ph),pl:Math.max(8,Math.round((edge-pw)/2)),bw:Math.round(Math.min(250,edge-20))};
 }
+function clearVars(){ ['--pw','--ph','--pl','--bw'].forEach(v=>root.style.removeProperty(v)) }
 function layout(){
   if(mode==='off') return;
   const s=space();
-  if(s && mode!=='visit'){ root.style.setProperty('--pw',s.pw+'px'); root.style.setProperty('--ph',s.ph+'px'); root.style.setProperty('--pl',s.pl+'px'); root.style.setProperty('--bw',s.bw+'px'); setMode('dock') }
-  else if(!s && mode==='dock') setMode('mini');
-  else if(s && mode==='visit'){ root.classList.remove('visit'); setMode('dock'); layout() }
+  if(s){ root.style.setProperty('--pw',s.pw+'px'); root.style.setProperty('--ph',s.ph+'px'); root.style.setProperty('--pl',s.pl+'px'); root.style.setProperty('--bw',s.bw+'px'); if(mode!=='dock') setMode('dock') }
+  else if(mode==='dock'||mode==='boot') setMode('mini');
 }
 function setMode(m){
-  mode=m; root.classList.toggle('visit',m==='visit');
-  root.hidden=!(m==='dock'||m==='visit'); call.hidden=!(m==='mini'||m==='off');
-  if(root.hidden) bubble.hidden=true; else { call.classList.remove('news'); if(!started){ started=true; start3D() } else if(!running) loop() }
-  resizeGL();
+  mode=m; if(m!=='dock') clearVars();
+  root.classList.toggle('visit',m==='visit'); root.classList.toggle('px-mini',m==='mini');
+  root.hidden=(m==='off'); call.hidden=(m!=='off');
+  if(m==='mini'||m==='off') bubble.hidden=true;
+  if(m==='dock'||m==='visit'){ root.classList.remove('news'); if(pending){ const p=pending; pending=null; setTimeout(()=>say(p),450) } }
+  if(m!=='off'){ if(!started){ started=true; start3D() } else if(!running) loop() }
+  resizeGL(); frameCam();
 }
 addEventListener('resize',layout);
 
 // ---------- falas ----------
 let typing=null, hideT=null, lastSay=0, lastLine='', talkUntil=0, pending=null;
 function say(text,ms){
-  if(root.hidden){ pending=text; call.classList.add('news'); return }
+  if(mode==='mini'||mode==='off'){ pending=text; root.classList.add('news'); return }
   clearInterval(typing); clearTimeout(hideT);
   bubble.hidden=false; bubble.style.animation='none'; void bubble.offsetWidth; bubble.style.animation='';
-  txt.textContent=''; lastSay=Date.now(); lastLine=text;
+  txt.textContent=''; lastSay=Date.now(); lastLine=text; beep.talk();
   const chars=[...text]; let n=0; talkUntil=performance.now()+chars.length*24;
   if(reduce){ txt.textContent=text } else typing=setInterval(()=>{ txt.textContent+=chars[n++]||''; if(n>=chars.length) clearInterval(typing) },24);
   hideT=setTimeout(()=>{ bubble.hidden=true },ms||Math.max(4200,chars.length*72));
@@ -2197,7 +2274,9 @@ const SECTION={
   casal:'Toca no coração! Cada toque vira um boop 💜',
   momentos:'Clica numa foto pra ver ela grandona 📸'
 };
-const TAP=['Ei! Isso faz cócegas no meu visor! 😆','Beep boop! Pixel online 🤖','Sou uma protogen: metade máquina, metade fofura 💜','Já seguiu o Bjørn no Instagram? 👀','Fui feita com carinho por um amigo do Bjørn ✨',touch?'Toca nas coisas do site que eu comento!':'Mexe o mouse que eu te sigo com o olhar 👀','Meu visor brilha mais quando você volta aqui 💚','Dica secreta: tem uma folha vermelha escondida lá no rodapé… 🍁'];
+const TAP=['Ei! Isso faz cócegas no meu visor! 😆','Beep boop! Pixel online 🤖','Sou uma protogen: metade máquina, metade fofura 💜','Já seguiu o Bjørn no Instagram? 👀','Fui feita com carinho por um amigo do Bjørn ✨',touch?'Passa o dedo em mim que eu ronrono! 😽':'Passa o mouse em mim pra fazer carinho 😽','Meu visor brilha mais quando você volta aqui 💚','Dica secreta: tem uma folha vermelha escondida lá no rodapé… 🍁'];
+const CURIO=['Curiosidade: o Bjørn nasceu na Rússia e veio pro Brasil ainda recém-nascido 🇧🇷','Os kanjis favoritos dele são 愛 (amor), 熊 (urso) e 士 (guerreiro) ✨','O Lupus Wolf existe desde 2011! Mais velho que muito meme por aí 🐺','Sabia que o Bjørn já fez dublagem por hobby? 🎙️','A música favorita dele é Heart To Heart, do Mac DeMarco 🎵','A Lua lá em cima mostra a fase de verdade de hoje, vista do Brasil 🌙','Ele usa 8 NovaTrackers Lite pra fazer full body no VRChat 🕺','Ele adora fotografar flores, paisagens e insetos curiosos 🌸','O Bjørn estudou Psicologia por um tempo… pode pedir conselho que ele escuta 💜','Bjørn e Yoshiro estão juntos desde 11/03/2026. O contador lá embaixo nunca para! 💞','Ele é geminiano, de 22 de maio: curioso, falante e cheio de ideias ♊','Bjørn quer dizer "urso" nas línguas nórdicas 🐻','Protogens são metade robô, metade orgânicos… e eu sou a parte fofa das duas 🤖💚'];
+const PET=['Hmmm… que carinho bom 💜','Prrrr… continua, continua! 😽','Meu visor tá até piscando de felicidade 💚','Ronron.exe ativado 😽'];
 
 // ---------- posição dentro do visualizador (iframe que cresce com a página) ----------
 function framePos(y){ const top=Math.max(90,Math.round(y)); root.style.setProperty('--py',top+'px'); call.style.setProperty('--py',top+'px') }
@@ -2205,15 +2284,11 @@ if(inFrame()){ root.classList.add('in-frame'); call.classList.add('in-frame'); f
 
 // ---------- botões ----------
 let started=false;
-closeBtn.addEventListener('click',()=>{ if(mode==='visit'){ setMode('mini'); return } store.set('pixel-off','1'); setMode('off') });
-call.addEventListener('click',()=>{
-  const first=!started; store.set('pixel-off','0'); const s=space();
-  if(s){ mode='dock'; layout() } else setMode('visit');
-  setTimeout(()=>{ if(pending){ const p=pending; pending=null; say(p) } else if(!first) say('Voltei! Sentiu minha falta? 💜') },500);
-});
+closeBtn.addEventListener('click',e=>{ e.stopPropagation(); purrStop(); if(mode==='visit'){ setMode('mini'); return } store.set('pixel-off','1'); setMode('off') });
+call.addEventListener('click',()=>{ store.set('pixel-off','0'); audio(); if(space()){ mode='boot'; layout() } else setMode('mini') });
 
 // ---------- 3D ----------
-let running=false, loop=()=>{}, resizeGL=()=>{}, react=()=>{};
+let running=false, loop=()=>{}, resizeGL=()=>{}, frameCam=()=>{}, react=()=>{};
 async function start3D(){
   const THREE=await import('three'); const {GLTFLoader}=await import('three/addons/loaders/GLTFLoader.js');
   const renderer=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true,powerPreference:'high-performance'});
@@ -2223,7 +2298,6 @@ async function start3D(){
   const key=new THREE.DirectionalLight(0xffffff,2.1); key.position.set(3,5,6); scene.add(key);
   const rim=new THREE.DirectionalLight(0xAC00FF,3.2); rim.position.set(-4,3,-3); scene.add(rim);
   const rim2=new THREE.DirectionalLight(0x2BE6A8,1.6); rim2.position.set(4,2,-3); scene.add(rim2);
-  // nitidez: desenha em 2x–3x e acompanha qualquer mudança de tamanho
   resizeGL=function(){ const w=stage.clientWidth, h=stage.clientHeight; if(!w||!h) return;
     renderer.setPixelRatio(Math.min(3,Math.max(2,(devicePixelRatio||1)*1.5))); renderer.setSize(w,h,false); cam.aspect=w/h; cam.updateProjectionMatrix() };
   resizeGL(); if('ResizeObserver' in window) new ResizeObserver(resizeGL).observe(stage);
@@ -2233,10 +2307,8 @@ async function start3D(){
   const rest={}; for(const k in B) rest[k]=B[k].quaternion.clone();
   const E=new THREE.Euler(), Q=new THREE.Quaternion(), V1=new THREE.Vector3(), V2=new THREE.Vector3();
   const qe=(x,y,z)=>new THREE.Quaternion().setFromEuler(new THREE.Euler(x,y,z));
-  // pose base: braços relaxados e cotovelos um pouco dobrados
-  const base={ Arm_L_019:qe(-1.08,0,-.28), Arm_R_040:qe(-1.08,0,.28), Elbow_L_020:qe(-.6,0,0), Elbow_R_041:qe(-.6,0,0) };
+  const base={ Arm_L_019:qe(-.8,0,-.36), Arm_R_040:qe(-.8,0,.36), Elbow_L_020:qe(-.6,0,0), Elbow_R_041:qe(-.6,0,0) };
   function setBase(){ for(const k in rest){ B[k].quaternion.copy(rest[k]); if(base[k]) B[k].quaternion.multiply(base[k]) } model.updateMatrixWorld(true) }
-  // aceno: aponta o braço pra fora e o antebraço pra cima (calculado uma vez)
   function aim(bone,child,d){ model.updateMatrixWorld(true); bone.getWorldPosition(V1); child.getWorldPosition(V2); const cur=V2.sub(V1).normalize();
     const q=new THREE.Quaternion().setFromUnitVectors(cur,new THREE.Vector3(...d).normalize()); const wq=new THREE.Quaternion(); bone.getWorldQuaternion(wq);
     const pq=new THREE.Quaternion(); bone.parent.getWorldQuaternion(pq); bone.quaternion.copy(pq.invert().multiply(q.multiply(wq))); model.updateMatrixWorld(true) }
@@ -2244,77 +2316,104 @@ async function start3D(){
   aim(B.Elbow_L_020,B.Wrist_L_021,[.05,1,.25]); const waveA=B.Elbow_L_020.quaternion.clone();
   aim(B.Elbow_L_020,B.Wrist_L_021,[.6,.85,.25]); const waveB=B.Elbow_L_020.quaternion.clone();
   const baseArmL=rest.Arm_L_019.clone().multiply(base.Arm_L_019), baseElbL=rest.Elbow_L_020.clone().multiply(base.Elbow_L_020);
-  setBase();
+  setBase(); const headP=new THREE.Vector3(); B.Head_05.getWorldPosition(headP);
   function add(name,x,y,z){ const b=B[name]; if(!b) return; E.set(x,y,z); b.quaternion.multiply(Q.setFromEuler(E)) }
-  const ang=.42; cam.position.set(Math.sin(ang)*11.6,2.7,Math.cos(ang)*11.6); cam.lookAt(0,2.28,-.35);
-  root.classList.add('ready');
+  // duas câmeras: corpo inteiro (de lado, 3/4) e só a cabecinha (modo mini)
+  let camAng=.42;
+  frameCam=function(){ if(mode==='mini'){ camAng=.28; cam.fov=24; cam.position.set(headP.x+Math.sin(camAng)*3.4,headP.y+.42,headP.z+Math.cos(camAng)*3.4); cam.lookAt(headP.x,headP.y+.34,headP.z) }
+    else { camAng=.42; cam.fov=24; cam.position.set(Math.sin(camAng)*11.6,2.7,Math.cos(camAng)*11.6); cam.lookAt(0,2.28,-.35) } cam.updateProjectionMatrix() };
+  frameCam(); root.classList.add('ready');
 
-  // molas suaves (sem tranco): valor, velocidade, alvo
   const spring=(k,d)=>({x:0,v:0,t:0,k,d,step(dt){ const a=this.k*(this.t-this.x)-this.d*this.v; this.v+=a*dt; this.x+=this.v*dt; return this.x }});
   const yaw=spring(38,11), pitch=spring(38,11), roll=spring(30,9), earL=spring(120,9), earR=spring(120,9), crouch=spring(160,16);
-  // para onde olhar: cursor/toque; parado, ela olha em volta sozinha
+  yaw.x=camAng;
   let px=null, py=null, lastMove=-1e9, glanceAt=0, gy=0, gp=.05, tiltUntil=0, happyUntil=0, scrollV=0, lastY=scrollY;
   const track=e=>{ px=e.clientX; py=e.clientY; lastMove=performance.now() };
   addEventListener('pointermove',track,{passive:true}); addEventListener('pointerdown',track,{passive:true});
-  addEventListener('scroll',()=>{ scrollV+= (scrollY-lastY); lastY=scrollY },{passive:true});
+  addEventListener('scroll',()=>{ scrollV+=(scrollY-lastY); lastY=scrollY },{passive:true});
   let hopT=-1, waveT=-1, nextEar=performance.now()+2500;
+  // carinho: passar o mouse/dedo por cima dela
+  let petPath=0, petLastX=null, petLastY=null, petLastT=0, petting=false, petEndT=0, heartT=0, petSaid=0;
+  stage.addEventListener('pointermove',e=>{ if(mode==='mini') return; if(e.pointerType==='touch' && e.buttons===0) return;
+    const n=performance.now(); if(petLastX!==null && n-petLastT<200){ petPath+=Math.hypot(e.clientX-petLastX,e.clientY-petLastY) } else petPath=0;
+    petLastX=e.clientX; petLastY=e.clientY; petLastT=n;
+    if(petPath>140){ if(!petting){ petting=true; purrStart(); if(Date.now()-petSaid>9000){ petSaid=Date.now(); say(pick(PET)) } } petEndT=n+650 } });
+  stage.addEventListener('pointerleave',()=>{ petEndT=Math.min(petEndT,performance.now()+250) });
+  function heart(){ const r=stage.getBoundingClientRect(); const s=document.createElement('span'); s.className='px-heart';
+    s.style.color=['#C77DFF','#2BE6A8','#FF6FB5','#AC00FF'][Math.floor(Math.random()*4)];
+    s.innerHTML='<svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.2 0 3.6 1.2 5.3 3.1 1.7-1.9 3.1-3.1 5.3-3.1 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"/></svg>';
+    s.style.left=(r.width*(.38+Math.random()*.3))+'px'; s.style.top=(r.height*.16)+'px'; heartsEl.appendChild(s);
+    const dx=(Math.random()-.5)*70, sc=.7+Math.random()*.6;
+    s.animate([{transform:'translate(0,0) scale(.3)',opacity:0},{transform:`translate(${dx*.3}px,-24px) scale(${sc})`,opacity:1,offset:.2},{transform:`translate(${dx}px,-110px) scale(${sc*.8})`,opacity:0}],{duration:1500+Math.random()*500,easing:'cubic-bezier(.2,.7,.3,1)'}).onfinish=()=>s.remove() }
   react=function(kind){ const n=performance.now(); if(kind==='tap'){ hopT=n; waveT=n; happyUntil=n+3200; crouch.v=-6 } else if(kind==='happy'){ happyUntil=n+2500; tiltUntil=n+1400 } };
-  stage.addEventListener('click',()=>{ react('tap'); say(pick(TAP)) });
+  stage.addEventListener('click',()=>{ audio();
+    if(mode==='mini'){ const had=!!pending; setMode('visit'); setTimeout(()=>{ react('tap'); beep.hello(); if(!had) say(lastSay?'Oi de novo! 💜':hi+'! Eu sou a Pixel, a pet do site do Bjørn 💜') },350); return }
+    if(performance.now()-petLastT<350 && petting) return;
+    react('tap'); beep.tap(); say(pick(TAP)) });
 
-  const clock=new THREE.Clock(); let tPrev=0;
+  const clock=new THREE.Clock();
   document.addEventListener('visibilitychange',()=>{ if(!document.hidden && !running && !root.hidden) loop() });
   loop=function(){ running=true; clock.getDelta(); requestAnimationFrame(frame) };
   const ease=k=>k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;
   function frame(){
-    if(document.hidden || root.hidden){ running=false; return }
+    if(document.hidden || root.hidden){ running=false; purrStop(); return }
     const dt=Math.min(.05,clock.getDelta()), t=clock.elapsedTime, now=performance.now(), m=reduce?0:1;
-    // --- alvo do olhar ---
+    // fim do carinho
+    if(petting && now>petEndT){ petting=false; petPath=0; purrStop() }
+    if(petting){ happyUntil=Math.max(happyUntil,now+1200); if(now>heartT){ heartT=now+(reduce?600:170); heart() } }
+    // --- olhar: vira na direção do cursor (descontando que a câmera está de lado) ---
     if(px!==null && now-lastMove<4500){
-      const r=stage.getBoundingClientRect(), hx=r.left+r.width*.5, hy=r.top+r.height*.18;
-      yaw.t=Math.max(-.9,Math.min(.9,-(px-hx)/innerWidth*2.6)); pitch.t=Math.max(-.45,Math.min(.5,(py-hy)/innerHeight*1.6));
+      const r=stage.getBoundingClientRect(), hx=r.left+r.width*.5, hy=r.top+r.height*(mode==='mini'?.45:.18);
+      const spanX=mode==='mini'?innerWidth*.5:innerWidth;
+      yaw.t=Math.max(-.75,Math.min(1.3,camAng+(px-hx)/spanX*2.4)); pitch.t=Math.max(-.5,Math.min(.55,.06+(py-hy)/innerHeight*1.6));
     } else {
-      if(now>glanceAt){ glanceAt=now+2600+Math.random()*3800; const r=Math.random(); gy=r<.35?0:(Math.random()-.5)*1.1; gp=-.08+Math.random()*.26; if(Math.random()<.3) tiltUntil=now+1600 }
-      yaw.t=gy*m; pitch.t=gp;
+      if(now>glanceAt){ glanceAt=now+2600+Math.random()*3800; const r=Math.random(); gy=r<.4?0:(Math.random()-.5)*1.1; gp=-.06+Math.random()*.24; if(Math.random()<.3) tiltUntil=now+1600 }
+      yaw.t=camAng+gy*m; pitch.t=gp;
     }
+    if(petting){ pitch.t=-.18; tiltUntil=now+300 }
     scrollV*=.9; pitch.t+=Math.max(-.25,Math.min(.25,scrollV*.004))*m;
     roll.t=(now<tiltUntil?.16:0)*m;
-    if(now<talkUntil) pitch.t+=Math.sin(now/95)*.035*m;        // balança a cabeça enquanto fala
+    if(now<talkUntil) pitch.t+=Math.sin(now/95)*.035*m;
     yaw.step(dt); pitch.step(dt); roll.step(dt);
-    // orelhas: mexidinhas aleatórias com mola
     if(m && now>nextEar){ nextEar=now+1800+Math.random()*4200; (Math.random()<.5?earL:earR).v+=9+Math.random()*6 }
+    if(petting && m && Math.random()<.04) (Math.random()<.5?earL:earR).v-=6;
     earL.step(dt); earR.step(dt); crouch.step(dt);
     const happy=now<happyUntil?1:0;
-    // --- monta a pose ---
+    // --- pose ---
     setBase();
     const breath=Math.sin(t*1.7), sway=Math.sin(t*.42), sway2=Math.sin(t*.27+1.3);
     add('Hips_01',0,sway2*.03*m,sway*.028*m); add('Leg_L_065',0,0,-sway*.028*m); add('Leg_R_068',0,0,-sway*.028*m);
     add('Spine_02',breath*.012*m,-sway2*.02*m,-sway*.018*m); add('Chest_03',breath*.022*m,0,0);
     add('Neck_04',pitch.x*.4,yaw.x*.4,roll.x*.4); add('Head_05',pitch.x*.6+Math.sin(t*.37)*.02*m,yaw.x*.6+Math.sin(t*.53)*.025*m,roll.x*.6+Math.sin(t*.81)*.015*m);
-    add('Ear_L_07',earL.x*.06,0,0); add('Ear_R_010',earR.x*.06,0,0);
-    add('Ear_L001_08',earL.x*.03,0,0); add('Ear_R001_011',earR.x*.03,0,0);
-    const tf=happy?4.2:1.6, ta=(happy?.17:.07+.03*Math.sin(t*.3))*m;
+    add('Ear_L_07',earL.x*.06,0,0); add('Ear_R_010',earR.x*.06,0,0); add('Ear_L001_08',earL.x*.03,0,0); add('Ear_R001_011',earR.x*.03,0,0);
+    const tf=happy?(petting?5.2:4.2):1.6, ta=(happy?(petting?.2:.17):.07+.03*Math.sin(t*.3))*m;
     ['Tail_060','Tail001_061','Tail002_062','Tail003_063','Tail004_064'].forEach((n,i)=>add(n,Math.sin(t*.8-i*.5)*.025*m,0,Math.sin(t*tf-i*.55)*ta*(1+i*.45)));
     add('Shoulder_L_018',0,0,breath*.012*m); add('Shoulder_R_039',0,0,-breath*.012*m);
     add('Arm_R_040',Math.sin(t*1.7+.6)*.025*m,0,-sway*.03*m); add('Elbow_R_041',-Math.sin(t*1.7+.9)*.03*m,0,0);
-    // aceno com entrada e saída suaves
     let w=0; if(waveT>0){ const k=(now-waveT)/2100; if(k<1) w=k<.22?ease(k/.22):k>.78?ease((1-k)/.22):1; else waveT=-1 }
     if(w>0 && m){ B.Arm_L_019.quaternion.copy(baseArmL).slerp(waveArm,w); const s=(Math.sin((now-waveT)/150)+1)/2; Q.copy(waveA).slerp(waveB,s); B.Elbow_L_020.quaternion.copy(baseElbL).slerp(Q,w) }
     else { add('Arm_L_019',Math.sin(t*1.7+.6)*.025*m,0,-sway*.03*m); add('Elbow_L_020',-Math.sin(t*1.7+.9)*.03*m,0,0) }
-    // pulinho: agacha, sobe, cai e amortece
-    let hop=0; if(hopT>0){ const k=(now-hopT)/620; if(k<1){ const u=Math.max(0,(k-.18)/.82); hop=Math.sin(u*Math.PI)*.42*m; if(k<.18) crouch.t=-.12; else crouch.t=0; if(k>.95) crouch.v-=4 } else hopT=-1 }
-    model.position.set(sway*.035*m,hop+crouch.x*m+breath*.008*m,0);
+    let hop=0; if(hopT>0){ const k=(now-hopT)/620; if(k<1){ const u=Math.max(0,(k-.18)/.82); hop=Math.sin(u*Math.PI)*.42*m; crouch.t=k<.18?-.12:0; if(k>.95) crouch.v-=4 } else hopT=-1 }
+    const mini=mode==='mini';
+    model.position.set(mini?0:sway*.035*m,mini?breath*.01*m:hop+crouch.x*m+breath*.008*m,0);
     model.scale.set(1+(-crouch.x)*.25*m,1+crouch.x*.6*m,1+(-crouch.x)*.25*m);
     renderer.render(scene,cam);
     requestAnimationFrame(frame);
   }
   loop();
-  setTimeout(()=>say(hi+'! Eu sou a Pixel, a pet do site do Bjørn 💜'),600);
-  setTimeout(()=>{ if(Date.now()-lastSay>5000) say(touch?'Toca em mim que eu falo mais coisas! 🤖':'Mexe o mouse que eu te sigo com o olhar 👀') },8000);
+  if(mode==='dock'){ setTimeout(()=>{ beep.hello(); say(hi+'! Eu sou a Pixel, a pet do site do Bjørn 💜') },600);
+    setTimeout(()=>{ if(Date.now()-lastSay>5000) say(touch?'Passa o dedo em mim que eu ronrono! 😽':'Mexe o mouse que eu te sigo com o olhar 👀') },8000) }
+  else pending=hi+'! Eu sou a Pixel, a pet do site do Bjørn 💜';
+  // curiosidades de tempos em tempos
+  let curioQ=CURIO.slice().sort(()=>Math.random()-.5);
+  setInterval(()=>{ if(mode!=='dock'&&mode!=='visit') return; if(Date.now()-lastSay<25000||document.hidden) return; if(!curioQ.length) curioQ=CURIO.slice().sort(()=>Math.random()-.5); say(curioQ.pop(),7000) },12000);
 }
 
 // ---------- começa ----------
-function boot(){ if(!hasGL()) return; if(store.get('pixel-off')==='1'){ setMode('off'); return } mode='mini'; layout(); if(mode==='mini') setMode('mini') }
+function boot(){ if(!hasGL()) return; if(store.get('pixel-off')==='1'){ setMode('off'); return } mode='boot'; layout() }
 if(document.readyState==='complete') setTimeout(boot,900); else addEventListener('load',()=>setTimeout(boot,900));
+// o navegador só libera som depois do primeiro toque/clique
+['pointerdown','keydown'].forEach(ev=>addEventListener(ev,()=>{ if(soundOn&&started) audio() },{once:true,passive:true}));
 
 // ---------- ela comenta as seções (uma vez cada) ----------
 const said={};
@@ -2327,13 +2426,13 @@ document.querySelectorAll('main > section[id]').forEach(s=>io.observe(s));
 // ---------- reações pelo site ----------
 let swT=0;
 document.addEventListener('click',e=>{
-  if(!started||root.hidden) return;
+  if(!started||mode==='off') return;
   if(e.target.closest('.sw') && Date.now()-swT>8000){ swT=Date.now(); react('happy'); say('Boa escolha! Essa cor é linda 🎨'); return }
-  if(e.target.closest('#nerv')){ setTimeout(()=>say('Os MAGI aprovaram! Agora é oficial 😎'),2800); return }
+  if(e.target.closest('#nerv')){ setTimeout(()=>say('Os MAGI aprovaram! Agora é oficial 😎'),4200); return }
   if(e.target.closest('.big-heart,#stage')){ react('happy'); if(Date.now()-lastSay>4000) say('Boop! 💜'); return }
   if(e.target.closest('#peki')){ const b=document.getElementById('bsod'); const mo=new MutationObserver(()=>{ if(b.hidden){ mo.disconnect(); setTimeout(()=>{ react('happy'); say(pick(['Eu avisei que não era pra mexer no Peki! 😹','Hehehe… o Peki pegou você também? 😹'])) },400) } }); mo.observe(b,{attributes:true,attributeFilter:['hidden']}); }
 },true);
-let idleT; const idle=()=>{ clearTimeout(idleT); idleT=setTimeout(()=>{ if(started&&!root.hidden) say('Zzz… ah! Ainda tá aí? 👀') },50000) };
+let idleT; const idle=()=>{ clearTimeout(idleT); idleT=setTimeout(()=>{ if(started&&(mode==='dock'||mode==='visit')) say('Zzz… ah! Ainda tá aí? 👀') },50000) };
 ['pointermove','scroll','keydown','touchstart'].forEach(ev=>addEventListener(ev,idle,{passive:true})); idle();
 </script>
 
