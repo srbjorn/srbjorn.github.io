@@ -2363,7 +2363,7 @@ async function start3D(){
   // duas câmeras: corpo inteiro (de lado, 3/4) e só a cabecinha (modo mini)
   let camAng=.3;
   frameCam=function(){ if(mode==='mini'){ camAng=.28; cam.fov=24; cam.position.set(headP.x+Math.sin(camAng)*3.4,headP.y+.42,headP.z+Math.cos(camAng)*3.4); cam.lookAt(headP.x,headP.y+.34,headP.z) }
-    else { camAng=.3; cam.fov=24; cam.position.set(Math.sin(camAng)*14.2,3.3,Math.cos(camAng)*14.2); cam.lookAt(.25,2.15,-.4) } cam.updateProjectionMatrix() };
+    else { camAng=.3; cam.fov=24; cam.position.set(Math.sin(camAng)*16.6,3.4,Math.cos(camAng)*16.6); cam.lookAt(0,2.35,-.2) } cam.updateProjectionMatrix() };
   frameCam(); root.classList.add('ready');
 
   const spring=(k,d)=>({x:0,v:0,t:0,k,d,step(dt){ const a=this.k*(this.t-this.x)-this.d*this.v; this.v+=a*dt; this.x+=this.v*dt; return this.x }});
@@ -2387,7 +2387,7 @@ async function start3D(){
     s.style.left=(r.width*(.38+Math.random()*.3))+'px'; s.style.top=(r.height*(.16+.3*sitW))+'px'; heartsEl.appendChild(s);
     const dx=(Math.random()-.5)*70, sc=.7+Math.random()*.6;
     s.animate([{transform:'translate(0,0) scale(.3)',opacity:0},{transform:`translate(${dx*.3}px,-24px) scale(${sc})`,opacity:1,offset:.2},{transform:`translate(${dx}px,-110px) scale(${sc*.8})`,opacity:0}],{duration:1500+Math.random()*500,easing:'cubic-bezier(.2,.7,.3,1)'}).onfinish=()=>s.remove() }
-  react=function(kind){ const n=performance.now(); if(kind==='tap'){ stopAct(); hopT=n; waveT=n; happyUntil=n+3200; crouch.v=-6 } else if(kind==='happy'){ happyUntil=n+2500; tiltUntil=n+1400 } else if(kind==='laugh'){ happyUntil=n+2600; tiltUntil=n+1300; if(!act) hopT=n } };
+  react=function(kind){ const n=performance.now(); if(kind==='tap'){ stopAct(); hopT=n; happyUntil=n+3200; tiltUntil=n+1200; crouch.v=-6 } else if(kind==='happy'){ happyUntil=n+2500; tiltUntil=n+1400 } else if(kind==='laugh'){ happyUntil=n+2600; tiltUntil=n+1300; if(!act) hopT=n } };
   stage.addEventListener('click',()=>{ audio();
     if(mode==='mini'){ const had=!!pending; userMin=false; store.set('pixel-min','0'); if(space()){ mode='boot'; layout() } else setMode('visit'); setTimeout(()=>{ react('tap'); beep.hello(); if(!had) say(lastSay?'Oi de novo! 💜':hi+'! Eu sou a Pixel, a pet do site do Bjørn 💜') },350); return }
     if(performance.now()-petLastT<350 && petting) return;
@@ -2404,7 +2404,7 @@ async function start3D(){
     if(petting && now>petEndT){ petting=false; petPath=0; purrStop() }
     if(petting){ happyUntil=Math.max(happyUntil,now+1200); if(now>heartT){ heartT=now+(reduce?600:170); heart() } }
     // --- pose atual (sentar, apontar…) com entrada e saída suaves ---
-    if(!act && (mode==='dock'||mode==='visit') && (now>nextAct||forcedPose) && !petting && waveT<0 && m) startAct(forcedPose||pickAct());
+    if(!act && forcedPose && (mode==='dock'||mode==='visit') && !petting && m) startAct(forcedPose);
     let aw=0; if(act){ const k=now-act.t0; if(k>act.dur){ act=null; nextAct=now+8000+Math.random()*9000 } else aw=Math.min(ease(Math.min(1,k/act.fade)),ease(Math.max(0,Math.min(1,(act.dur-k)/act.fade)))) }
     if(mode==='mini' && act){ act=null; aw=0 }
     sitW=act&&act.name==='sit'?aw:0;
