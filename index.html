@@ -690,10 +690,25 @@ main > section[id]::before{content:"";position:absolute;top:0;left:50%;transform
 .pixel.visit{left:10px;bottom:62px;width:150px;height:225px}
 .pixel.visit::before{content:"";position:absolute;inset:8% -6px -6px;border-radius:22px;background:rgba(14,13,18,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(43,230,168,.35);pointer-events:none}
 .pixel.visit .px-bubble{max-width:min(240px,calc(100vw - 24px))}
-.px-call{position:fixed;left:12px;bottom:12px;z-index:40;display:inline-flex;align-items:center;gap:7px;padding:9px 13px;border-radius:999px;border:1px solid rgba(43,230,168,.45);background:rgba(23,21,29,.92);color:var(--bone);font:700 12.5px/1 var(--mono);letter-spacing:.06em;box-shadow:0 10px 26px -14px rgba(43,230,168,.7)}
-.px-call svg{width:16px;height:16px;fill:var(--mint)}
-.px-call:hover{border-color:var(--mint)}
-.px-call.news::after{content:"";position:absolute;top:-3px;right:-3px;width:10px;height:10px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 2px var(--night),0 0 10px var(--mint);animation:pxDot 1.4s ease-in-out infinite}
+.px-call{position:fixed;left:14px;bottom:14px;z-index:40;display:inline-flex;align-items:center;gap:12px;padding:9px 20px 9px 10px;border-radius:24px;border:1px solid rgba(43,230,168,.5);background:linear-gradient(135deg,rgba(43,230,168,.14),rgba(172,0,255,.16)),rgba(18,16,24,.95);color:var(--bone);box-shadow:0 14px 32px -14px rgba(43,230,168,.75),inset 0 1px 0 rgba(255,255,255,.06);transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s ease,border-color .25s ease;animation:pcFloat 3.6s ease-in-out infinite}
+@keyframes pcFloat{50%{transform:translateY(-3px)}}
+.pc-head{position:relative;width:64px;height:48px;flex:none}
+.pc-ear{position:absolute;top:-9px;width:17px;height:22px;background:#2E2838;clip-path:polygon(50% 0,100% 100%,0 100%);transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
+.pc-ear::after{content:"";position:absolute;left:4px;right:4px;top:6px;bottom:0;background:var(--mint);clip-path:polygon(50% 0,100% 100%,0 100%)}
+.pc-ear.l{left:5px;transform:rotate(-16deg)}.pc-ear.r{right:5px;transform:rotate(16deg)}
+.px-call:hover .pc-ear.l{transform:rotate(-26deg) translateY(-2px)}.px-call:hover .pc-ear.r{transform:rotate(26deg) translateY(-2px)}
+.pc-visor{position:absolute;inset:5px 0 0;border-radius:17px 17px 20px 20px;background:radial-gradient(120% 90% at 50% 15%,#1d1729,#050407);border:2px solid #ECE3FF;box-shadow:0 0 0 2px rgba(43,230,168,.35),inset 0 0 14px rgba(43,230,168,.25);display:grid;place-items:center;overflow:hidden}
+.pc-visor::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0 1px,transparent 1px 3px);pointer-events:none}
+.pc-eyes{width:44px;height:20px;fill:var(--mint);stroke:var(--mint);filter:drop-shadow(0 0 4px var(--mint));transition:transform .2s ease-out}
+.pc-eyes .e-open{transform-box:fill-box;transform-origin:center;animation:pcBlink 4.6s infinite}
+@keyframes pcBlink{0%,91%,100%{transform:scaleY(1)}94%{transform:scaleY(.1)}}
+.pc-eyes .e-happy{display:none;fill:none;stroke-width:1.7;stroke-linecap:square}
+.px-call:hover .e-open{display:none}.px-call:hover .e-happy{display:inline}
+.pc-txt{display:grid;gap:4px;text-align:left}
+.pc-txt b{font:800 17px/1 var(--display);letter-spacing:-.01em}
+.pc-txt small{font:600 11px/1 var(--mono);color:var(--muted);letter-spacing:.04em}
+.px-call:hover{animation:none;transform:translateY(-3px) scale(1.04);border-color:var(--mint);box-shadow:0 18px 40px -14px rgba(43,230,168,.95)}
+.px-call.news::after{content:"";position:absolute;top:-4px;right:-4px;width:10px;height:10px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 2px var(--night),0 0 10px var(--mint);animation:pxDot 1.4s ease-in-out infinite}
 @keyframes pxDot{50%{transform:scale(.7);opacity:.6}}
 .px-call.in-frame{position:absolute;top:var(--py,140px);bottom:auto}
 @media (pointer:fine){ .px-stage,.px-call,.px-x{cursor:pointer} }
@@ -1732,7 +1747,7 @@ footer .brand{font-size:20px;color:var(--bone)}
   <button class="px-snd" id="px-snd" type="button" aria-label="Som da Pixel ligado" aria-pressed="true"><svg class="on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path class="w" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg><svg class="off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path class="w" d="M16.5 9.5l5 5M21.5 9.5l-5 5"/></svg></button>
   <div class="px-hearts" id="px-hearts" aria-hidden="true"></div>
 </aside>
-<button class="px-call" id="px-call" type="button" hidden aria-label="Chamar a Pixel de volta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 11.5c3 0 5.5 2.3 5.5 4.8 0 2.1-1.7 3.2-3.3 3.2-1 0-1.5-.5-2.2-.5s-1.2.5-2.2.5c-1.6 0-3.3-1.1-3.3-3.2 0-2.5 2.5-4.8 5.5-4.8z"/><ellipse cx="6.2" cy="9.6" rx="1.8" ry="2.3"/><ellipse cx="9.6" cy="6.2" rx="1.9" ry="2.4"/><ellipse cx="14.4" cy="6.2" rx="1.9" ry="2.4"/><ellipse cx="17.8" cy="9.6" rx="1.8" ry="2.3"/></svg>Pixel</button>
+<button class="px-call" id="px-call" type="button" hidden aria-label="Chamar a Pixel de volta"><span class="pc-head" aria-hidden="true"><i class="pc-ear l"></i><i class="pc-ear r"></i><span class="pc-visor"><svg class="pc-eyes" viewBox="0 0 20 9"><g class="e-open"><rect x="3" y="1" width="2" height="7"/><rect x="2" y="2" width="4" height="5"/><rect x="15" y="1" width="2" height="7"/><rect x="14" y="2" width="4" height="5"/></g><g class="e-happy"><path d="M1.5 6.5 4 3.2l2.5 3.3M13.5 6.5 16 3.2l2.5 3.3"/></g></svg></span></span><span class="pc-txt"><b>Pixel</b><small>toque pra me chamar</small></span></button>
 <footer>
   <div class="wrap">
     <span class="brand">Sr_Bj<span class="o" style="color:var(--violet)">ø</span>rn®</span>
@@ -2275,7 +2290,9 @@ const SECTION={
   momentos:'Clica numa foto pra ver ela grandona 📸'
 };
 const TAP=['Ei! Isso faz cócegas no meu visor! 😆','Beep boop! Pixel online 🤖','Sou uma protogen: metade máquina, metade fofura 💜','Já seguiu o Bjørn no Instagram? 👀','Fui feita com carinho por um amigo do Bjørn ✨',touch?'Passa o dedo em mim que eu ronrono! 😽':'Passa o mouse em mim pra fazer carinho 😽','Meu visor brilha mais quando você volta aqui 💚','Dica secreta: tem uma folha vermelha escondida lá no rodapé… 🍁'];
-const CURIO=['Curiosidade: o Bjørn nasceu na Rússia e veio pro Brasil ainda recém-nascido 🇧🇷','Os kanjis favoritos dele são 愛 (amor), 熊 (urso) e 士 (guerreiro) ✨','O Lupus Wolf existe desde 2011! Mais velho que muito meme por aí 🐺','Sabia que o Bjørn já fez dublagem por hobby? 🎙️','A música favorita dele é Heart To Heart, do Mac DeMarco 🎵','A Lua lá em cima mostra a fase de verdade de hoje, vista do Brasil 🌙','Ele usa 8 NovaTrackers Lite pra fazer full body no VRChat 🕺','Ele adora fotografar flores, paisagens e insetos curiosos 🌸','O Bjørn estudou Psicologia por um tempo… pode pedir conselho que ele escuta 💜','Bjørn e Yoshiro estão juntos desde 11/03/2026. O contador lá embaixo nunca para! 💞','Ele é geminiano, de 22 de maio: curioso, falante e cheio de ideias ♊','Bjørn quer dizer "urso" nas línguas nórdicas 🐻','Protogens são metade robô, metade orgânicos… e eu sou a parte fofa das duas 🤖💚'];
+const FACTS=['polvos têm três corações e sangue azul 🐙','um dia em Vênus é mais longo que um ano em Vênus 🪐','o mel praticamente não estraga: já acharam mel comestível em tumbas egípcias 🍯','os flamingos são cor-de-rosa por causa do que comem 🦩','lontras-marinhas dormem de mãos dadas pra não se perderem 🦦','a Torre Eiffel fica uns 15 cm mais alta no verão, por causa do calor 🗼','bananas são levemente radioativas, por causa do potássio 🍌','os tubarões existem há mais tempo que as árvores 🦈','botanicamente, a banana é uma baga… e o morango não é 🍓','um raio é umas cinco vezes mais quente que a superfície do Sol ⚡','as corujas não conseguem mexer os olhos, por isso giram tanto a cabeça 🦉','o Monte Everest cresce alguns milímetros por ano 🏔️','existem mais estrelas no universo do que grãos de areia em todas as praias da Terra ✨','golfinhos chamam uns aos outros com assobios únicos, tipo nomes 🐬','não dá pra ver a Muralha da China do espaço a olho nu 🧱','o ENIAC, um dos primeiros computadores, pesava cerca de 27 toneladas 💻','axolotes conseguem regenerar patas e até partes do coração 🦎','o primeiro vídeo do YouTube é de 2005 e se chama "Me at the zoo" 📼','os gatos passam boa parte da vida dormindo, uns 12 a 16 horas por dia 😴','as abelhas conseguem reconhecer rostos humanos 🐝','a luz do Sol leva uns 8 minutos pra chegar até a Terra ☀️','o coração de uma baleia-azul é do tamanho de um carro pequeno 🐋'];
+const JOKES=[['Por que o computador foi ao médico?','Porque estava com vírus! 🤒💻'],['O que o zero disse pro oito?','Que cinto bonito! 😆'],['Qual é o café mais perigoso do mundo?','O ex-presso! ☕'],['O que o tomate foi fazer no banco?','Tirar extrato! 🍅'],['Por que o robô saiu de férias?','Pra recarregar as baterias! 🔋🤖'],['O que é um pontinho amarelo no céu?','Um yellowcóptero! 🚁'],['Por que a vaca foi pro espaço?','Pra conhecer a Via Láctea! 🐄🌌'],['O que o pato disse pra pata?','Vem quá! 🦆'],['Qual é o peixe que caiu do décimo andar?','Aaaaaatum! 🐟'],['Como o elétron atende o telefone?','Próton! ⚡'],['Por que protogen não precisa de óculos escuros?','Porque já vem de fábrica com visor! 😎'],['O que o Wi-Fi disse pro roteador?','Sem você eu perco a conexão 💔📶'],['Qual o contrário de volátil?','Vem cá, sobrinho! 😂'],['Por que o Peki é tão travesso?','Porque gato que não apronta não é gato! 😹'],['O que um bit disse pro outro?','A gente se vê no ônibus! 🚌'],['Qual é a fruta mais paciente?','A espera… digo, a pera! 🍐']];
+const SITEFACTS=['O Bjørn nasceu na Rússia e veio pro Brasil ainda recém-nascido 🇧🇷','A Lua lá em cima mostra a fase de verdade de hoje, vista do Brasil 🌙','Bjørn quer dizer "urso" nas línguas nórdicas 🐻','O Lupus Wolf existe desde 2011! 🐺'];
 const PET=['Hmmm… que carinho bom 💜','Prrrr… continua, continua! 😽','Meu visor tá até piscando de felicidade 💚','Ronron.exe ativado 😽'];
 
 // ---------- posição dentro do visualizador (iframe que cresce com a página) ----------
@@ -2317,11 +2334,34 @@ async function start3D(){
   aim(B.Elbow_L_020,B.Wrist_L_021,[.6,.85,.25]); const waveB=B.Elbow_L_020.quaternion.clone();
   const baseArmL=rest.Arm_L_019.clone().multiply(base.Arm_L_019), baseElbL=rest.Elbow_L_020.clone().multiply(base.Elbow_L_020);
   setBase(); const headP=new THREE.Vector3(); B.Head_05.getWorldPosition(headP);
+  // poses extras (calculadas uma vez, depois só misturadas com suavidade)
+  const rotL=(n,x,y,z)=>{ B[n].quaternion.multiply(qe(x,y,z)); model.updateMatrixWorld(true) };
+  function capture(fn,names){ setBase(); fn(); const o={}; names.forEach(n=>o[n]=B[n].quaternion.clone()); setBase(); return o }
+  const POSES={
+    sit:capture(()=>{ aim(B.Leg_L_065,B.Knee_L_066,[.28,.18,1]); aim(B.Knee_L_066,B.Foot_L_067,[.05,-.75,.65]); aim(B.Leg_R_068,B.Knee_R_069,[-.28,.18,1]); aim(B.Knee_R_069,B.Foot_R_070,[-.05,-.75,.65]);
+      aim(B.Arm_L_019,B.Elbow_L_020,[.35,-.75,.55]); aim(B.Elbow_L_020,B.Wrist_L_021,[-.15,-.25,1]); aim(B.Arm_R_040,B.Elbow_R_041,[-.35,-.75,.55]); aim(B.Elbow_R_041,B.Wrist_R_042,[.15,-.25,1]) },
+      ['Leg_L_065','Knee_L_066','Leg_R_068','Knee_R_069','Arm_L_019','Elbow_L_020','Arm_R_040','Elbow_R_041']),
+    point:capture(()=>{ aim(B.Arm_L_019,B.Elbow_L_020,[1,.3,.45]); aim(B.Elbow_L_020,B.Wrist_L_021,[1,.38,.5]); rotL('Elbow_L_020',0,-1.6,0);
+      ['Middle_L_028','Ring_L_031','Little_L_034'].forEach(n=>rotL(n,1.3,0,0)); ['Middle_L001_029','Ring_L001_032','Little_L001_035'].forEach(n=>rotL(n,1.4,0,0)); rotL('Thumb_L_022',0,0,-.6) },
+      ['Arm_L_019','Elbow_L_020','Middle_L_028','Ring_L_031','Little_L_034','Middle_L001_029','Ring_L001_032','Little_L001_035','Thumb_L_022']),
+    hips:capture(()=>{ aim(B.Arm_L_019,B.Elbow_L_020,[.8,-.5,-.35]); aim(B.Elbow_L_020,B.Wrist_L_021,[-.55,-.55,.45]); aim(B.Arm_R_040,B.Elbow_R_041,[-.8,-.5,-.35]); aim(B.Elbow_R_041,B.Wrist_R_042,[.55,-.55,.45]) },
+      ['Arm_L_019','Elbow_L_020','Arm_R_040','Elbow_R_041']),
+    stretch:capture(()=>{ rotL('Spine_02',-.08,0,0); rotL('Chest_03',-.12,0,0); aim(B.Arm_L_019,B.Elbow_L_020,[.4,1,-.1]); aim(B.Elbow_L_020,B.Wrist_L_021,[-.2,1,0]); aim(B.Arm_R_040,B.Elbow_R_041,[-.4,1,-.1]); aim(B.Elbow_R_041,B.Wrist_R_042,[.2,1,0]) },
+      ['Spine_02','Chest_03','Arm_L_019','Elbow_L_020','Arm_R_040','Elbow_R_041'])
+  };
+  const ACTS={ sit:{dur:[9000,14000],fade:950,w:3,lines:['Vou sentar um pouquinho aqui… 😌','Pausa pro descanso 💤','Daqui de baixo o site fica ainda mais bonito ✨']},
+    point:{dur:[3200,4200],fade:550,w:3,lines:['Psiu! Dá uma olhada aqui do lado 👉','Isso aqui é legal, ó 👉','Já viu essa parte? 👉']},
+    hips:{dur:[4200,5600],fade:600,w:2,lines:['Tô de olho em tudo por aqui 😎','Pixel, guardiã oficial do site 😤']},
+    stretch:{dur:[2700,3300],fade:700,w:2,lines:['Aaahh… espreguiçar é bom demais 😌','Recalibrando os servos… pronto! 🤖']} };
+  let act=null, nextAct=performance.now()+7000, sitW=0;
+  function startAct(name){ const a=ACTS[name]; act={name,t0:performance.now(),dur:a.dur[0]+Math.random()*(a.dur[1]-a.dur[0]),fade:a.fade}; if(Math.random()<.6 && Date.now()-lastSay>8000) say(pick(a.lines)) }
+  function stopAct(){ if(!act) return; const k=performance.now()-act.t0; if(k<act.dur-act.fade) act.dur=k+act.fade }
+  function pickAct(){ let tot=0; for(const k in ACTS) tot+=ACTS[k].w; let r=Math.random()*tot; for(const k in ACTS){ r-=ACTS[k].w; if(r<=0) return k } return 'point' }
   function add(name,x,y,z){ const b=B[name]; if(!b) return; E.set(x,y,z); b.quaternion.multiply(Q.setFromEuler(E)) }
   // duas câmeras: corpo inteiro (de lado, 3/4) e só a cabecinha (modo mini)
-  let camAng=.42;
+  let camAng=.3;
   frameCam=function(){ if(mode==='mini'){ camAng=.28; cam.fov=24; cam.position.set(headP.x+Math.sin(camAng)*3.4,headP.y+.42,headP.z+Math.cos(camAng)*3.4); cam.lookAt(headP.x,headP.y+.34,headP.z) }
-    else { camAng=.42; cam.fov=24; cam.position.set(Math.sin(camAng)*11.6,2.7,Math.cos(camAng)*11.6); cam.lookAt(0,2.28,-.35) } cam.updateProjectionMatrix() };
+    else { camAng=.3; cam.fov=24; cam.position.set(Math.sin(camAng)*13.2,2.8,Math.cos(camAng)*13.2); cam.lookAt(.3,2.38,-.5) } cam.updateProjectionMatrix() };
   frameCam(); root.classList.add('ready');
 
   const spring=(k,d)=>({x:0,v:0,t:0,k,d,step(dt){ const a=this.k*(this.t-this.x)-this.d*this.v; this.v+=a*dt; this.x+=this.v*dt; return this.x }});
@@ -2342,10 +2382,10 @@ async function start3D(){
   function heart(){ const r=stage.getBoundingClientRect(); const s=document.createElement('span'); s.className='px-heart';
     s.style.color=['#C77DFF','#2BE6A8','#FF6FB5','#AC00FF'][Math.floor(Math.random()*4)];
     s.innerHTML='<svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.2 0 3.6 1.2 5.3 3.1 1.7-1.9 3.1-3.1 5.3-3.1 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"/></svg>';
-    s.style.left=(r.width*(.38+Math.random()*.3))+'px'; s.style.top=(r.height*.16)+'px'; heartsEl.appendChild(s);
+    s.style.left=(r.width*(.38+Math.random()*.3))+'px'; s.style.top=(r.height*(.16+.3*sitW))+'px'; heartsEl.appendChild(s);
     const dx=(Math.random()-.5)*70, sc=.7+Math.random()*.6;
     s.animate([{transform:'translate(0,0) scale(.3)',opacity:0},{transform:`translate(${dx*.3}px,-24px) scale(${sc})`,opacity:1,offset:.2},{transform:`translate(${dx}px,-110px) scale(${sc*.8})`,opacity:0}],{duration:1500+Math.random()*500,easing:'cubic-bezier(.2,.7,.3,1)'}).onfinish=()=>s.remove() }
-  react=function(kind){ const n=performance.now(); if(kind==='tap'){ hopT=n; waveT=n; happyUntil=n+3200; crouch.v=-6 } else if(kind==='happy'){ happyUntil=n+2500; tiltUntil=n+1400 } };
+  react=function(kind){ const n=performance.now(); if(kind==='tap'){ stopAct(); hopT=n; waveT=n; happyUntil=n+3200; crouch.v=-6 } else if(kind==='happy'){ happyUntil=n+2500; tiltUntil=n+1400 } else if(kind==='laugh'){ happyUntil=n+2600; tiltUntil=n+1300; if(!act) hopT=n } };
   stage.addEventListener('click',()=>{ audio();
     if(mode==='mini'){ const had=!!pending; setMode('visit'); setTimeout(()=>{ react('tap'); beep.hello(); if(!had) say(lastSay?'Oi de novo! 💜':hi+'! Eu sou a Pixel, a pet do site do Bjørn 💜') },350); return }
     if(performance.now()-petLastT<350 && petting) return;
@@ -2361,9 +2401,14 @@ async function start3D(){
     // fim do carinho
     if(petting && now>petEndT){ petting=false; petPath=0; purrStop() }
     if(petting){ happyUntil=Math.max(happyUntil,now+1200); if(now>heartT){ heartT=now+(reduce?600:170); heart() } }
+    // --- pose atual (sentar, apontar…) com entrada e saída suaves ---
+    if(!act && (mode==='dock'||mode==='visit') && now>nextAct && !petting && waveT<0 && m) startAct(pickAct());
+    let aw=0; if(act){ const k=now-act.t0; if(k>act.dur){ act=null; nextAct=now+8000+Math.random()*9000 } else aw=Math.min(ease(Math.min(1,k/act.fade)),ease(Math.max(0,Math.min(1,(act.dur-k)/act.fade)))) }
+    if(mode==='mini' && act){ act=null; aw=0 }
+    sitW=act&&act.name==='sit'?aw:0;
     // --- olhar: vira na direção do cursor (descontando que a câmera está de lado) ---
     if(px!==null && now-lastMove<4500){
-      const r=stage.getBoundingClientRect(), hx=r.left+r.width*.5, hy=r.top+r.height*(mode==='mini'?.45:.18);
+      const r=stage.getBoundingClientRect(), hx=r.left+r.width*.5, hy=r.top+r.height*(mode==='mini'?.45:.18+.3*sitW);
       const spanX=mode==='mini'?innerWidth*.5:innerWidth;
       yaw.t=Math.max(-.75,Math.min(1.3,camAng+(px-hx)/spanX*2.4)); pitch.t=Math.max(-.5,Math.min(.55,.06+(py-hy)/innerHeight*1.6));
     } else {
@@ -2371,6 +2416,8 @@ async function start3D(){
       yaw.t=camAng+gy*m; pitch.t=gp;
     }
     if(petting){ pitch.t=-.18; tiltUntil=now+300 }
+    if(act&&act.name==='point'){ yaw.t=yaw.t*(1-aw)+(camAng+1.05)*aw; pitch.t=pitch.t*(1-aw)-.12*aw }
+    if(act&&act.name==='stretch'){ pitch.t=pitch.t*(1-aw)-.35*aw }
     scrollV*=.9; pitch.t+=Math.max(-.25,Math.min(.25,scrollV*.004))*m;
     roll.t=(now<tiltUntil?.16:0)*m;
     if(now<talkUntil) pitch.t+=Math.sin(now/95)*.035*m;
@@ -2393,9 +2440,10 @@ async function start3D(){
     let w=0; if(waveT>0){ const k=(now-waveT)/2100; if(k<1) w=k<.22?ease(k/.22):k>.78?ease((1-k)/.22):1; else waveT=-1 }
     if(w>0 && m){ B.Arm_L_019.quaternion.copy(baseArmL).slerp(waveArm,w); const s=(Math.sin((now-waveT)/150)+1)/2; Q.copy(waveA).slerp(waveB,s); B.Elbow_L_020.quaternion.copy(baseElbL).slerp(Q,w) }
     else { add('Arm_L_019',Math.sin(t*1.7+.6)*.025*m,0,-sway*.03*m); add('Elbow_L_020',-Math.sin(t*1.7+.9)*.03*m,0,0) }
+    if(act && m){ const P=POSES[act.name]; for(const n in P) B[n].quaternion.slerp(P[n],aw) }
     let hop=0; if(hopT>0){ const k=(now-hopT)/620; if(k<1){ const u=Math.max(0,(k-.18)/.82); hop=Math.sin(u*Math.PI)*.42*m; crouch.t=k<.18?-.12:0; if(k>.95) crouch.v-=4 } else hopT=-1 }
     const mini=mode==='mini';
-    model.position.set(mini?0:sway*.035*m,mini?breath*.01*m:hop+crouch.x*m+breath*.008*m,0);
+    model.position.set(mini?0:sway*.035*m*(1-sitW),mini?breath*.01*m:hop+crouch.x*m+breath*.008*m-1.72*sitW,0);
     model.scale.set(1+(-crouch.x)*.25*m,1+crouch.x*.6*m,1+(-crouch.x)*.25*m);
     renderer.render(scene,cam);
     requestAnimationFrame(frame);
@@ -2405,9 +2453,18 @@ async function start3D(){
     setTimeout(()=>{ if(Date.now()-lastSay>5000) say(touch?'Passa o dedo em mim que eu ronrono! 😽':'Mexe o mouse que eu te sigo com o olhar 👀') },8000) }
   else pending=hi+'! Eu sou a Pixel, a pet do site do Bjørn 💜';
   // curiosidades de tempos em tempos
-  let curioQ=CURIO.slice().sort(()=>Math.random()-.5);
-  setInterval(()=>{ if(mode!=='dock'&&mode!=='visit') return; if(Date.now()-lastSay<25000||document.hidden) return; if(!curioQ.length) curioQ=CURIO.slice().sort(()=>Math.random()-.5); say(curioQ.pop(),7000) },12000);
+  // conversa de tempos em tempos: fatos aleatórios, piadas e uma ou outra do site
+  const deck=l=>{ let q=[]; return ()=>{ if(!q.length) q=l.slice().sort(()=>Math.random()-.5); return q.pop() } };
+  const nextFact=deck(FACTS), nextJoke=deck(JOKES), nextSite=deck(SITEFACTS), lead=['Curiosidade: ','Fato aleatório: ','Você sabia que ','Sabia que '];
+  setInterval(()=>{ if(mode!=='dock'&&mode!=='visit') return; if(Date.now()-lastSay<22000||document.hidden) return; const r=Math.random();
+    if(r<.45){ const l=pick(lead), f=nextFact(); say(l+(l.endsWith('que ')?f.replace(/ ([^ ]+)$/,'? $1'):f.charAt(0).toUpperCase()+f.slice(1)),7500) }
+    else if(r<.88){ const j=nextJoke(); say(j[0],3600); setTimeout(()=>{ say(j[1],5200); react('laugh') },3000) }
+    else say(nextSite(),7000) },11000);
 }
+
+// os olhinhos de LED do botão seguem o mouse
+const pcEyes=document.querySelector('.pc-eyes');
+if(pcEyes) addEventListener('pointermove',e=>{ if(call.hidden) return; const r=call.getBoundingClientRect(); const dx=Math.max(-3,Math.min(3,(e.clientX-(r.left+40))/innerWidth*14)), dy=Math.max(-2,Math.min(2,(e.clientY-(r.top+28))/innerHeight*8)); pcEyes.style.transform='translate('+dx.toFixed(1)+'px,'+dy.toFixed(1)+'px)' },{passive:true});
 
 // ---------- começa ----------
 function boot(){ if(!hasGL()) return; if(store.get('pixel-off')==='1'){ setMode('off'); return } mode='boot'; layout() }
