@@ -1743,7 +1743,7 @@ footer .brand{font-size:20px;color:var(--bone)}
 <aside class="pixel" id="pixel" aria-label="Pixel, a pet do site" hidden>
   <div class="px-bubble" id="px-bubble" role="status" aria-live="polite" hidden><span class="px-who">Pixel</span><span class="px-txt" id="px-txt"></span></div>
   <div class="px-stage" id="px-stage" title="Toca na Pixel!"><span class="px-glow" aria-hidden="true"></span><canvas id="px-cv" aria-hidden="true"></canvas></div>
-  <button class="px-x" id="px-x" type="button" aria-label="Esconder a Pixel">×</button>
+  <button class="px-x" id="px-x" type="button" aria-label="Minimizar a Pixel" title="Minimizar">×</button>
   <button class="px-snd" id="px-snd" type="button" aria-label="Som da Pixel ligado" aria-pressed="true"><svg class="on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path class="w" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg><svg class="off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path class="w" d="M16.5 9.5l5 5M21.5 9.5l-5 5"/></svg></button>
   <div class="px-hearts" id="px-hearts" aria-hidden="true"></div>
 </aside>
@@ -2211,6 +2211,7 @@ const root=document.getElementById('pixel'), call=document.getElementById('px-ca
 const stage=document.getElementById('px-stage'), cv=document.getElementById('px-cv'), heartsEl=document.getElementById('px-hearts');
 const bubble=document.getElementById('px-bubble'), txt=document.getElementById('px-txt'), closeBtn=document.getElementById('px-x'), sndBtn=document.getElementById('px-snd');
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches, touch=matchMedia('(hover:none)').matches;
+const isPC=matchMedia('(hover:hover) and (pointer:fine)').matches;
 const store={ get(k){ try{ return localStorage.getItem(k) }catch(e){ return null } }, set(k,v){ try{ localStorage.setItem(k,v) }catch(e){} } };
 const inFrame=()=>window.innerHeight>=document.documentElement.scrollHeight-4;
 function hasGL(){ try{ const c=document.createElement('canvas'); return !!(c.getContext('webgl2')||c.getContext('webgl')) }catch(e){ return false } }
@@ -2246,8 +2247,10 @@ function space(){
   return {pw:Math.round(pw),ph:Math.round(ph),pl:Math.max(8,Math.round((edge-pw)/2)),bw:Math.round(Math.min(250,edge-20))};
 }
 function clearVars(){ ['--pw','--ph','--pl','--bw'].forEach(v=>root.style.removeProperty(v)) }
+let userMin=store.get('pixel-min')==='1';
 function layout(){
   if(mode==='off') return;
+  if(userMin){ if(mode!=='mini') setMode('mini'); return }
   const s=space();
   if(s){ root.style.setProperty('--pw',s.pw+'px'); root.style.setProperty('--ph',s.ph+'px'); root.style.setProperty('--pl',s.pl+'px'); root.style.setProperty('--bw',s.bw+'px'); if(mode!=='dock') setMode('dock') }
   else if(mode==='dock'||mode==='boot') setMode('mini');
@@ -2301,7 +2304,7 @@ if(inFrame()){ root.classList.add('in-frame'); call.classList.add('in-frame'); f
 
 // ---------- botões ----------
 let started=false;
-closeBtn.addEventListener('click',e=>{ e.stopPropagation(); purrStop(); if(mode==='visit'){ setMode('mini'); return } store.set('pixel-off','1'); setMode('off') });
+closeBtn.addEventListener('click',e=>{ e.stopPropagation(); purrStop(); userMin=true; store.set('pixel-min','1'); setMode('mini') });
 call.addEventListener('click',()=>{ store.set('pixel-off','0'); audio(); if(space()){ mode='boot'; layout() } else setMode('mini') });
 
 // ---------- 3D ----------
@@ -2334,13 +2337,25 @@ async function start3D(){
   const baseQ=POSE.base?POSE.base.q:{};
   function setBase(){ for(const k in rest){ B[k].quaternion.copy(baseQ[k]||rest[k]); B[k].position.copy(restP[k]) } }
   setBase(); model.updateMatrixWorld(true); const headP=new THREE.Vector3(); B.Head_05.getWorldPosition(headP);
+  // chão: base redonda estilo holograma, com sombra suave embaixo dela
+  const pad=new THREE.Group(); scene.add(pad);
+  function radialTex(stops){ const c=document.createElement('canvas'); c.width=c.height=256; const g=c.getContext('2d'), gr=g.createRadialGradient(128,128,0,128,128,128);
+    stops.forEach(s=>gr.addColorStop(s[0],s[1])); g.fillStyle=gr; g.fillRect(0,0,256,256); const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace; return t }
+  const disc=new THREE.Mesh(new THREE.CylinderGeometry(1.75,1.85,.14,64),new THREE.MeshStandardMaterial({color:0x16121f,roughness:.55,metalness:.35}));
+  disc.position.y=-.07; pad.add(disc);
+  const top=new THREE.Mesh(new THREE.CircleGeometry(1.74,64),new THREE.MeshBasicMaterial({map:radialTex([[0,'rgba(172,0,255,.55)'],[.55,'rgba(80,20,120,.25)'],[.9,'rgba(43,230,168,.35)'],[1,'rgba(43,230,168,.0)']]),transparent:true,depthWrite:false}));
+  top.rotation.x=-Math.PI/2; top.position.y=.003; pad.add(top);
+  const ring=new THREE.Mesh(new THREE.TorusGeometry(1.8,.035,8,96),new THREE.MeshBasicMaterial({color:0x2BE6A8})); ring.rotation.x=Math.PI/2; ring.position.y=.0; pad.add(ring);
+  const ring2=new THREE.Mesh(new THREE.TorusGeometry(1.25,.012,6,96),new THREE.MeshBasicMaterial({color:0xC77DFF,transparent:true,opacity:.7})); ring2.rotation.x=Math.PI/2; ring2.position.y=.006; pad.add(ring2);
+  const shadow=new THREE.Mesh(new THREE.CircleGeometry(1.1,48),new THREE.MeshBasicMaterial({map:radialTex([[0,'rgba(0,0,0,.6)'],[.6,'rgba(0,0,0,.25)'],[1,'rgba(0,0,0,0)']]),transparent:true,depthWrite:false}));
+  shadow.rotation.x=-Math.PI/2; shadow.position.set(0,.008,.05); shadow.scale.set(1,1.35,1); pad.add(shadow);
   function add(name,x,y,z){ const b=B[name]; if(!b) return; E.set(x,y,z); b.quaternion.multiply(Q.setFromEuler(E)) }  const ACTS={ sit:{dur:[9000,14000],fade:950,w:3,lines:['Vou sentar um pouquinho aqui… 😌','Pausa pro descanso 💤','Daqui de baixo o site fica ainda mais bonito ✨']},
-    point:{dur:[3200,4200],fade:550,w:3,lines:['Psiu! Dá uma olhada aqui do lado 👉','Isso aqui é legal, ó 👉','Já viu essa parte? 👉']},
     hips:{dur:[4200,5600],fade:600,w:2,lines:['Tô de olho em tudo por aqui 😎','Pixel, guardiã oficial do site 😤']},
     stretch:{dur:[2700,3300],fade:700,w:2,lines:['Aaahh… espreguiçar é bom demais 😌','Recalibrando os servos… pronto! 🤖']},
     think:{dur:[4200,5200],fade:650,w:2,lines:['Hmm… deixa eu pensar 🤔','Pensando numa coisa legal pra te contar… 🤔']} };
   let act=null, nextAct=performance.now()+7000, sitW=0;
   const forcedPose=new URLSearchParams(location.search).get('pixelpose');   // pra testar uma pose: ?pixelpose=sit
+  if(forcedPose) console.log('pixel poses:',Object.keys(POSE).map(k=>k+':'+Object.keys(POSE[k].q).length+'/'+Object.keys(POSE[k].p).length).join(' '),'clips:',pg.animations.length,pg.animations[0]&&pg.animations[0].tracks.slice(0,3).map(t=>t.name).join(','));
   function startAct(name){ if(!POSE[name]) return; const a=ACTS[name]; act={name,t0:performance.now(),dur:a.dur[0]+Math.random()*(a.dur[1]-a.dur[0]),fade:a.fade};
     if(name==='think'){ say(pick(a.lines),2400); setTimeout(()=>{ if(typeof tellFact==='function') tellFact() },2500) } else if(Math.random()<.6 && Date.now()-lastSay>8000) say(pick(a.lines)) }
   function stopAct(){ if(!act) return; const k=performance.now()-act.t0; if(k<act.dur-act.fade) act.dur=k+act.fade }
@@ -2348,7 +2363,7 @@ async function start3D(){
   // duas câmeras: corpo inteiro (de lado, 3/4) e só a cabecinha (modo mini)
   let camAng=.3;
   frameCam=function(){ if(mode==='mini'){ camAng=.28; cam.fov=24; cam.position.set(headP.x+Math.sin(camAng)*3.4,headP.y+.42,headP.z+Math.cos(camAng)*3.4); cam.lookAt(headP.x,headP.y+.34,headP.z) }
-    else { camAng=.3; cam.fov=24; cam.position.set(Math.sin(camAng)*13.2,2.8,Math.cos(camAng)*13.2); cam.lookAt(.3,2.38,-.5) } cam.updateProjectionMatrix() };
+    else { camAng=.3; cam.fov=24; cam.position.set(Math.sin(camAng)*14.2,3.3,Math.cos(camAng)*14.2); cam.lookAt(.25,2.15,-.4) } cam.updateProjectionMatrix() };
   frameCam(); root.classList.add('ready');
 
   const spring=(k,d)=>({x:0,v:0,t:0,k,d,step(dt){ const a=this.k*(this.t-this.x)-this.d*this.v; this.v+=a*dt; this.x+=this.v*dt; return this.x }});
@@ -2374,7 +2389,7 @@ async function start3D(){
     s.animate([{transform:'translate(0,0) scale(.3)',opacity:0},{transform:`translate(${dx*.3}px,-24px) scale(${sc})`,opacity:1,offset:.2},{transform:`translate(${dx}px,-110px) scale(${sc*.8})`,opacity:0}],{duration:1500+Math.random()*500,easing:'cubic-bezier(.2,.7,.3,1)'}).onfinish=()=>s.remove() }
   react=function(kind){ const n=performance.now(); if(kind==='tap'){ stopAct(); hopT=n; waveT=n; happyUntil=n+3200; crouch.v=-6 } else if(kind==='happy'){ happyUntil=n+2500; tiltUntil=n+1400 } else if(kind==='laugh'){ happyUntil=n+2600; tiltUntil=n+1300; if(!act) hopT=n } };
   stage.addEventListener('click',()=>{ audio();
-    if(mode==='mini'){ const had=!!pending; setMode('visit'); setTimeout(()=>{ react('tap'); beep.hello(); if(!had) say(lastSay?'Oi de novo! 💜':hi+'! Eu sou a Pixel, a pet do site do Bjørn 💜') },350); return }
+    if(mode==='mini'){ const had=!!pending; userMin=false; store.set('pixel-min','0'); if(space()){ mode='boot'; layout() } else setMode('visit'); setTimeout(()=>{ react('tap'); beep.hello(); if(!had) say(lastSay?'Oi de novo! 💜':hi+'! Eu sou a Pixel, a pet do site do Bjørn 💜') },350); return }
     if(performance.now()-petLastT<350 && petting) return;
     react('tap'); beep.tap(); say(pick(TAP)) });
 
@@ -2403,7 +2418,6 @@ async function start3D(){
       yaw.t=camAng+gy*m; pitch.t=gp;
     }
     if(petting){ pitch.t=-.18; tiltUntil=now+300 }
-    if(act&&act.name==='point'){ yaw.t=yaw.t*(1-aw)+(camAng+1.05)*aw; pitch.t=pitch.t*(1-aw)-.12*aw }
     if(act&&act.name==='stretch'){ pitch.t=pitch.t*(1-aw)-.35*aw }
     scrollV*=.9; pitch.t+=Math.max(-.25,Math.min(.25,scrollV*.004))*m;
     roll.t=(now<tiltUntil?.16:0)*m;
@@ -2432,6 +2446,8 @@ async function start3D(){
     const mini=mode==='mini';
     model.position.set(mini?0:sway*.035*m*(1-sitW),mini?breath*.01*m:hop+crouch.x*m+breath*.008*m,0);
     model.scale.set(1+(-crouch.x)*.25*m,1+crouch.x*.6*m,1+(-crouch.x)*.25*m);
+    pad.visible=!mini; ring2.rotation.z=t*.25; ring.material.color.setHSL(.45,.8,.5+.06*Math.sin(t*2));
+    shadow.scale.set(1+.35*sitW-hop*.6,1.35+.5*sitW-hop*.6,1); shadow.material.opacity=1-hop*1.2;
     renderer.render(scene,cam);
     requestAnimationFrame(frame);
   }
@@ -2455,7 +2471,7 @@ const pcEyes=document.querySelector('.pc-eyes');
 if(pcEyes) addEventListener('pointermove',e=>{ if(call.hidden) return; const r=call.getBoundingClientRect(); const dx=Math.max(-3,Math.min(3,(e.clientX-(r.left+40))/innerWidth*14)), dy=Math.max(-2,Math.min(2,(e.clientY-(r.top+28))/innerHeight*8)); pcEyes.style.transform='translate('+dx.toFixed(1)+'px,'+dy.toFixed(1)+'px)' },{passive:true});
 
 // ---------- começa ----------
-function boot(){ if(!hasGL()) return; if(store.get('pixel-off')==='1'){ setMode('off'); return } mode='boot'; layout() }
+function boot(){ if(!isPC||!hasGL()) return; mode='boot'; layout() }
 if(document.readyState==='complete') setTimeout(boot,900); else addEventListener('load',()=>setTimeout(boot,900));
 // o navegador só libera som depois do primeiro toque/clique
 ['pointerdown','keydown'].forEach(ev=>addEventListener(ev,()=>{ if(soundOn&&started) audio() },{once:true,passive:true}));
