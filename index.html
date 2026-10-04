@@ -2305,7 +2305,7 @@ closeBtn.addEventListener('click',e=>{ e.stopPropagation(); purrStop(); if(mode=
 call.addEventListener('click',()=>{ store.set('pixel-off','0'); audio(); if(space()){ mode='boot'; layout() } else setMode('mini') });
 
 // ---------- 3D ----------
-let running=false, loop=()=>{}, resizeGL=()=>{}, frameCam=()=>{}, react=()=>{};
+let running=false, loop=()=>{}, resizeGL=()=>{}, frameCam=()=>{}, react=()=>{}, tellFact=null;
 async function start3D(){
   const THREE=await import('three'); const {GLTFLoader}=await import('three/addons/loaders/GLTFLoader.js');
   const renderer=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true,powerPreference:'high-performance'});
@@ -2321,43 +2321,30 @@ async function start3D(){
   const gltf=await new GLTFLoader().loadAsync('img/pet.json');
   const model=gltf.scene; scene.add(model);
   const B={}; model.traverse(o=>{ if(o.isBone) B[o.name]=o; if(o.isMesh){ o.frustumCulled=false; const mp=o.material&&o.material.map; if(mp){ mp.anisotropy=renderer.capabilities.getMaxAnisotropy(); mp.needsUpdate=true } } });
-  const rest={}; for(const k in B) rest[k]=B[k].quaternion.clone();
-  const E=new THREE.Euler(), Q=new THREE.Quaternion(), V1=new THREE.Vector3(), V2=new THREE.Vector3();
-  const qe=(x,y,z)=>new THREE.Quaternion().setFromEuler(new THREE.Euler(x,y,z));
-  const base={ Arm_L_019:qe(-.8,0,-.36), Arm_R_040:qe(-.8,0,.36), Elbow_L_020:qe(-.6,0,0), Elbow_R_041:qe(-.6,0,0) };
-  function setBase(){ for(const k in rest){ B[k].quaternion.copy(rest[k]); if(base[k]) B[k].quaternion.multiply(base[k]) } model.updateMatrixWorld(true) }
-  function aim(bone,child,d){ model.updateMatrixWorld(true); bone.getWorldPosition(V1); child.getWorldPosition(V2); const cur=V2.sub(V1).normalize();
-    const q=new THREE.Quaternion().setFromUnitVectors(cur,new THREE.Vector3(...d).normalize()); const wq=new THREE.Quaternion(); bone.getWorldQuaternion(wq);
-    const pq=new THREE.Quaternion(); bone.parent.getWorldQuaternion(pq); bone.quaternion.copy(pq.invert().multiply(q.multiply(wq))); model.updateMatrixWorld(true) }
-  setBase(); aim(B.Arm_L_019,B.Elbow_L_020,[1,.05,.35]); const waveArm=B.Arm_L_019.quaternion.clone();
-  aim(B.Elbow_L_020,B.Wrist_L_021,[.05,1,.25]); const waveA=B.Elbow_L_020.quaternion.clone();
-  aim(B.Elbow_L_020,B.Wrist_L_021,[.6,.85,.25]); const waveB=B.Elbow_L_020.quaternion.clone();
-  const baseArmL=rest.Arm_L_019.clone().multiply(base.Arm_L_019), baseElbL=rest.Elbow_L_020.clone().multiply(base.Elbow_L_020);
-  setBase(); const headP=new THREE.Vector3(); B.Head_05.getWorldPosition(headP);
-  // poses extras (calculadas uma vez, depois só misturadas com suavidade)
-  const rotL=(n,x,y,z)=>{ B[n].quaternion.multiply(qe(x,y,z)); model.updateMatrixWorld(true) };
-  function capture(fn,names){ setBase(); fn(); const o={}; names.forEach(n=>o[n]=B[n].quaternion.clone()); setBase(); return o }
-  const POSES={
-    sit:capture(()=>{ aim(B.Leg_L_065,B.Knee_L_066,[.28,.18,1]); aim(B.Knee_L_066,B.Foot_L_067,[.05,-.75,.65]); aim(B.Leg_R_068,B.Knee_R_069,[-.28,.18,1]); aim(B.Knee_R_069,B.Foot_R_070,[-.05,-.75,.65]);
-      aim(B.Arm_L_019,B.Elbow_L_020,[.35,-.75,.55]); aim(B.Elbow_L_020,B.Wrist_L_021,[-.15,-.25,1]); aim(B.Arm_R_040,B.Elbow_R_041,[-.35,-.75,.55]); aim(B.Elbow_R_041,B.Wrist_R_042,[.15,-.25,1]) },
-      ['Leg_L_065','Knee_L_066','Leg_R_068','Knee_R_069','Arm_L_019','Elbow_L_020','Arm_R_040','Elbow_R_041']),
-    point:capture(()=>{ aim(B.Arm_L_019,B.Elbow_L_020,[1,.3,.45]); aim(B.Elbow_L_020,B.Wrist_L_021,[1,.38,.5]); rotL('Elbow_L_020',0,-1.6,0);
-      ['Middle_L_028','Ring_L_031','Little_L_034'].forEach(n=>rotL(n,1.3,0,0)); ['Middle_L001_029','Ring_L001_032','Little_L001_035'].forEach(n=>rotL(n,1.4,0,0)); rotL('Thumb_L_022',0,0,-.6) },
-      ['Arm_L_019','Elbow_L_020','Middle_L_028','Ring_L_031','Little_L_034','Middle_L001_029','Ring_L001_032','Little_L001_035','Thumb_L_022']),
-    hips:capture(()=>{ aim(B.Arm_L_019,B.Elbow_L_020,[.8,-.5,-.35]); aim(B.Elbow_L_020,B.Wrist_L_021,[-.55,-.55,.45]); aim(B.Arm_R_040,B.Elbow_R_041,[-.8,-.5,-.35]); aim(B.Elbow_R_041,B.Wrist_R_042,[.55,-.55,.45]) },
-      ['Arm_L_019','Elbow_L_020','Arm_R_040','Elbow_R_041']),
-    stretch:capture(()=>{ rotL('Spine_02',-.08,0,0); rotL('Chest_03',-.12,0,0); aim(B.Arm_L_019,B.Elbow_L_020,[.4,1,-.1]); aim(B.Elbow_L_020,B.Wrist_L_021,[-.2,1,0]); aim(B.Arm_R_040,B.Elbow_R_041,[-.4,1,-.1]); aim(B.Elbow_R_041,B.Wrist_R_042,[.2,1,0]) },
-      ['Spine_02','Chest_03','Arm_L_019','Elbow_L_020','Arm_R_040','Elbow_R_041'])
-  };
-  const ACTS={ sit:{dur:[9000,14000],fade:950,w:3,lines:['Vou sentar um pouquinho aqui… 😌','Pausa pro descanso 💤','Daqui de baixo o site fica ainda mais bonito ✨']},
+  const rest={}, restP={}; for(const k in B){ rest[k]=B[k].quaternion.clone(); restP[k]=B[k].position.clone() }
+  const E=new THREE.Euler(), Q=new THREE.Quaternion();
+  // poses feitas no Blender com IK (pés no chão, mãos onde devem ficar): cada animação guarda a pose final de cada osso
+  const pg=await new GLTFLoader().loadAsync('img/pixel-poses.json');
+  const POSE={};
+  for(const clip of pg.animations){ const q={}, p={};
+    for(const tr of clip.tracks){ const dot=tr.name.lastIndexOf('.'), bn=tr.name.slice(0,dot), prop=tr.name.slice(dot+1); if(!B[bn]) continue;
+      if(prop==='quaternion'){ const v=new THREE.Quaternion().fromArray(tr.values,0); if(v.angleTo(rest[bn])>.01) q[bn]=v }
+      else if(prop==='position'){ const v=new THREE.Vector3().fromArray(tr.values,0); if(v.distanceTo(restP[bn])>.005) p[bn]=v } }
+    POSE[clip.name]={q,p} }
+  const baseQ=POSE.base?POSE.base.q:{};
+  function setBase(){ for(const k in rest){ B[k].quaternion.copy(baseQ[k]||rest[k]); B[k].position.copy(restP[k]) } }
+  setBase(); model.updateMatrixWorld(true); const headP=new THREE.Vector3(); B.Head_05.getWorldPosition(headP);
+  function add(name,x,y,z){ const b=B[name]; if(!b) return; E.set(x,y,z); b.quaternion.multiply(Q.setFromEuler(E)) }  const ACTS={ sit:{dur:[9000,14000],fade:950,w:3,lines:['Vou sentar um pouquinho aqui… 😌','Pausa pro descanso 💤','Daqui de baixo o site fica ainda mais bonito ✨']},
     point:{dur:[3200,4200],fade:550,w:3,lines:['Psiu! Dá uma olhada aqui do lado 👉','Isso aqui é legal, ó 👉','Já viu essa parte? 👉']},
     hips:{dur:[4200,5600],fade:600,w:2,lines:['Tô de olho em tudo por aqui 😎','Pixel, guardiã oficial do site 😤']},
-    stretch:{dur:[2700,3300],fade:700,w:2,lines:['Aaahh… espreguiçar é bom demais 😌','Recalibrando os servos… pronto! 🤖']} };
+    stretch:{dur:[2700,3300],fade:700,w:2,lines:['Aaahh… espreguiçar é bom demais 😌','Recalibrando os servos… pronto! 🤖']},
+    think:{dur:[4200,5200],fade:650,w:2,lines:['Hmm… deixa eu pensar 🤔','Pensando numa coisa legal pra te contar… 🤔']} };
   let act=null, nextAct=performance.now()+7000, sitW=0;
-  function startAct(name){ const a=ACTS[name]; act={name,t0:performance.now(),dur:a.dur[0]+Math.random()*(a.dur[1]-a.dur[0]),fade:a.fade}; if(Math.random()<.6 && Date.now()-lastSay>8000) say(pick(a.lines)) }
+  const forcedPose=new URLSearchParams(location.search).get('pixelpose');   // pra testar uma pose: ?pixelpose=sit
+  function startAct(name){ if(!POSE[name]) return; const a=ACTS[name]; act={name,t0:performance.now(),dur:a.dur[0]+Math.random()*(a.dur[1]-a.dur[0]),fade:a.fade};
+    if(name==='think'){ say(pick(a.lines),2400); setTimeout(()=>{ if(typeof tellFact==='function') tellFact() },2500) } else if(Math.random()<.6 && Date.now()-lastSay>8000) say(pick(a.lines)) }
   function stopAct(){ if(!act) return; const k=performance.now()-act.t0; if(k<act.dur-act.fade) act.dur=k+act.fade }
   function pickAct(){ let tot=0; for(const k in ACTS) tot+=ACTS[k].w; let r=Math.random()*tot; for(const k in ACTS){ r-=ACTS[k].w; if(r<=0) return k } return 'point' }
-  function add(name,x,y,z){ const b=B[name]; if(!b) return; E.set(x,y,z); b.quaternion.multiply(Q.setFromEuler(E)) }
   // duas câmeras: corpo inteiro (de lado, 3/4) e só a cabecinha (modo mini)
   let camAng=.3;
   frameCam=function(){ if(mode==='mini'){ camAng=.28; cam.fov=24; cam.position.set(headP.x+Math.sin(camAng)*3.4,headP.y+.42,headP.z+Math.cos(camAng)*3.4); cam.lookAt(headP.x,headP.y+.34,headP.z) }
@@ -2402,7 +2389,7 @@ async function start3D(){
     if(petting && now>petEndT){ petting=false; petPath=0; purrStop() }
     if(petting){ happyUntil=Math.max(happyUntil,now+1200); if(now>heartT){ heartT=now+(reduce?600:170); heart() } }
     // --- pose atual (sentar, apontar…) com entrada e saída suaves ---
-    if(!act && (mode==='dock'||mode==='visit') && now>nextAct && !petting && waveT<0 && m) startAct(pickAct());
+    if(!act && (mode==='dock'||mode==='visit') && (now>nextAct||forcedPose) && !petting && waveT<0 && m) startAct(forcedPose||pickAct());
     let aw=0; if(act){ const k=now-act.t0; if(k>act.dur){ act=null; nextAct=now+8000+Math.random()*9000 } else aw=Math.min(ease(Math.min(1,k/act.fade)),ease(Math.max(0,Math.min(1,(act.dur-k)/act.fade)))) }
     if(mode==='mini' && act){ act=null; aw=0 }
     sitW=act&&act.name==='sit'?aw:0;
@@ -2429,7 +2416,7 @@ async function start3D(){
     // --- pose ---
     setBase();
     const breath=Math.sin(t*1.7), sway=Math.sin(t*.42), sway2=Math.sin(t*.27+1.3);
-    add('Hips_01',0,sway2*.03*m,sway*.028*m); add('Leg_L_065',0,0,-sway*.028*m); add('Leg_R_068',0,0,-sway*.028*m);
+    const sm=m*(1-sitW); add('Hips_01',0,sway2*.03*sm,sway*.028*sm); add('Leg_L_065',0,0,-sway*.028*sm); add('Leg_R_068',0,0,-sway*.028*sm);
     add('Spine_02',breath*.012*m,-sway2*.02*m,-sway*.018*m); add('Chest_03',breath*.022*m,0,0);
     add('Neck_04',pitch.x*.4,yaw.x*.4,roll.x*.4); add('Head_05',pitch.x*.6+Math.sin(t*.37)*.02*m,yaw.x*.6+Math.sin(t*.53)*.025*m,roll.x*.6+Math.sin(t*.81)*.015*m);
     add('Ear_L_07',earL.x*.06,0,0); add('Ear_R_010',earR.x*.06,0,0); add('Ear_L001_08',earL.x*.03,0,0); add('Ear_R001_011',earR.x*.03,0,0);
@@ -2438,12 +2425,12 @@ async function start3D(){
     add('Shoulder_L_018',0,0,breath*.012*m); add('Shoulder_R_039',0,0,-breath*.012*m);
     add('Arm_R_040',Math.sin(t*1.7+.6)*.025*m,0,-sway*.03*m); add('Elbow_R_041',-Math.sin(t*1.7+.9)*.03*m,0,0);
     let w=0; if(waveT>0){ const k=(now-waveT)/2100; if(k<1) w=k<.22?ease(k/.22):k>.78?ease((1-k)/.22):1; else waveT=-1 }
-    if(w>0 && m){ B.Arm_L_019.quaternion.copy(baseArmL).slerp(waveArm,w); const s=(Math.sin((now-waveT)/150)+1)/2; Q.copy(waveA).slerp(waveB,s); B.Elbow_L_020.quaternion.copy(baseElbL).slerp(Q,w) }
+    if(w>0 && m && POSE.wave_a){ const s=(Math.sin((now-waveT)/150)+1)/2, A=POSE.wave_a.q, Z=POSE.wave_b?POSE.wave_b.q:{}; for(const n in A){ Q.copy(A[n]); if(Z[n]) Q.slerp(Z[n],s); B[n].quaternion.slerp(Q,w) } }
     else { add('Arm_L_019',Math.sin(t*1.7+.6)*.025*m,0,-sway*.03*m); add('Elbow_L_020',-Math.sin(t*1.7+.9)*.03*m,0,0) }
-    if(act && m){ const P=POSES[act.name]; for(const n in P) B[n].quaternion.slerp(P[n],aw) }
+    if(act && m && POSE[act.name]){ const P=POSE[act.name]; for(const n in P.q) B[n].quaternion.slerp(P.q[n],aw); for(const n in P.p) B[n].position.lerp(P.p[n],aw) }
     let hop=0; if(hopT>0){ const k=(now-hopT)/620; if(k<1){ const u=Math.max(0,(k-.18)/.82); hop=Math.sin(u*Math.PI)*.42*m; crouch.t=k<.18?-.12:0; if(k>.95) crouch.v-=4 } else hopT=-1 }
     const mini=mode==='mini';
-    model.position.set(mini?0:sway*.035*m*(1-sitW),mini?breath*.01*m:hop+crouch.x*m+breath*.008*m-1.72*sitW,0);
+    model.position.set(mini?0:sway*.035*m*(1-sitW),mini?breath*.01*m:hop+crouch.x*m+breath*.008*m,0);
     model.scale.set(1+(-crouch.x)*.25*m,1+crouch.x*.6*m,1+(-crouch.x)*.25*m);
     renderer.render(scene,cam);
     requestAnimationFrame(frame);
@@ -2456,8 +2443,9 @@ async function start3D(){
   // conversa de tempos em tempos: fatos aleatórios, piadas e uma ou outra do site
   const deck=l=>{ let q=[]; return ()=>{ if(!q.length) q=l.slice().sort(()=>Math.random()-.5); return q.pop() } };
   const nextFact=deck(FACTS), nextJoke=deck(JOKES), nextSite=deck(SITEFACTS), lead=['Curiosidade: ','Fato aleatório: ','Você sabia que ','Sabia que '];
+  tellFact=()=>{ const l=pick(lead), f=nextFact(); say(l+(l.endsWith('que ')?f.replace(/ ([^ ]+)$/,'? $1'):f.charAt(0).toUpperCase()+f.slice(1)),7500) };
   setInterval(()=>{ if(mode!=='dock'&&mode!=='visit') return; if(Date.now()-lastSay<22000||document.hidden) return; const r=Math.random();
-    if(r<.45){ const l=pick(lead), f=nextFact(); say(l+(l.endsWith('que ')?f.replace(/ ([^ ]+)$/,'? $1'):f.charAt(0).toUpperCase()+f.slice(1)),7500) }
+    if(r<.45) tellFact()
     else if(r<.88){ const j=nextJoke(); say(j[0],3600); setTimeout(()=>{ say(j[1],5200); react('laugh') },3000) }
     else say(nextSite(),7000) },11000);
 }
