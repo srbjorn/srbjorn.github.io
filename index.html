@@ -673,11 +673,12 @@ main > section[id]::before{content:"";position:absolute;top:0;left:50%;transform
 .mc{--ar:1.97;--pw:200px;--ph:394px;--pl:16px;--bw:240px;position:fixed;z-index:40;left:var(--pl);bottom:14px;width:var(--pw);height:var(--ph);pointer-events:none}
 .mc[hidden]{display:none!important}
 .mc.in-frame{position:absolute;bottom:auto;top:var(--py,140px);transition:top .9s cubic-bezier(.3,.7,.2,1)}
-.mc-stage{position:absolute;inset:0;pointer-events:auto;touch-action:none;-webkit-tap-highlight-color:transparent;opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+.mc-stage{position:absolute;top:0;right:0;bottom:0;left:0;pointer-events:auto;touch-action:none;-webkit-tap-highlight-color:transparent;opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
 .mc.ready .mc-stage{opacity:1;transform:none}
-.mc-body{position:absolute;inset:0;transform-origin:50% 100%}
+.mc-body{position:absolute;top:0;right:0;bottom:0;left:0;transform-origin:50% 100%}
 .mc-f{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% 100%;visibility:hidden;pointer-events:none;user-select:none;-webkit-user-drag:none}
 .mc-f.on{visibility:visible}
+.mc-cv{position:absolute;top:0;left:0;width:100%;height:100%;display:block;pointer-events:none}
 @keyframes mcBreath{0%,100%{transform:none}50%{transform:scale(1.007,1.013) rotate(.35deg)}}
 .mc-floor{position:absolute;left:var(--fl,8%);right:var(--fr,22%);bottom:calc(var(--fb,3.5%) - 3%);height:6%;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.6),rgba(172,0,255,.3) 60%,rgba(43,230,168,.12) 85%,transparent);box-shadow:0 0 0 1.5px rgba(43,230,168,.5),0 0 22px rgba(172,0,255,.45);animation:mcFloor 5s ease-in-out infinite}
 @keyframes mcFloor{50%{box-shadow:0 0 0 1.5px rgba(43,230,168,.8),0 0 30px rgba(172,0,255,.6)}}
@@ -2215,7 +2216,7 @@ sndBtn.addEventListener('click',e=>{ e.stopPropagation(); setSound(!soundOn); if
 // ---------- animação: vídeos renderizados no Blender, misturados suavemente num canvas ----------
 // 'look' é uma grade 5×2 (5 direções pros lados × 2 alturas) com o mesmo movimento de corpo em todas:
 // misturando as direções vizinhas, a cabeça gira de forma contínua seguindo o mouse.
-const META={"w":468,"h":754,"fps":20,"clips":{"look":80,"laugh":36,"pet":40,"sit":80,"sit_down":28,"stand_up":24,"talk":40,"wave":48,"x_angry":44,"x_beg":44,"x_blush":44,"x_sad":44,"x_squint":44,"x_surprised":44,"x_think":44,"x_tongue":44,"x_wink":44,"yawn":56},"hx":0.4185,"hy":0.1641,"fl":0.2162,"fr":0.3694,"fb":0.1726};
+const META={"w":468,"h":770,"fps":20,"clips":{"look":80,"laugh":36,"pet":40,"sit":80,"sit_down":28,"stand_up":24,"talk":40,"wave":48,"x_angry":44,"x_beg":44,"x_blush":44,"x_sad":44,"x_squint":44,"x_surprised":44,"x_think":44,"x_tongue":44,"x_wink":44,"yawn":56},"hx":0.4185,"hy":0.1604,"fl":0.2162,"fr":0.3694,"fb":0.191};
 const TW=META.w, TH=META.h, AR=TH/TW;
 const ua=navigator.userAgent, isSafari=/^((?!chrome|chromium|crios|edg|android).)*safari/i.test(ua);
 const vtest=document.createElement('video');
@@ -2245,19 +2246,16 @@ function loadAll(){
 function ready(s){ if(!s) return false; if(s.seq) return s.seq.length>0 && s.seq[0].complete && s.seq[0].naturalWidth>0; return s.tagName==='VIDEO' ? s.readyState>=2 : s.complete && s.naturalWidth>0 }
 function fit(){ const r=body.getBoundingClientRect(), d=Math.min(2,devicePixelRatio||1), w=Math.round(r.width*d), h=Math.round(r.height*d); if(w&&h&&(cv.width!==w||cv.height!==h)){ cv.width=w; cv.height=h } }
 if('ResizeObserver' in window) new ResizeObserver(fit).observe(body);
-// desenha a grade do olhar misturando as direções (fx de 0 a 4, fy de 0 a 1)
+// desenha a direção do olhar mais próxima (fx de 0 a 4, fy de 0 a 1); ao trocar de direção faz só um fade
+// curtinho, sem deixar duas cabeças sobrepostas paradas na tela
+let lookCur=[0,3], lookPrev=null, lookT0=0; const LFADE=130;
 function drawLook(fx,fy){
-  const k0=Math.floor(fx), k1=Math.min(4,k0+1), ax=fx-k0;
-  const rows=[[r0,r0x,0],[r1,r1x,1]];
-  for(const [c,x,j] of rows){
-    if((j===1&&fy<=.001)||(j===0&&fy>=.999)) continue;
-    x.clearRect(0,0,TW,TH);
-    tile(x,j,k0,1); if(ax>.001) tile(x,j,k1,ax);
-  }
+  const k=Math.max(0,Math.min(4,Math.round(fx))), j=lookCur[0]===1?(fy>.3?1:0):(fy>.7?1:0);
+  if(k!==lookCur[1]||j!==lookCur[0]){ lookPrev=lookCur; lookCur=[j,k]; lookT0=performance.now() }
+  const a=Math.min(1,(performance.now()-lookT0)/LFADE);
   lkx.clearRect(0,0,TW,TH);
-  if(fy<.999){ lkx.globalAlpha=1; lkx.drawImage(r0,0,0) }
-  if(fy>.001){ lkx.globalAlpha=fy<.999?fy:1; lkx.drawImage(r1,0,0) }
-  lkx.globalAlpha=1;
+  if(lookPrev&&a<1){ tile(lkx,lookPrev[0],lookPrev[1],1); tile(lkx,lookCur[0],lookCur[1],a) }
+  else { lookPrev=null; tile(lkx,lookCur[0],lookCur[1],1) }
   return lk;
 }
 function tile(x,j,k,a){ x.globalAlpha=a;
