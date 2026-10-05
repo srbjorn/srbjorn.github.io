@@ -121,8 +121,9 @@ p{margin:0}
 .emblem .twk circle:nth-child(2){animation-delay:.8s}.emblem .twk circle:nth-child(3){animation-delay:1.6s}.emblem .twk circle:nth-child(4){animation-delay:2.2s}.emblem .twk circle:nth-child(5){animation-delay:.4s}
 .emblem .sun{filter:drop-shadow(0 0 10px rgba(242,201,76,.9))}
 .emblem .sun-rays{stroke:#F2C94C;stroke-width:3;stroke-linecap:round;transform-origin:0 0;animation:rays 9s linear infinite}
-.moon-chip{position:absolute;left:50%;bottom:4%;transform:translate(-50%,6px);white-space:nowrap;font:600 12.5px/1 var(--mono);color:var(--bone);background:rgba(14,13,18,.8);border:1px solid var(--line);padding:8px 12px;border-radius:999px;opacity:0;transition:opacity .25s ease,transform .25s ease;pointer-events:none}
-.emblem:hover .moon-chip,.emblem:focus-within .moon-chip{opacity:1;transform:translate(-50%,0)}
+.moon-chip{position:absolute;left:50%;bottom:4%;transform:translate(-50%,0);white-space:nowrap;font:600 12.5px/1 var(--mono);color:var(--bone);background:rgba(14,13,18,.8);border:1px solid var(--line);padding:8px 12px;border-radius:999px;pointer-events:none;transition:border-color .25s ease,box-shadow .25s ease}
+.emblem:hover .moon-chip,.emblem:focus-within .moon-chip{border-color:rgba(199,125,255,.55);box-shadow:0 8px 22px -12px rgba(172,0,255,.8)}
+@media (max-width:600px){ .moon-chip{font-size:11px;padding:7px 10px;bottom:1%} }
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* ---------- sections ---------- */
@@ -2436,6 +2437,8 @@ const QUIZ=[
 function framePos(y){ root.style.setProperty('--py',Math.max(90,Math.round(y))+'px') }
 if(inFrame()){ root.classList.add('in-frame'); framePos(140) }
 // ---------- movimento ----------
+// não segue mais o mouse: olha pra quem lê e de vez em quando dá uma olhadinha pros lados
+const FOLLOW=false;
 let running=false, last=0; const DBG=/bjdebug/.test(location.search)?(window.__bj={}):null;
 const spring=(k,d)=>({x:0,v:0,t:0,k,d,step(dt){ const a=this.k*(this.t-this.x)-this.d*this.v; this.v+=a*dt; this.x+=this.v*dt; return this.x }});
 const yaw=spring(34,11), pitch=spring(34,11); yaw.x=yaw.t=2.6;
@@ -2488,12 +2491,12 @@ function frame(){
   if(petting){ petTotal+=dt; if(now>heartT){ heartT=now+(reduce?600:170); heart() } if(petTotal>5){ petOpen=0; petting=false; purrStop(); say('Obrigado pelo carinho! Fiquei todo bobo 💜',4200); hop() } }
   if(base==='sit' && sitUntil && now>sitUntil && !oneShot) standUp();
   // olhar: mira a cabeça no cursor (mistura contínua entre as direções renderizadas)
-  if(px!==null && now-lastMove<25000){
+  if(FOLLOW && px!==null && now-lastMove<25000){
     const r=stage.getBoundingClientRect(), mini=mode==='mini';
     const hx=r.left+r.width*(mini?.5:META.hx), hy=r.top+r.height*(mini?.5:META.hy);
     yaw.t=2+2*clamp((px-hx)/(innerWidth*(mini?.25:.33)),-1,1); pitch.t=clamp((py-hy)/(innerHeight*.38),0,1);
   } else {
-    if(now>glanceAt){ glanceAt=now+2600+Math.random()*3800; const r=Math.random(); gx=r<.5?2.4+Math.random()*1.2:Math.random()*4; gy=Math.random()<.7?0:Math.random()*.7 }
+    if(now>glanceAt){ glanceAt=now+2600+Math.random()*3800; const r=Math.random(); gx=r<.65?2:1.3+Math.random()*1.6; gy=Math.random()<.8?0:Math.random()*.4 }
     yaw.t=gx; pitch.t=gy;
   }
   if(petting){ yaw.t=2+(yaw.t-2)*.15; pitch.t*=.15 } else if(now<talkUntil){ yaw.t=2+(yaw.t-2)*.6; pitch.t*=.6 }   // olha pra quem está lendo enquanto fala
@@ -2514,7 +2517,7 @@ function boot(){ if(!isPC) return;
   root.style.setProperty('--fl',(META.fl*100).toFixed(2)+'%'); root.style.setProperty('--fr',(META.fr*100).toFixed(2)+'%'); root.style.setProperty('--fb',(META.fb*100).toFixed(2)+'%');
   loadAll().then(()=>{ booted=true; mode='boot'; layout(); requestAnimationFrame(()=>root.classList.add('ready'));
     if(mode==='dock'){ setTimeout(()=>{ beep.hello(); wave(); say(HELLO) },700);
-      setTimeout(()=>{ if(Date.now()-lastSay>5000) say('Mexe o mouse que eu te sigo com o olhar 👀') },8500) }
+      setTimeout(()=>{ if(Date.now()-lastSay>5000) say('Clica em mim que eu respondo! 💜') },8500) }
     else { pending=HELLO; root.classList.add('news') } }) }
 if(document.readyState==='complete') setTimeout(boot,900); else addEventListener('load',()=>setTimeout(boot,900));
 ['pointerdown','keydown'].forEach(ev=>addEventListener(ev,()=>{ if(soundOn&&booted) audio() },{once:true,passive:true}));
