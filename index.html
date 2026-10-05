@@ -2274,7 +2274,7 @@ const mk=()=>{ const c=document.createElement('canvas'); c.width=TW; c.height=TH
 const [r0,r0x]=mk(), [r1,r1x]=mk(), [lk,lkx]=mk();
 function loadAll(){
   document.body.appendChild(holder);
-  const names=Object.keys(META.clips);
+  const names=Object.keys(META.clips).filter(n=>!/^(sit|sit_down|stand_up)$/.test(n));   // ele não senta mais: nem baixa esses vídeos
   const firsts=[];
   names.forEach(n=>{
     if(useVideo){ const v=document.createElement('video'); v.muted=true; v.playsInline=true; v.preload=n==='look'?'auto':'auto'; v.loop=LOOPS.has(n);
@@ -2454,7 +2454,7 @@ function react(kind){ if(kind==='laugh') shot('laugh'); else shot('x_blush') }
 function want(){ if(petting) return 'pet'; if(performance.now()<talkUntil && base==='look' && Math.abs(yaw.x-2)<.75 && pitch.x<.5) return 'talk'; return base }
 // sentar um pouquinho de vez em quando
 let sitUntil=0;
-function sitDown(){ if(base!=='look'||oneShot||mode==='mini'||!SRC.sit_down) return; play('sit_down',()=>{ base='sit'; resumeBase(); setLayer('sit'); sitUntil=performance.now()+12000+Math.random()*10000 }) }
+function sitDown(){ return; if(base!=='look'||oneShot||mode==='mini'||!SRC.sit_down) return; play('sit_down',()=>{ base='sit'; resumeBase(); setLayer('sit'); sitUntil=performance.now()+12000+Math.random()*10000 }) }
 function standUp(){ if(base!=='sit') return; sitUntil=0; play('stand_up',()=>{ base='look'; resumeBase(); setLayer(want()) }) }
 // carinho: só quando ele pede (assim passar o mouse sem querer não atrapalha a fala)
 let petOpen=0, petPath=0, petLastX=null, petLastY=null, petLastT=0, petting=false, petEndT=0, heartT=0, petSaid=0, petTotal=0;
@@ -2534,10 +2534,9 @@ setInterval(()=>{ if(mode!=='dock'&&mode!=='visit') return; if(Date.now()-lastSa
   else if(r<.78) ask(nextQuiz())
   else if(r<.86) askPet()
   else say(nextSite(),7000) },11000);
-// de vez em quando ele senta um pouquinho ou boceja
+// de vez em quando ele boceja
 setInterval(()=>{ if(!booted||mode!=='dock'||document.hidden||oneShot||petting||performance.now()<talkUntil) return; const r=Math.random();
-  if(base==='look' && r<.35){ sitDown(); if(Math.random()<.5) setTimeout(()=>say(pick(['Vou sentar um pouquinho aqui… 😌','Pausa pro descanso 💤','Daqui de baixo o site fica ainda mais bonito ✨']),4200),900) }
-  else if(base==='look' && r<.5) shot('yawn') },26000);
+  if(base==='look' && r<.2) shot('yawn') },26000);
 
 // ---------- comenta as seções (uma vez cada) ----------
 const said={};
