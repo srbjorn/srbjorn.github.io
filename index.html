@@ -663,11 +663,55 @@ main > section[id]::before{content:"";position:absolute;top:0;left:50%;transform
 .magi.done .magi-motto{opacity:1}/* ===== cursor de patinha + fio vermelho seguindo ===== */
 @media (pointer:fine){
   *{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg fill='%23AC00FF' stroke='%23FFFFFF' stroke-width='1.5' stroke-linejoin='round'%3E%3Cpath d='M2.5 2.5 C8 3.6 15.5 6.6 18.2 9.8 C20.6 12.6 12.6 20.6 9.8 18.2 C6.6 15.5 3.6 8 2.5 2.5 Z'/%3E%3Cellipse cx='22.6' cy='11.4' rx='2.3' ry='2.7' transform='rotate(-35 22.6 11.4)'/%3E%3Cellipse cx='21.6' cy='17.8' rx='2.5' ry='2.9' transform='rotate(-45 21.6 17.8)'/%3E%3Cellipse cx='17.8' cy='21.6' rx='2.5' ry='2.9' transform='rotate(-45 17.8 21.6)'/%3E%3Cellipse cx='11.4' cy='22.6' rx='2.3' ry='2.7' transform='rotate(-55 11.4 22.6)'/%3E%3C/g%3E%3C/svg%3E") 2 2,auto !important}
-  a,button,summary,label,[role="button"],[data-copy],[data-hex],.emblem,.bsod,.magi,.magi-back,.shot,.stage,.big-heart{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg fill='%23E10022' stroke='%23FFFFFF' stroke-width='1.5' stroke-linejoin='round'%3E%3Cpath d='M2.5 2.5 C8 3.6 15.5 6.6 18.2 9.8 C20.6 12.6 12.6 20.6 9.8 18.2 C6.6 15.5 3.6 8 2.5 2.5 Z'/%3E%3Cellipse cx='22.6' cy='11.4' rx='2.3' ry='2.7' transform='rotate(-35 22.6 11.4)'/%3E%3Cellipse cx='21.6' cy='17.8' rx='2.5' ry='2.9' transform='rotate(-45 21.6 17.8)'/%3E%3Cellipse cx='17.8' cy='21.6' rx='2.5' ry='2.9' transform='rotate(-45 17.8 21.6)'/%3E%3Cellipse cx='11.4' cy='22.6' rx='2.3' ry='2.7' transform='rotate(-55 11.4 22.6)'/%3E%3C/g%3E%3C/svg%3E") 2 2,pointer !important}
+  a,button,summary,label,[role="button"],[data-copy],[data-hex],.emblem,.bsod,.magi,.magi-back,.shot,.stage,.big-heart,.mc-stage,.mc-opt{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg fill='%23E10022' stroke='%23FFFFFF' stroke-width='1.5' stroke-linejoin='round'%3E%3Cpath d='M2.5 2.5 C8 3.6 15.5 6.6 18.2 9.8 C20.6 12.6 12.6 20.6 9.8 18.2 C6.6 15.5 3.6 8 2.5 2.5 Z'/%3E%3Cellipse cx='22.6' cy='11.4' rx='2.3' ry='2.7' transform='rotate(-35 22.6 11.4)'/%3E%3Cellipse cx='21.6' cy='17.8' rx='2.5' ry='2.9' transform='rotate(-45 21.6 17.8)'/%3E%3Cellipse cx='17.8' cy='21.6' rx='2.5' ry='2.9' transform='rotate(-45 17.8 21.6)'/%3E%3Cellipse cx='11.4' cy='22.6' rx='2.3' ry='2.7' transform='rotate(-55 11.4 22.6)'/%3E%3C/g%3E%3C/svg%3E") 2 2,pointer !important}
 }
 .red-thread{position:fixed;inset:0;width:100%;height:100%;z-index:150;pointer-events:none;overflow:visible;transition:opacity .3s ease}
 .red-thread g{filter:drop-shadow(0 0 4px rgba(255,0,40,.75))}
 .red-thread line{stroke:#E10022;stroke-linecap:round}
+/* ===== Mascote: o avatar do Bjørn no VRChat, renderizado no Blender ===== */
+/* fica na margem vazia da esquerda; sem espaço, vira uma bolinha com a cabeça dele */
+.mc{--ar:1.97;--pw:200px;--ph:394px;--pl:16px;--bw:240px;position:fixed;z-index:40;left:var(--pl);bottom:14px;width:var(--pw);height:var(--ph);pointer-events:none}
+.mc[hidden]{display:none!important}
+.mc.in-frame{position:absolute;bottom:auto;top:var(--py,140px);transition:top .9s cubic-bezier(.3,.7,.2,1)}
+.mc-stage{position:absolute;inset:0;pointer-events:auto;touch-action:none;-webkit-tap-highlight-color:transparent;opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+.mc.ready .mc-stage{opacity:1;transform:none}
+.mc-body{position:absolute;left:0;right:0;top:0;bottom:3.5%;transform-origin:50% 100%;animation:mcBreath 3.8s ease-in-out infinite}
+.mc-f{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% 100%;visibility:hidden;pointer-events:none;user-select:none;-webkit-user-drag:none}
+.mc-f.on{visibility:visible}
+@keyframes mcBreath{0%,100%{transform:none}50%{transform:scale(1.007,1.013) rotate(.35deg)}}
+.mc-floor{position:absolute;left:8%;right:22%;bottom:0;height:7%;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.6),rgba(172,0,255,.3) 60%,rgba(43,230,168,.12) 85%,transparent);box-shadow:0 0 0 1.5px rgba(43,230,168,.5),0 0 22px rgba(172,0,255,.45);animation:mcFloor 5s ease-in-out infinite}
+@keyframes mcFloor{50%{box-shadow:0 0 0 1.5px rgba(43,230,168,.8),0 0 30px rgba(172,0,255,.6)}}
+.mc-x,.mc-snd{position:absolute;top:2%;z-index:3;width:26px;height:26px;padding:0;border-radius:50%;border:1px solid var(--line);background:rgba(23,21,29,.9);color:var(--muted);font:400 18px/1 var(--body);display:grid;place-items:center;pointer-events:auto;opacity:0;transition:opacity .2s ease,color .2s ease,border-color .2s ease}
+.mc-x{right:0}.mc-snd{left:0}
+.mc:hover .mc-x,.mc:hover .mc-snd,.mc-x:focus-visible,.mc-snd:focus-visible,.mc.visit .mc-x,.mc.visit .mc-snd{opacity:1}
+.mc-x:hover,.mc-snd:hover{color:var(--bone);border-color:var(--mint)}
+.mc-snd svg{width:15px;height:15px;fill:currentColor}
+.mc-snd svg .w{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.mc-snd .off,.mc-snd[aria-pressed="false"] .on{display:none}
+.mc-snd[aria-pressed="false"] .off{display:block}
+.mc-bubble{position:absolute;left:4px;bottom:calc(100% - 4px);z-index:4;width:max-content;max-width:var(--bw);padding:11px 14px 12px;border-radius:16px 16px 16px 4px;background:rgba(23,21,29,.96);border:1px solid rgba(172,0,255,.6);box-shadow:0 16px 36px -18px rgba(172,0,255,.7);color:var(--bone);font:500 14px/1.45 var(--body);pointer-events:auto;animation:mcPop .32s cubic-bezier(.2,.9,.3,1.3)}
+.mc-bubble::after{content:"";position:absolute;left:22px;top:100%;border:8px solid transparent;border-top-color:rgba(172,0,255,.6);border-bottom:0}
+@keyframes mcPop{from{opacity:0;transform:translateY(8px) scale(.92)}to{opacity:1;transform:none}}
+.mc-who{display:block;margin-bottom:3px;font:800 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#C77DFF}
+.mc-opts{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}.mc-opts:empty{display:none}
+.mc-opt{font:700 12.5px/1 var(--body);color:var(--bone);background:rgba(172,0,255,.18);border:1px solid rgba(199,125,255,.6);border-radius:999px;padding:7px 12px;transition:background .2s ease,transform .2s ease}
+.mc-opt:hover{background:rgba(172,0,255,.45);transform:translateY(-1px)}
+.mc-hearts{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:visible}
+.mc-heart{position:absolute;width:18px;height:18px;margin:-9px 0 0 -9px;filter:drop-shadow(0 0 6px currentColor)}
+.mc-heart svg{width:100%;height:100%;fill:currentColor}
+/* visita: sem margem livre, ele aparece por cima no canto quando a pessoa clica na bolinha */
+.mc.visit::before{content:"";position:absolute;inset:-8px -8px -8px;border-radius:22px;background:rgba(14,13,18,.84);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(172,0,255,.4);pointer-events:none}
+.mc.visit .mc-bubble{max-width:min(240px,calc(100vw - 24px))}
+/* mini: só a cabeça dele numa bolinha, ainda olhando pro mouse */
+.mc.mc-mini{--pw:84px;--ph:84px;--pl:12px;--mw:150px;bottom:12px}
+.mc.mc-mini .mc-stage{border-radius:50%;overflow:hidden;background:radial-gradient(circle at 50% 30%,#2b2140,#0E0D12 72%);border:2px solid rgba(172,0,255,.65);box-shadow:0 10px 26px -10px rgba(172,0,255,.8),0 0 0 4px rgba(14,13,18,.65);transition:opacity .6s ease,transform .25s cubic-bezier(.2,.8,.2,1)}
+.mc.mc-mini .mc-stage:hover{transform:scale(1.07)}
+.mc.mc-mini .mc-body{right:auto;bottom:auto;width:var(--mw);height:calc(var(--mw) * var(--ar));left:calc(50% - var(--mw) * .34);top:calc(50% - var(--mw) * var(--ar) * .19);animation:none}
+.mc.mc-mini .mc-floor,.mc.mc-mini .mc-x,.mc.mc-mini .mc-snd,.mc.mc-mini .mc-bubble{display:none}
+.mc.mc-mini.news::after{content:"";position:absolute;top:2px;right:2px;z-index:5;width:13px;height:13px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 2px var(--night),0 0 10px var(--mint);animation:mcDot 1.4s ease-in-out infinite}
+@keyframes mcDot{50%{transform:scale(.7);opacity:.6}}
+@media (pointer:fine){ .mc-x,.mc-snd{cursor:pointer} }
+@media (prefers-reduced-motion:reduce){ .mc-body,.mc-floor{animation:none} }
 /* tela cheia */
 .kanji-note{display:flex;align-items:center;gap:14px;color:var(--muted);font-size:15px;max-width:62ch}
 .kanji-note b{color:var(--bone)}
@@ -1675,6 +1719,13 @@ footer .brand{font-size:20px;color:var(--bone)}
 </section>
 </main>
 
+<aside class="mc" id="mc" aria-label="Bjørn, o mascote do site" hidden>
+  <div class="mc-bubble" id="mc-bubble" role="status" aria-live="polite" hidden><span class="mc-who">Bjørn</span><span id="mc-txt"></span></div>
+  <div class="mc-stage" id="mc-stage" title="Faz carinho no Bjørn!"><span class="mc-floor" aria-hidden="true"></span><div class="mc-body" id="mc-body" aria-hidden="true"></div></div>
+  <button class="mc-x" id="mc-x" type="button" aria-label="Minimizar o mascote" title="Minimizar">×</button>
+  <button class="mc-snd" id="mc-snd" type="button" aria-label="Som do mascote ligado" aria-pressed="true"><svg class="on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path class="w" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg><svg class="off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path class="w" d="M16.5 9.5l5 5M21.5 9.5l-5 5"/></svg></button>
+  <div class="mc-hearts" id="mc-hearts" aria-hidden="true"></div>
+</aside>
 
 <footer>
   <div class="wrap">
@@ -2130,6 +2181,266 @@ footer .brand{font-size:20px;color:var(--bone)}
     if(n){ requestAnimationFrame(draw) } else { running=false }
   }
 })();
+</script>
+<script type="module">
+// ---- Mascote: o avatar do Bjørn no VRChat, renderizado no Blender — olha pro mouse, fala, acena e ganha carinho ----
+const root=document.getElementById('mc'), stage=document.getElementById('mc-stage'), body=document.getElementById('mc-body'), heartsEl=document.getElementById('mc-hearts');
+const bubble=document.getElementById('mc-bubble'), txt=document.getElementById('mc-txt'), closeBtn=document.getElementById('mc-x'), sndBtn=document.getElementById('mc-snd');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isPC=matchMedia('(hover:hover) and (pointer:fine)').matches;
+const store={ get(k){ try{ return localStorage.getItem(k) }catch(e){ return null } }, set(k,v){ try{ localStorage.setItem(k,v) }catch(e){} } };
+const inFrame=()=>window.innerHeight>=document.documentElement.scrollHeight-4;
+const AR=1.97;   // altura/largura dos quadros renderizados
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+
+// ---------- sons (gerados na hora: blips e ronrono) ----------
+let actx=null, soundOn=store.get('bj-sound')!=='0', purr=null;
+function audio(){ if(!soundOn) return null; if(!actx){ const C=window.AudioContext||window.webkitAudioContext; if(!C) return null; actx=new C() } if(actx.state==='suspended') actx.resume(); return actx }
+function blip(f1,f2,at,dur,vol){ const a=audio(); if(!a) return; const t=a.currentTime+at, o=a.createOscillator(), g=a.createGain();
+  o.type='triangle'; o.frequency.setValueAtTime(f1,t); o.frequency.exponentialRampToValueAtTime(f2,t+dur);
+  g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vol,t+.01); g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  o.connect(g); g.connect(a.destination); o.start(t); o.stop(t+dur+.02) }
+const beep={ talk(){ blip(620,760,0,.07,.06); blip(820,700,.09,.06,.05) }, tap(){ blip(480,1100,0,.15,.07) }, hello(){ blip(560,700,0,.07,.06); blip(760,900,.09,.07,.06); blip(980,1250,.18,.1,.06) } };
+function purrStart(){ const a=audio(); if(!a||purr) return;
+  const len=a.sampleRate*2, buf=a.createBuffer(1,len,a.sampleRate), d=buf.getChannelData(0); for(let i=0;i<len;i++) d[i]=Math.random()*2-1;
+  const n=a.createBufferSource(); n.buffer=buf; n.loop=true; const lp=a.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=320;
+  const am=a.createGain(); am.gain.value=.5; const lfo=a.createOscillator(); lfo.frequency.value=24; const depth=a.createGain(); depth.gain.value=.5; lfo.connect(depth); depth.connect(am.gain);
+  const hum=a.createOscillator(); hum.frequency.value=52; const hg=a.createGain(); hg.gain.value=.35;
+  const out=a.createGain(); out.gain.value=0; out.gain.linearRampToValueAtTime(.16,a.currentTime+.35);
+  n.connect(lp); lp.connect(am); hum.connect(hg); hg.connect(am); am.connect(out); out.connect(a.destination); n.start(); lfo.start(); hum.start();
+  purr={stop(){ const t=a.currentTime; out.gain.cancelScheduledValues(t); out.gain.setValueAtTime(out.gain.value,t); out.gain.linearRampToValueAtTime(0,t+.5); setTimeout(()=>{ try{ n.stop(); lfo.stop(); hum.stop() }catch(e){} },600) }} }
+function purrStop(){ if(purr){ purr.stop(); purr=null } }
+function setSound(on){ soundOn=on; store.set('bj-sound',on?'1':'0'); sndBtn.setAttribute('aria-pressed',on?'true':'false'); sndBtn.setAttribute('aria-label','Som do mascote '+(on?'ligado':'desligado')); if(!on) purrStop() }
+setSound(soundOn);
+sndBtn.addEventListener('click',e=>{ e.stopPropagation(); setSound(!soundOn); if(soundOn) beep.hello() });
+
+// ---------- quadros (cada pose é uma imagem; troca instantânea, sem piscar) ----------
+const NAMES=[]; ['u','m','d'].forEach(r=>{ for(let i=0;i<5;i++) NAMES.push('look_'+r+i) });
+for(let i=0;i<5;i++) NAMES.push('blink_'+i); NAMES.push('happy','talk_a','talk_o','wave_a','wave_b');
+const EXPR=['surprised','blush','tongue','sad','angry','squint','think','beg','wink','laugh']; EXPR.forEach(x=>NAMES.push('x_'+x));
+const F={}; let cur=null;
+function buildFrames(){ return Promise.all(NAMES.map(n=>{ const im=new Image(); im.className='mc-f'; im.alt=''; im.decoding='async'; im.draggable=false;
+  im.src='img/bj/'+n+'.webp'; F[n]=im; body.appendChild(im); return (im.decode?im.decode():Promise.resolve()).catch(()=>{}) })) }
+function show(n){ if(n===cur||!F[n]) return; if(cur) F[cur].classList.remove('on'); F[n].classList.add('on'); cur=n }
+
+// ---------- espaço livre: ele nunca fica na frente do conteúdo ----------
+let mode='off';   // 'dock' (na margem), 'mini' (bolinha com a cabeça), 'visit' (corpo inteiro por cima, quando chamado), 'off'
+const wrapEl=document.querySelector('main .wrap');
+function space(){
+  const edge=wrapEl ? wrapEl.getBoundingClientRect().left + (parseFloat(getComputedStyle(wrapEl).paddingLeft)||0) : 0;
+  const avail=edge-24; if(avail<110) return null;
+  let pw=Math.min(210,avail), ph=pw*AR; const maxH=innerHeight*.64; if(ph>maxH){ ph=maxH; pw=ph/AR }
+  if(pw<95) return null;
+  const pl=Math.max(8,Math.round((edge-pw)/2));
+  return {pw:Math.round(pw),ph:Math.round(ph),pl,bw:Math.round(Math.min(250,edge-pl-16))};
+}
+function setVars(s){ for(const k in s) root.style.setProperty('--'+k,s[k]+'px') }
+function clearVars(){ ['--pw','--ph','--pl','--bw'].forEach(v=>root.style.removeProperty(v)) }
+let userMin=store.get('bj-min')==='1';
+function layout(){
+  if(mode==='off') return;
+  if(userMin){ if(mode!=='mini') setMode('mini'); return }
+  const s=space();
+  if(s){ setVars(s); if(mode!=='dock') setMode('dock') }
+  else if(mode==='dock'||mode==='boot') setMode('mini');
+}
+function setMode(m){
+  mode=m;
+  if(m==='visit') setVars({pw:140,ph:Math.round(140*AR),pl:14,bw:Math.min(250,innerWidth-40)}); else if(m!=='dock') clearVars();
+  root.classList.toggle('visit',m==='visit'); root.classList.toggle('mc-mini',m==='mini');
+  root.hidden=(m==='off'); if(m==='mini') bubble.hidden=true;
+  if(m==='dock'||m==='visit'){ root.classList.remove('news'); if(pending){ const p=pending; pending=null; setTimeout(()=>say(p),450) } }
+  if(m!=='off' && !running) loop();
+}
+addEventListener('resize',layout);
+
+// ---------- falas ----------
+let typing=null, hideT=null, lastSay=0, lastLine='', talkUntil=0, pending=null, exprName=null, exprUntil=0, asking=false;
+const optsEl=document.createElement('span'); optsEl.className='mc-opts'; bubble.appendChild(optsEl);
+// expressão do rosto por um tempinho (surpreso, corado, língua de fora…)
+function expr(x,ms){ if(!x) return; exprName='x_'+x; exprUntil=performance.now()+(ms||2600) }
+function say(text,ms,x){
+  if(mode==='mini'||mode==='off'){ pending=text; root.classList.add('news'); return }
+  clearInterval(typing); clearTimeout(hideT); optsEl.textContent=''; asking=false;
+  bubble.hidden=false; bubble.style.animation='none'; void bubble.offsetWidth; bubble.style.animation='';
+  txt.textContent=''; lastSay=Date.now(); lastLine=text; beep.talk();
+  const chars=[...text]; let n=0; talkUntil=performance.now()+chars.length*26+200;
+  if(x) expr(x,Math.max(2400,chars.length*40));
+  if(reduce){ txt.textContent=text } else typing=setInterval(()=>{ txt.textContent+=chars[n++]||''; if(n>=chars.length) clearInterval(typing) },26);
+  hideT=setTimeout(()=>{ bubble.hidden=true },ms||Math.max(4200,chars.length*72));
+}
+// pergunta com botõezinhos pra pessoa responder
+function ask(q){
+  if(mode!=='dock'&&mode!=='visit') return;
+  say(q.q,16000,q.x||'squint'); asking=true;
+  q.o.forEach(o=>{ const b=document.createElement('button'); b.type='button'; b.className='mc-opt'; b.textContent=o[0];
+    b.addEventListener('click',e=>{ e.stopPropagation(); audio(); beep.tap(); hop(); typeof o[1]==='function'?o[1]():say(o[1],6000,o[2]||'happy') });
+    optsEl.appendChild(b) });
+}
+function pick(list){ let s; do{ s=list[Math.floor(Math.random()*list.length)] }while(list.length>1 && s===lastLine); return s }
+const hour=+new Intl.DateTimeFormat('en-US',{timeZone:'America/Sao_Paulo',hour:'numeric',hourCycle:'h23'}).format(new Date());
+const hi=hour>=5&&hour<12?'Bom dia':hour>=12&&hour<18?'Boa tarde':'Boa noite';
+const HELLO=hi+'! Eu sou o Bjørn, bem-vindo ao meu cantinho 💜';
+const SECTION={
+  sobre:'Sou furry desde os 8 anos! Isso já é bastante tempo 🐾',
+  redes:'Psiu… no Telegram e no WhatsApp eu respondo bem mais rápido 💬',
+  ocs:'Toca numa cor da paleta que ela vai direto pro seu copiar e colar ✨',
+  setup:'28 threads e uma RTX 2070 SUPER… por isso aqui é sempre quentinho 🔥',
+  games:'13 consoles na estante! Qual desses é o seu favorito? 🎮',
+  manutencao:'PC travando? Me chama! Dá até pra resolver pelo Parsec 🛠️',
+  parcerias:'Com o cupom YOSHIRO você ganha desconto e ainda leva um mimo 🎁',
+  yoshiro:'Esse aí é o Sol da minha vida ☀️',
+  casal:'Toca no coração! Cada toque vira um boop 💜',
+  momentos:'Clica numa foto pra ver ela grandona 📸'
+};
+const TAP=[['Ei! Isso faz cócegas 😆','laugh'],['Oi oi! 👋','happy'],['Esse sou eu no VRChat! Curtiu o visual? ✨','wink'],['Já me segue no Instagram? 👀','squint'],['Passa o mouse em mim pra fazer carinho 😽','beg'],['Que bom te ver por aqui 💜','blush'],['Dica secreta: tem uma folha vermelha escondida lá no rodapé… 🍁','wink'],['Os óculos na cabeça são só estilo, viu? 😎','squint'],['Bleh! 😛','tongue'],['Opa! Que susto! 😳','surprised']];
+const FACTS=['polvos têm três corações e sangue azul 🐙','um dia em Vênus é mais longo que um ano em Vênus 🪐','o mel praticamente não estraga: já acharam mel comestível em tumbas egípcias 🍯','os flamingos são cor-de-rosa por causa do que comem 🦩','lontras-marinhas dormem de mãos dadas pra não se perderem 🦦','a Torre Eiffel fica uns 15 cm mais alta no verão, por causa do calor 🗼','bananas são levemente radioativas, por causa do potássio 🍌','os tubarões existem há mais tempo que as árvores 🦈','botanicamente, a banana é uma baga… e o morango não é 🍓','um raio é umas cinco vezes mais quente que a superfície do Sol ⚡','as corujas não conseguem mexer os olhos, por isso giram tanto a cabeça 🦉','o Monte Everest cresce alguns milímetros por ano 🏔️','existem mais estrelas no universo do que grãos de areia em todas as praias da Terra ✨','golfinhos chamam uns aos outros com assobios únicos, tipo nomes 🐬','não dá pra ver a Muralha da China do espaço a olho nu 🧱','o ENIAC, um dos primeiros computadores, pesava cerca de 27 toneladas 💻','axolotes conseguem regenerar patas e até partes do coração 🦎','o primeiro vídeo do YouTube é de 2005 e se chama "Me at the zoo" 📼','os gatos passam boa parte da vida dormindo, uns 12 a 16 horas por dia 😴','as abelhas conseguem reconhecer rostos humanos 🐝','a luz do Sol leva uns 8 minutos pra chegar até a Terra ☀️','o coração de uma baleia-azul é do tamanho de um carro pequeno 🐋','os lobos uivam pra reunir a matilha, não pra Lua 🐺'];
+const JOKES=[['Por que o computador foi ao médico?','Porque estava com vírus! 🤒💻'],['O que o zero disse pro oito?','Que cinto bonito! 😆'],['Qual é o café mais perigoso do mundo?','O ex-presso! ☕'],['O que o tomate foi fazer no banco?','Tirar extrato! 🍅'],['Por que o robô saiu de férias?','Pra recarregar as baterias! 🔋🤖'],['O que é um pontinho amarelo no céu?','Um yellowcóptero! 🚁'],['Por que a vaca foi pro espaço?','Pra conhecer a Via Láctea! 🐄🌌'],['O que o pato disse pra pata?','Vem quá! 🦆'],['Qual é o peixe que caiu do décimo andar?','Aaaaaatum! 🐟'],['Como o elétron atende o telefone?','Próton! ⚡'],['O que o Wi-Fi disse pro roteador?','Sem você eu perco a conexão 💔📶'],['Qual o contrário de volátil?','Vem cá, sobrinho! 😂'],['Por que o Peki é tão travesso?','Porque gato que não apronta não é gato! 😹'],['O que um bit disse pro outro?','A gente se vê no ônibus! 🚌'],['Qual é a fruta mais paciente?','A espera… digo, a pera! 🍐']];
+const SITEFACTS=['Nasci na Rússia e vim pro Brasil ainda recém-nascido 🇧🇷','A Lua lá em cima mostra a fase de verdade de hoje, vista do Brasil 🌙','Bjørn quer dizer "urso" nas línguas nórdicas 🐻','O Lupus Wolf existe desde 2011! 🐺','Esse avatar é o mesmo que eu uso no VRChat 🥽'];
+const PET=['Hmmm… que carinho bom 💜','Prrrr… continua, continua! 😽','Pode fazer mais, eu deixo 🥰','Ronron.exe ativado 😽','Aí atrás da orelha… isso! 😳','Tô ficando vermelhinho aqui… 😳'];
+FACTS.push('as girafas dormem só uns 30 minutos por dia, em cochilos 🦒','o coração do camarão fica na cabeça 🦐','as vacas têm melhores amigas e ficam estressadas longe delas 🐄','o primeiro mouse de computador era feito de madeira 🖱️','um caracol pode dormir por até três anos 🐌','o Pac-Man foi inspirado numa pizza sem uma fatia 🍕','os pinguins dão pedrinhas de presente pra quem eles gostam 🐧','o cérebro humano usa uns 20% de toda a energia do corpo 🧠','os cavalos-marinhos machos é que ficam grávidos 🐴','as estrelas-do-mar não têm cérebro nem sangue ⭐','a palavra "robô" vem do tcheco "robota", que quer dizer trabalho forçado 🤖','o Super Mario se chamava "Jumpman" no primeiro Donkey Kong 🍄','o Game Boy sobreviveu a um bombardeio na Guerra do Golfo e ainda funciona 🎮','os gatos não sentem o gosto doce 🍬','os corvos lembram do rosto de quem foi mau com eles 🐦‍⬛','a Lua se afasta da Terra uns 3,8 cm por ano 🌙','os ursos-polares têm pele preta embaixo dos pelos brancos 🐻‍❄️','o Nintendo começou em 1889, fazendo cartas de baralho 🃏','os lobos conseguem ouvir sons a quilômetros de distância 🐺','as lulas-gigantes têm os maiores olhos do reino animal 🦑');
+JOKES.push(['Qual é o animal mais antigo do mundo?','A zebra, porque ainda é em preto e branco! 🦓'],['Por que o livro de matemática ficou triste?','Porque tinha muitos problemas! 📕'],['O que o lobo falou quando entrou no VRChat?','Auuuu-vatar novo! 🐺🥽'],['Como se chama um dinossauro que dorme muito?','Dinossonoro! 🦖💤'],['Por que o esqueleto não brigou com ninguém?','Porque não tinha estômago pra isso! 💀'],['O que a impressora falou pra outra?','Essa folha é sua ou é impressão minha? 🖨️'],['Qual é o lugar mais frio da casa?','O canto, porque lá fica a noventa graus! 🥶'],['Por que o gamer levou uma escada pra partida?','Pra subir de nível! 🎮🪜'],['O que o mouse disse pro teclado?','Para de dar tecla em tudo! ⌨️'],['O que o urso disse quando provou o mel?','Isso aqui é mel-hor que tudo! 🍯🐻'],['Qual é o super-herói que mais gosta de pão?','O Pão-Man! 🍞'],['Por que a planta não responde as mensagens?','Porque ela só fica no modo vaso! 🪴']);
+SITEFACTS.push('O Peki é um gatinho que adora aprontar por aqui 😹','Gosto de fotografar paisagens, bichinhos e insetos curiosos 📸','Minha roupa aqui é o Cyber Set, recolorido em roxo pra combinar com o site 💜');
+const QUIZ=[
+  {q:'Pergunta rápida: gato ou cachorro? 🐱🐶',o:[['Gato','Time gato! O Peki aprova 😹','laugh'],['Cachorro','Auuu! Respeito muito os doguinhos 🐺','happy'],['Os dois','Resposta perfeita, sem brigas aqui 💜','wink']]},
+  {q:'Qual é o seu time de console? 🎮',o:[['Xbox','Forza Horizon na veia, hein? 🏎️','wink'],['PlayStation','PS5 aqui na estante também! 🎮','happy'],['Nintendo','Do Famicom ao Switch 2, sou fã! 🍄','laugh']]},
+  {q:'Quer ouvir uma piada? 😏',x:'squint',o:[['Quero!',()=>joke()],['Agora não','Tá bom… fico quietinho aqui 🥺','sad']]},
+  {q:'Quer uma curiosidade aleatória? 🤓',x:'think',o:[['Manda!',()=>tellFact()],['Depois','Beleza! Tô aqui se precisar 💜','happy']]},
+  {q:'Você é mais do dia ou da noite? 🌞🌙',o:[['Dia','Que energia! Eu sou meio corujão 🦉','surprised'],['Noite','Somos dois! A Lua aqui em cima concorda 🌙','wink']]},
+  {q:'Já jogou VRChat? 🥽',o:[['Já!','Então me chama lá qualquer dia! 👋','laugh'],['Nunca','Vale muito a pena! É onde eu uso esse avatar 😎','happy']]},
+  {q:'Café ou chá? ☕',o:[['Café','Combustível de quem mexe com TI ☕💻','wink'],['Chá','Chique! Chazinho e um bom jogo 🍵','happy'],['Nenhum','Então é energético, né? 😏','squint']]},
+  {q:'O que achou do meu site até agora? 👀',x:'beg',o:[['Amei!','Aaaa obrigado! Fiquei todo vermelho 😳💜','blush'],['Tá legal','Valeu! Ainda vou deixar ele mais bonito ✨','happy']]}
+];
+
+// ---------- posição dentro do visualizador (iframe que cresce com a página) ----------
+function framePos(y){ root.style.setProperty('--py',Math.max(90,Math.round(y))+'px') }
+if(inFrame()){ root.classList.add('in-frame'); framePos(140) }
+
+// ---------- movimento ----------
+let running=false, last=0;
+const spring=(k,d)=>({x:0,v:0,t:0,k,d,step(dt){ const a=this.k*(this.t-this.x)-this.d*this.v; this.v+=a*dt; this.x+=this.v*dt; return this.x }});
+const yaw=spring(26,9), pitch=spring(26,9); yaw.x=.5;
+let px=null, py=null, lastMove=-1e9, glanceAt=0, gy=.5, gp=0, nextBlink=0, blinkUntil=0, happyUntil=0, waveT=-1, waveUntil=0;
+const track=e=>{ px=e.clientX; py=e.clientY; lastMove=performance.now() };
+addEventListener('pointermove',track,{passive:true}); addEventListener('pointerdown',track,{passive:true});
+function hop(){ if(reduce||mode==='mini') return; body.animate([{transform:'translateY(0)'},{transform:'translateY(-6%) scale(.99,1.02)',offset:.38},{transform:'translateY(0) scale(1.02,.97)',offset:.78},{transform:'translateY(0)'}],{duration:560,easing:'cubic-bezier(.3,.7,.4,1)'}) }
+function wave(){ const n=performance.now(); waveT=n; waveUntil=n+(reduce?1200:2100) }
+function react(kind){ const n=performance.now(); if(kind==='laugh'){ happyUntil=n+2200; hop() } else happyUntil=n+1800 }
+// carinho: passar o mouse por cima dele
+let petPath=0, petLastX=null, petLastY=null, petLastT=0, petting=false, petEndT=0, heartT=0, petSaid=0;
+stage.addEventListener('pointermove',e=>{ if(mode==='mini') return;
+  const n=performance.now(); if(petLastX!==null && n-petLastT<200){ petPath+=Math.hypot(e.clientX-petLastX,e.clientY-petLastY) } else petPath=0;
+  petLastX=e.clientX; petLastY=e.clientY; petLastT=n;
+  if(petPath>140){ if(!petting){ petting=true; purrStart(); if(Date.now()-petSaid>9000){ petSaid=Date.now(); say(pick(PET),0,'blush') } } petEndT=n+650 } });
+stage.addEventListener('pointerleave',()=>{ petEndT=Math.min(petEndT,performance.now()+250) });
+function heart(){ const r=stage.getBoundingClientRect(); const s=document.createElement('span'); s.className='mc-heart';
+  s.style.color=['#C77DFF','#2BE6A8','#FF6FB5','#AC00FF'][Math.floor(Math.random()*4)];
+  s.innerHTML='<svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.2 0 3.6 1.2 5.3 3.1 1.7-1.9 3.1-3.1 5.3-3.1 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"/></svg>';
+  s.style.left=(r.width*(.18+Math.random()*.34))+'px'; s.style.top=(r.height*.16)+'px'; heartsEl.appendChild(s);
+  const dx=(Math.random()-.5)*70, sc=.7+Math.random()*.6;
+  s.animate([{transform:'translate(0,0) scale(.3)',opacity:0},{transform:`translate(${dx*.3}px,-24px) scale(${sc})`,opacity:1,offset:.2},{transform:`translate(${dx}px,-110px) scale(${sc*.8})`,opacity:0}],{duration:1500+Math.random()*500,easing:'cubic-bezier(.2,.7,.3,1)'}).onfinish=()=>s.remove() }
+
+stage.addEventListener('click',()=>{ audio();
+  if(mode==='mini'){ const had=!!pending; userMin=false; store.set('bj-min','0'); if(space()){ mode='boot'; layout() } else setMode('visit');
+    setTimeout(()=>{ hop(); wave(); beep.hello(); if(!had) say(lastSay?'Oi de novo! 💜':HELLO) },350); return }
+  if(petting && performance.now()-petLastT<350) return;
+  hop(); beep.tap(); pokes.push(Date.now()); pokes=pokes.filter(t=>Date.now()-t<3500);
+  if(pokes.length>=5){ pokes=[]; waveUntil=0; say('Ei! Para de me cutucar! 😤',2600,'angry'); setTimeout(()=>say('Brincadeirinha 😹',3000,'laugh'),2700); return }
+  if(Math.random()<.3) wave(); const l=pickT(TAP); say(l[0],0,l[1]) });
+let pokes=[]; function pickT(list){ let s; do{ s=list[Math.floor(Math.random()*list.length)] }while(list.length>1 && s[0]===lastLine); return s }
+closeBtn.addEventListener('click',e=>{ e.stopPropagation(); purrStop(); userMin=true; store.set('bj-min','1'); setMode('mini') });
+
+document.addEventListener('visibilitychange',()=>{ if(!document.hidden && !running && !root.hidden) loop() });
+function loop(){ running=true; last=performance.now(); requestAnimationFrame(frame) }
+function frame(){
+  if(document.hidden || root.hidden){ running=false; purrStop(); return }
+  const now=performance.now(), dt=Math.min(.05,(now-last)/1000); last=now;
+  if(petting && now>petEndT){ petting=false; petPath=0; purrStop() }
+  if(petting && now>heartT){ heartT=now+(reduce?600:170); heart() }
+  // olhar: vira a cabeça na direção do cursor (5 posições pros lados × 3 pra cima/baixo)
+  if(px!==null && now-lastMove<4500){
+    const r=stage.getBoundingClientRect(), mini=mode==='mini';
+    const hx=r.left+r.width*(mini?.5:.34), hy=r.top+r.height*(mini?.5:.19);
+    yaw.t=clamp((px-hx)/(innerWidth*(mini?.28:.36)),-1,1); pitch.t=clamp((py-hy)/(innerHeight*.42),-1,1);
+  } else {
+    if(now>glanceAt){ glanceAt=now+2600+Math.random()*3800; const r=Math.random(); gy=r<.45?.5:Math.random()*2-1; gp=(Math.random()-.45)*.9 }
+    yaw.t=gy; pitch.t=gp;
+  }
+  const talking=now<talkUntil;
+  if(talking||petting){ yaw.t*=.2; pitch.t*=.2 }   // olha pra quem está lendo enquanto fala
+  yaw.step(dt); pitch.step(dt);
+  const col=clamp(Math.round((yaw.x+1)*2),0,4), row=pitch.x<-.4?'u':pitch.x>.4?'d':'m';
+  let n='look_'+row+col;
+  if(now<waveUntil && mode!=='mini'){ n=Math.floor((now-waveT)/250)%2?'wave_b':'wave_a' }
+  else if(petting && now>exprUntil){ n='happy' }
+  else if(now<exprUntil && exprName){ n=exprName }
+  else if(now<happyUntil){ n='happy' }
+  else if(talking && col===2 && row==='m' && !reduce){ const k=Math.floor(now/105)%4; n=k===1?'talk_a':k===3?'talk_o':'look_m2' }
+  else { if(now>nextBlink){ blinkUntil=now+140; nextBlink=now+2400+Math.random()*3600; if(Math.random()<.2) nextBlink=now+320 }
+    if(now<blinkUntil && row==='m') n='blink_'+col }
+  show(n);
+  requestAnimationFrame(frame);
+}
+
+// ---------- começa (só no PC: no celular a tela é pequena demais pra ele) ----------
+let booted=false;
+function boot(){ if(!isPC) return;
+  buildFrames().then(()=>{ booted=true; show('look_m3'); mode='boot'; layout(); requestAnimationFrame(()=>root.classList.add('ready'));
+    if(mode==='dock'){ setTimeout(()=>{ beep.hello(); wave(); say(HELLO) },700);
+      setTimeout(()=>{ if(Date.now()-lastSay>5000) say('Mexe o mouse que eu te sigo com o olhar 👀') },8500) }
+    else { pending=HELLO; root.classList.add('news') } }) }
+if(document.readyState==='complete') setTimeout(boot,900); else addEventListener('load',()=>setTimeout(boot,900));
+['pointerdown','keydown'].forEach(ev=>addEventListener(ev,()=>{ if(soundOn&&booted) audio() },{once:true,passive:true}));
+
+// ---------- conversa de tempos em tempos: curiosidades, piadas e umas do site ----------
+const deck=l=>{ let q=[]; return ()=>{ if(!q.length) q=l.slice().sort(()=>Math.random()-.5); return q.pop() } };
+const nextFact=deck(FACTS), nextJoke=deck(JOKES), nextSite=deck(SITEFACTS), lead=['Curiosidade: ','Fato aleatório: ','Você sabia que ','Sabia que '];
+function tellFact(){ const l=pick(lead), f=nextFact(); say(l+(l.endsWith('que ')?f.replace(/ ([^ ]+)$/,'? $1'):f.charAt(0).toUpperCase()+f.slice(1)),7500,'surprised') }
+function joke(){ const j=nextJoke(); say(j[0],3600,'think'); setTimeout(()=>{ say(j[1],5200,'laugh'); hop() },3000) }
+const nextQuiz=deck(QUIZ);
+setInterval(()=>{ if(mode!=='dock'&&mode!=='visit') return; if(Date.now()-lastSay<22000||document.hidden) return; const r=Math.random();
+  if(r<.45) tellFact()
+  else if(r<.75) joke()
+  else if(r<.9) ask(nextQuiz())
+  else say(nextSite(),7000) },11000);
+
+// ---------- comenta as seções (uma vez cada) ----------
+const said={};
+const io=new IntersectionObserver(es=>{ es.forEach(e=>{ if(!e.isIntersecting) return; const id=e.target.id;
+  if(inFrame()) framePos(e.target.offsetTop+110);
+  if(!booted||said[id]||!SECTION[id]||mode==='off') return;
+  if(Date.now()-lastSay<6500) return; said[id]=1; say(SECTION[id]) }) },{threshold:.3});
+document.querySelectorAll('main > section[id]').forEach(s=>io.observe(s));
+
+// ---------- reações pelo site ----------
+let swT=0;
+document.addEventListener('click',e=>{
+  if(!booted||mode==='off') return;
+  if(e.target.closest('.sw') && Date.now()-swT>8000){ swT=Date.now(); react('happy'); say('Boa escolha! Essa cor é linda 🎨'); return }
+  if(e.target.closest('#nerv')){ setTimeout(()=>say('Os MAGI aprovaram! Agora é oficial 😎'),4200); return }
+  if(e.target.closest('.big-heart,#stage')){ react('happy'); if(Date.now()-lastSay>4000) say('Boop! 💜',0,'blush'); return }
+  if(e.target.closest('#peki')){ const b=document.getElementById('bsod'); if(!b) return; const mo=new MutationObserver(()=>{ if(b.hidden){ mo.disconnect(); setTimeout(()=>{ hop(); say(pick(['Eu avisei que não era pra mexer no Peki! 😹','Hehehe… o Peki pegou você também? 😹']),0,'laugh') },400) } }); mo.observe(b,{attributes:true,attributeFilter:['hidden']}) }
+},true);
+let idleT; const idle=()=>{ clearTimeout(idleT); idleT=setTimeout(()=>{ if(booted&&(mode==='dock'||mode==='visit')) say('Zzz… ah! Ainda tá aí? 👀',0,'beg') },50000) };
+// mais interações com quem está lendo
+const live=()=>booted&&(mode==='dock'||mode==='visit')&&!asking;
+let leftAt=0, leaveSaid=0;
+document.documentElement.addEventListener('mouseleave',e=>{ if(!live()||e.clientY>40||Date.now()-leaveSaid<60000) return; leaveSaid=Date.now(); leftAt=Date.now(); say('Ei, não vai embora não! 🥺',4200,'sad') });
+document.documentElement.addEventListener('mouseenter',()=>{ if(leftAt && Date.now()-leftAt<20000 && live()){ leftAt=0; say('Voltou! Eba! 💜',3200,'laugh'); hop() } });
+let copySaid=0; document.addEventListener('copy',()=>{ if(live()&&Date.now()-copySaid>20000){ copySaid=Date.now(); setTimeout(()=>say('Copiou, hein? Pode usar à vontade 😉',3800,'wink'),300) } });
+let sy=scrollY, st=performance.now(), fastSaid=0, endSaid=false;
+addEventListener('scroll',()=>{ const n=performance.now(), v=Math.abs(scrollY-sy)/Math.max(16,n-st); sy=scrollY; st=n;
+  if(!live()) return;
+  if(v>9 && Date.now()-fastSaid>45000 && Date.now()-lastSay>3000){ fastSaid=Date.now(); say('Calma! Assim eu fico tonto 😵',3200,'surprised') }
+  if(!endSaid && innerHeight+scrollY>=document.documentElement.scrollHeight-40){ endSaid=true; setTimeout(()=>{ say('Chegou no fim! Valeu por ler tudo, de coração 💜',5200,'blush'); hop() },600) } },{passive:true});
+let stareT=null, stareSaid=0;
+stage.addEventListener('pointerenter',()=>{ clearTimeout(stareT); stareT=setTimeout(()=>{ if(live()&&!petting&&Date.now()-stareSaid>40000&&Date.now()-lastSay>4000){ stareSaid=Date.now(); say(pick(['Tá me olhando, é? 😳','Que foi? Tem algo no meu focinho? 😳','Gostou da roupa nova? 😎'])) ; expr('blush',2600) } },2600) });
+stage.addEventListener('pointerleave',()=>clearTimeout(stareT));
+stage.addEventListener('dblclick',e=>{ e.preventDefault(); if(live()){ say('Bleh! 😛',2400,'tongue'); hop() } });
+if(hour>=0&&hour<5) setTimeout(()=>{ if(live()) say('Já é tarde, hein? Não esquece de dormir 😴',5000,'squint') },30000);
+// de vez em quando faz uma carinha sozinho
+setInterval(()=>{ if(!live()||Date.now()-lastSay<5000||document.hidden||Math.random()<.5) return; expr(pick(['wink','tongue','squint','blush']),1500) },17000);
+['pointermove','scroll','keydown'].forEach(ev=>addEventListener(ev,idle,{passive:true})); idle();
 </script>
 
 </body>
