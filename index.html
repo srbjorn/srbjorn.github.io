@@ -2216,7 +2216,7 @@ sndBtn.addEventListener('click',e=>{ e.stopPropagation(); setSound(!soundOn); if
 // ---------- animação: vídeos renderizados no Blender, misturados suavemente num canvas ----------
 // 'look' é uma grade 5×2 (5 direções pros lados × 2 alturas) com o mesmo movimento de corpo em todas:
 // misturando as direções vizinhas, a cabeça gira de forma contínua seguindo o mouse.
-const META={"w":468,"h":770,"fps":20,"clips":{"look":80,"laugh":36,"pet":40,"sit":80,"sit_down":28,"stand_up":24,"talk":40,"wave":48,"x_angry":44,"x_beg":44,"x_blush":44,"x_sad":44,"x_squint":44,"x_surprised":44,"x_think":44,"x_tongue":44,"x_wink":44,"yawn":56},"hx":0.4185,"hy":0.1604,"fl":0.2162,"fr":0.3694,"fb":0.191};
+const META={"ver":1791175117,"w":468,"h":770,"fps":20,"clips":{"look":80,"laugh":36,"pet":40,"sit":80,"sit_down":28,"stand_up":24,"talk":40,"wave":48,"x_angry":44,"x_beg":44,"x_blush":44,"x_sad":44,"x_squint":44,"x_surprised":44,"x_think":44,"x_tongue":44,"x_wink":44,"yawn":56},"hx":0.4185,"hy":0.1604,"fl":0.2162,"fr":0.3694,"fb":0.191,"ff":{"laugh":18,"pet":20,"sit":40,"sit_down":14,"stand_up":12,"talk":20,"wave":24,"x_angry":22,"x_beg":22,"x_blush":22,"x_sad":22,"x_squint":22,"x_surprised":22,"x_think":22,"x_tongue":22,"x_wink":22,"yawn":28}};
 const TW=META.w, TH=META.h, AR=TH/TW;
 const ua=navigator.userAgent, isSafari=/^((?!chrome|chromium|crios|edg|android).)*safari/i.test(ua);
 const vtest=document.createElement('video');
@@ -2234,11 +2234,11 @@ function loadAll(){
   const firsts=[];
   names.forEach(n=>{
     if(useVideo){ const v=document.createElement('video'); v.muted=true; v.playsInline=true; v.preload=n==='look'?'auto':'auto'; v.loop=LOOPS.has(n);
-      v.setAttribute('muted',''); v.setAttribute('playsinline',''); v.src='img/bj/'+n+'.webm'; holder.appendChild(v); SRC[n]=v;
+      v.setAttribute('muted',''); v.setAttribute('playsinline',''); v.src='img/bj/'+n+'.webm?v='+META.ver; holder.appendChild(v); SRC[n]=v;
       if(n==='look') firsts.push(new Promise(res=>{ v.addEventListener('canplay',res,{once:true}); v.addEventListener('error',res,{once:true}); setTimeout(res,8000) })) }
     else {
-      if(n==='look'){ for(let j=0;j<2;j++) for(let k=0;k<5;k++){ const im=new Image(); im.src='img/bj/s_look_'+j+k+'.webp'; SRC['look_'+j+k]=im; firsts.push(im.decode?im.decode().catch(()=>{}):Promise.resolve()) } }
-      else { const seq=[]; for(let q=0;q<(META.ff[n]||0);q++){ const im=new Image(); im.decoding='async'; im.src='img/bj/f/'+n+'_'+q+'.webp'; seq.push(im) } SRC[n]={seq,t0:0} }
+      if(n==='look'){ for(let j=0;j<2;j++) for(let k=0;k<5;k++){ const im=new Image(); im.src='img/bj/s_look_'+j+k+'.webp?v='+META.ver; SRC['look_'+j+k]=im; firsts.push(im.decode?im.decode().catch(()=>{}):Promise.resolve()) } }
+      else { const seq=[]; for(let q=0;q<(META.ff[n]||0);q++){ const im=new Image(); im.decoding='async'; im.src='img/bj/f/'+n+'_'+q+'.webp?v='+META.ver; seq.push(im) } SRC[n]={seq,t0:0} }
     }
   });
   return Promise.all(firsts);
