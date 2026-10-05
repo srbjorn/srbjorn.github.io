@@ -298,6 +298,18 @@ main,footer{position:relative;z-index:1}
 .play{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#1ED760;color:#000;transition:transform .25s cubic-bezier(.34,1.56,.64,1)}
 .play svg{width:20px;height:20px;fill:currentColor;margin-left:2px}
 .track:hover .play{transform:scale(1.12)}
+.pv-btn{border:0;padding:0;cursor:pointer;position:relative;z-index:2}
+.pv-btn .pv-pause{display:none;margin-left:0}
+.track.playing .pv-btn .pv-play{display:none}.track.playing .pv-btn .pv-pause{display:block}
+.track .eq i{animation-play-state:paused}.track.playing .eq i{animation-play-state:running}
+.pv-bar{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(30,215,96,.15);opacity:0;transition:opacity .3s ease}
+.pv-bar i{display:block;height:100%;width:0;background:#1ED760}
+.track.playing .pv-bar{opacity:1}
+.pv-note{position:absolute;right:16px;top:9px;font:600 10.5px/1 var(--mono);letter-spacing:.06em;color:var(--muted);opacity:0;transition:opacity .3s ease}
+.track.playing .pv-note{opacity:.85}
+.track.pv-hint .pv-note{opacity:1;color:#1ED760}
+.track.pv-hint .pv-btn{animation:pvPulse 1s ease-in-out infinite}
+@keyframes pvPulse{50%{box-shadow:0 0 0 8px rgba(30,215,96,.25)}}
 @media (max-width:900px){ .music{grid-template-columns:minmax(0,1fr)} }
 @media (max-width:420px){ .track .eq{display:none} .track{grid-template-columns:auto minmax(0,1fr) auto} }
 /* selo ESTJ-T */
@@ -953,7 +965,15 @@ main > section[id]::before{content:"";position:absolute;top:0;left:50%;transform
 .contact-row .logo{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:20px;color:#fff}
 .contact-row a{font-weight:700;text-decoration:none}
 .contact-row a:hover{color:var(--violet-soft)}
-.contact-row small{display:block;color:var(--muted);font:500 13px var(--mono);user-select:all}
+.contact-row small{display:block;color:var(--muted);font:500 13px var(--mono)}
+a.contact-row{text-decoration:none;color:var(--bone);cursor:pointer}
+a.contact-row:hover{transform:translateY(-2px)}
+.contact-row .cname{display:block;font:700 16px/1.2 var(--display)}
+.cgo{position:relative;z-index:3;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;font:700 13.5px/1 var(--body);padding:11px 15px;border-radius:999px;border:1px solid color-mix(in srgb,var(--brand) 45%,transparent);background:color-mix(in srgb,var(--brand) 14%,transparent);transition:background .2s ease,border-color .2s ease}
+.cgo i{font-style:normal;transition:transform .25s cubic-bezier(.34,1.56,.64,1)}
+a.contact-row:hover .cgo{background:color-mix(in srgb,var(--brand) 28%,transparent);border-color:var(--brand)}
+a.contact-row:hover .cgo i{transform:translateX(4px)}
+@media (max-width:420px){ .cgo{padding:11px 12px;font-size:0;gap:0} .cgo i{font-size:16px} }
 .mini{font:600 13px/1 var(--body);padding:10px 12px;border-radius:10px;background:var(--coal-2);border:1px solid var(--line);color:var(--bone);cursor:pointer}
 .mini:hover{border-color:var(--violet-soft)}
 
@@ -1280,11 +1300,13 @@ footer .brand{font-size:20px;color:var(--bone)}
 
     <div class="sub-head music-head"><h3>Trilha sonora</h3><span class="line" aria-hidden="true"></span><span class="eyebrow green">Spotify</span></div>
     <div class="music">
-      <a class="track" href="https://open.spotify.com/track/7EAMXbLcL0qXmciM5SwMh2" target="_blank" rel="noopener">
+      <a class="track" id="fav-track" href="https://open.spotify.com/track/7EAMXbLcL0qXmciM5SwMh2" target="_blank" rel="noopener" data-preview="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/e5/50/16/e550166d-f5db-d90a-22e7-845f12b263d2/mzaf_9967103043946189392.plus.aac.p.m4a">
         <span class="vinyl" aria-hidden="true"><span class="vlabel"></span></span>
         <span class="tinfo"><span class="tkind">Minha música favorita</span><b>Heart To Heart</b><span class="artist">Mac DeMarco</span></span>
         <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-        <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+        <button type="button" class="play pv-btn" aria-label="Ouvir prévia de 30 segundos"><svg class="pv-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="pv-pause" viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg></button>
+        <span class="pv-bar" aria-hidden="true"><i></i></span>
+        <span class="pv-note">Prévia de 30s · Apple Music</span>
       </a>
       <a class="track no-eq" href="https://open.spotify.com/playlist/3jlUJk7PqRFrwsdVlrx4jn" target="_blank" rel="noopener">
         <span class="pcover" aria-hidden="true"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></span>
@@ -1515,8 +1537,8 @@ footer .brand{font-size:20px;color:var(--bone)}
           <li><div><b>Resolvido</b><small>Presencial, remoto pelo Parsec ou por envio da máquina.</small></div></li>
         </ol>
         <div class="contact">
-          <div class="contact-row"><span class="logo b-whatsapp"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></span><div><a href="https://wa.me/5519996832789" target="_blank" rel="noopener">WhatsApp</a><small id="wa-num">+55 19 99683-2789</small></div><button type="button" class="copy-btn" data-copy="+5519996832789" aria-label="Copiar número do WhatsApp"><svg class="cp" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Copiar número</span></button></div>
-          <div class="contact-row"><span class="logo b-telegram"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></span><div><a href="https://t.me/Sr_Bjorn" target="_blank" rel="noopener">Telegram</a><small>@Sr_Bjorn</small></div><button type="button" class="copy-btn" data-copy="@Sr_Bjorn" aria-label="Copiar usuário do Telegram"><svg class="cp" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Copiar @</span></button></div>
+          <a class="contact-row" href="https://wa.me/5519996832789" target="_blank" rel="noopener" aria-label="Chamar no WhatsApp: +55 19 99683-2789"><span class="logo b-whatsapp"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></span><div><b class="cname">WhatsApp</b><small>+55 19 99683-2789</small></div><span class="cgo">Chamar <i aria-hidden="true">→</i></span></a>
+          <a class="contact-row" href="https://t.me/Sr_Bjorn" target="_blank" rel="noopener" aria-label="Chamar no Telegram: @Sr_Bjorn"><span class="logo b-telegram"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></span><div><b class="cname">Telegram</b><small>@Sr_Bjorn</small></div><span class="cgo">Chamar <i aria-hidden="true">→</i></span></a>
         </div>
       </div>
     </div>
@@ -2182,6 +2204,27 @@ footer .brand{font-size:20px;color:var(--bone)}
     if(n){ requestAnimationFrame(draw) } else { running=false }
   }
 })();
+// ---------- prévia oficial de 30s (Apple Music) da música favorita: toca ao passar o mouse ----------
+(function(){
+  var card=document.getElementById('fav-track'); if(!card) return;
+  var url=card.getAttribute('data-preview'), btn=card.querySelector('.pv-btn'), bar=card.querySelector('.pv-bar i'), note=card.querySelector('.pv-note');
+  var a=null, fadeT=null, hoverT=null, wantPlay=false;
+  function get(){ if(!a){ a=new Audio(url); a.preload='none'; a.volume=0;
+      a.addEventListener('timeupdate',function(){ if(a.duration) bar.style.width=(a.currentTime/a.duration*100)+'%' });
+      a.addEventListener('ended',function(){ card.classList.remove('playing'); a.currentTime=0 }) } return a }
+  function fade(to,ms,done){ clearInterval(fadeT); var x=get(), s0=x.volume, t0=Date.now();
+    fadeT=setInterval(function(){ var k=Math.min(1,(Date.now()-t0)/ms); x.volume=s0+(to-s0)*k; if(k>=1){ clearInterval(fadeT); if(done) done() } },30) }
+  function play(){ var x=get(); wantPlay=true; card.classList.add('playing'); note.textContent='Prévia de 30s · Apple Music';
+    var pr=x.play(); if(pr&&pr.catch) pr.catch(function(){ // o navegador só libera som depois de um clique na página
+      card.classList.remove('playing'); card.classList.add('pv-hint'); note.textContent='Clique no ▶ pra ouvir a prévia' });
+    fade(.55,600) }
+  function stop(){ wantPlay=false; if(!a) return; card.classList.remove('playing'); fade(0,450,function(){ if(!wantPlay) a.pause() }) }
+  card.addEventListener('mouseenter',function(){ clearTimeout(hoverT); hoverT=setTimeout(play,220) });
+  card.addEventListener('mouseleave',function(){ clearTimeout(hoverT); card.classList.remove('pv-hint'); stop() });
+  btn.addEventListener('click',function(e){ e.preventDefault(); e.stopPropagation(); card.classList.remove('pv-hint'); if(card.classList.contains('playing')) stop(); else play() });
+  document.addEventListener('visibilitychange',function(){ if(document.hidden) stop() });
+})();
+
 </script>
 <script type="module">
 // ---- Mascote: o avatar do Bjørn no VRChat, renderizado no Blender — olha pro mouse, fala, acena e ganha carinho ----
@@ -2216,7 +2259,7 @@ sndBtn.addEventListener('click',e=>{ e.stopPropagation(); setSound(!soundOn); if
 // ---------- animação: vídeos renderizados no Blender, misturados suavemente num canvas ----------
 // 'look' é uma grade 5×2 (5 direções pros lados × 2 alturas) com o mesmo movimento de corpo em todas:
 // misturando as direções vizinhas, a cabeça gira de forma contínua seguindo o mouse.
-const META={"ver":1791175117,"w":468,"h":770,"fps":20,"clips":{"look":80,"laugh":36,"pet":40,"sit":80,"sit_down":28,"stand_up":24,"talk":40,"wave":48,"x_angry":44,"x_beg":44,"x_blush":44,"x_sad":44,"x_squint":44,"x_surprised":44,"x_think":44,"x_tongue":44,"x_wink":44,"yawn":56},"hx":0.4185,"hy":0.1604,"fl":0.2162,"fr":0.3694,"fb":0.191,"ff":{"laugh":18,"pet":20,"sit":40,"sit_down":14,"stand_up":12,"talk":20,"wave":24,"x_angry":22,"x_beg":22,"x_blush":22,"x_sad":22,"x_squint":22,"x_surprised":22,"x_think":22,"x_tongue":22,"x_wink":22,"yawn":28}};
+const META={"ver":1791177183,"w":504,"h":770,"fps":20,"clips":{"look":80,"laugh":36,"pet":40,"sit":80,"sit_down":28,"stand_up":24,"talk":40,"wave":48,"x_angry":44,"x_beg":44,"x_blush":44,"x_sad":44,"x_squint":44,"x_surprised":44,"x_think":44,"x_tongue":44,"x_wink":44,"yawn":56},"hx":0.459,"hy":0.1604,"fl":0.2707,"fr":0.3436,"fb":0.191,"ff":{"laugh":18,"pet":20,"sit":40,"sit_down":14,"stand_up":12,"talk":20,"wave":24,"x_angry":22,"x_beg":22,"x_blush":22,"x_sad":22,"x_squint":22,"x_surprised":22,"x_think":22,"x_tongue":22,"x_wink":22,"yawn":28}};
 const TW=META.w, TH=META.h, AR=TH/TW;
 const ua=navigator.userAgent, isSafari=/^((?!chrome|chromium|crios|edg|android).)*safari/i.test(ua);
 const vtest=document.createElement('video');
@@ -2244,7 +2287,8 @@ function loadAll(){
   return Promise.all(firsts);
 }
 function ready(s){ if(!s) return false; if(s.seq) return s.seq.length>0 && s.seq[0].complete && s.seq[0].naturalWidth>0; return s.tagName==='VIDEO' ? s.readyState>=2 : s.complete && s.naturalWidth>0 }
-function fit(){ const r=body.getBoundingClientRect(), d=Math.min(2,devicePixelRatio||1), w=Math.round(r.width*d), h=Math.round(r.height*d); if(w&&h&&(cv.width!==w||cv.height!==h)){ cv.width=w; cv.height=h } }
+// tamanho de layout: o pulinho (transform) não redimensiona o canvas
+function fit(){ const d=Math.min(2,devicePixelRatio||1), w=Math.round(body.clientWidth*d), h=Math.round(body.clientHeight*d); if(w&&h&&(cv.width!==w||cv.height!==h)){ cv.width=w; cv.height=h } }
 if('ResizeObserver' in window) new ResizeObserver(fit).observe(body);
 // desenha a direção do olhar mais próxima (fx de 0 a 4, fy de 0 a 1); ao trocar de direção faz só um fade
 // curtinho, sem deixar duas cabeças sobrepostas paradas na tela
@@ -2263,14 +2307,20 @@ function tile(x,j,k,a){ x.globalAlpha=a;
   else { const im=SRC['look_'+j+k]; if(ready(im)) x.drawImage(im,0,0,TW,TH) }
   x.globalAlpha=1 }
 // camadas: a atual entra por cima da anterior com um fade curto
-let layer='look', prevLayer=null, fadeT0=0, FADE=200, oneShot=null, oneShotEnd=0, afterShot=null;
+let layer='look', prevLayer=null, fadeT0=0, FADE=200, oneShot=null, oneShotEnd=0, afterShot=null, shotT0=0;
+// terminou a animação de uma vez só? (no vídeo, espera ele realmente chegar ao fim)
+function shotDone(now){ if(!oneShot) return false; if(now>oneShotEnd) return true;
+  if(useVideo){ const v=SRC[oneShot]; if(now-shotT0<300||v.seeking) return false; return v.ended||(v.duration>0&&v.currentTime>=v.duration-.07) } return false }
+// a camada já tem imagem pronta pra desenhar?
+function layerReady(n){ if(n==='look') return useVideo?ready(SRC.look):ready(SRC['look_'+lookCur[0]+lookCur[1]]);
+  const s=SRC[n]; if(!s) return false; if(useVideo) return s.readyState>=2&&!s.seeking; return ready(s) }
 function setLayer(n){ if(n===layer) return; prevLayer=layer; layer=n; fadeT0=performance.now()
   const s=SRC[n]; if(useVideo){ if(s&&s.tagName==='VIDEO'&&s.paused){ const p=s.play(); if(p&&p.catch) p.catch(()=>{}) } } else if(s&&s.seq&&LOOPS.has(n)&&!s.t0) s.t0=performance.now() }
 function play(n,then){
   const s=SRC[n]; if(!s) { if(then) then(); return false }
   if(useVideo){ try{ s.currentTime=0 }catch(e){} const p=s.play(); if(p&&p.catch) p.catch(()=>{}) } else if(s.seq) s.t0=performance.now()
   oneShot=LOOPS.has(n)?null:n; afterShot=then||null;
-  oneShotEnd=performance.now()+(META.clips[n]/META.fps)*1000-120;
+  const dur=(META.clips[n]/META.fps)*1000; shotT0=performance.now(); oneShotEnd=shotT0+(useVideo?dur+1500:dur-120);
   setLayer(n); return true }
 function srcFor(n,fx,fy){ if(n==='look') return drawLook(fx,fy); return SRC[n] }
 function drawLayer(n,a,fx,fy){
@@ -2278,9 +2328,13 @@ function drawLayer(n,a,fx,fy){
   if(s.seq){ const L=s.seq.length; let i=Math.floor((performance.now()-s.t0)/100); i=LOOPS.has(n)?i%L:Math.min(L-1,i); s=s.seq[i]; if(!s.complete||!s.naturalWidth) return }
   ctx.globalAlpha=a; ctx.drawImage(s,0,0,cv.width,cv.height); ctx.globalAlpha=1 }
 function render(fx,fy){
-  fit(); ctx.clearRect(0,0,cv.width,cv.height);
+  fit();
+  // sem imagem pronta (vídeo carregando o começo): mantém a camada anterior em vez de apagar a tela
+  if(!layerReady(layer)){ fadeT0=performance.now(); const fb=prevLayer&&layerReady(prevLayer)?prevLayer:(layerReady(base)?base:null);
+    if(!fb) return; ctx.clearRect(0,0,cv.width,cv.height); drawLayer(fb,1,fx,fy); return }
+  ctx.clearRect(0,0,cv.width,cv.height);
   const k=Math.min(1,(performance.now()-fadeT0)/FADE);
-  if(prevLayer && k<1) drawLayer(prevLayer,1,fx,fy);
+  if(prevLayer && k<1 && layerReady(prevLayer)) drawLayer(prevLayer,1,fx,fy);
   else if(prevLayer){ const v=SRC[prevLayer]; if(useVideo&&v&&v.tagName==='VIDEO'&&prevLayer!==base&&prevLayer!=='look'&&prevLayer!==layer) v.pause(); prevLayer=null }
   drawLayer(layer,prevLayer?k:1,fx,fy);
 }
@@ -2382,9 +2436,9 @@ const QUIZ=[
 function framePos(y){ root.style.setProperty('--py',Math.max(90,Math.round(y))+'px') }
 if(inFrame()){ root.classList.add('in-frame'); framePos(140) }
 // ---------- movimento ----------
-let running=false, last=0;
+let running=false, last=0; const DBG=/bjdebug/.test(location.search)?(window.__bj={}):null;
 const spring=(k,d)=>({x:0,v:0,t:0,k,d,step(dt){ const a=this.k*(this.t-this.x)-this.d*this.v; this.v+=a*dt; this.x+=this.v*dt; return this.x }});
-const yaw=spring(16,7.5), pitch=spring(16,7.5); yaw.x=yaw.t=2.6;
+const yaw=spring(34,11), pitch=spring(34,11); yaw.x=yaw.t=2.6;
 let px=null, py=null, lastMove=-1e9, glanceAt=0, gx=2.6, gy=.1;
 const track=e=>{ px=e.clientX; py=e.clientY; lastMove=performance.now() };
 addEventListener('pointermove',track,{passive:true}); addEventListener('pointerdown',track,{passive:true});
@@ -2394,7 +2448,7 @@ function shot(n){ if(mode==='mini'||!SRC[n]) return false; if(base==='sit' && n!
 function wave(){ shot('wave') }
 function expr(x){ if(!x||x==='happy') return; shot(x==='laugh'?'laugh':'x_'+x) }
 function react(kind){ if(kind==='laugh') shot('laugh'); else shot('x_blush') }
-function want(){ if(petting) return 'pet'; if(performance.now()<talkUntil && base==='look') return 'talk'; return base }
+function want(){ if(petting) return 'pet'; if(performance.now()<talkUntil && base==='look' && Math.abs(yaw.x-2)<.75 && pitch.x<.5) return 'talk'; return base }
 // sentar um pouquinho de vez em quando
 let sitUntil=0;
 function sitDown(){ if(base!=='look'||oneShot||mode==='mini'||!SRC.sit_down) return; play('sit_down',()=>{ base='sit'; resumeBase(); setLayer('sit'); sitUntil=performance.now()+12000+Math.random()*10000 }) }
@@ -2434,7 +2488,7 @@ function frame(){
   if(petting){ petTotal+=dt; if(now>heartT){ heartT=now+(reduce?600:170); heart() } if(petTotal>5){ petOpen=0; petting=false; purrStop(); say('Obrigado pelo carinho! Fiquei todo bobo 💜',4200); hop() } }
   if(base==='sit' && sitUntil && now>sitUntil && !oneShot) standUp();
   // olhar: mira a cabeça no cursor (mistura contínua entre as direções renderizadas)
-  if(px!==null && now-lastMove<4500){
+  if(px!==null && now-lastMove<25000){
     const r=stage.getBoundingClientRect(), mini=mode==='mini';
     const hx=r.left+r.width*(mini?.5:META.hx), hy=r.top+r.height*(mini?.5:META.hy);
     yaw.t=2+2*clamp((px-hx)/(innerWidth*(mini?.25:.33)),-1,1); pitch.t=clamp((py-hy)/(innerHeight*.38),0,1);
@@ -2442,11 +2496,12 @@ function frame(){
     if(now>glanceAt){ glanceAt=now+2600+Math.random()*3800; const r=Math.random(); gx=r<.5?2.4+Math.random()*1.2:Math.random()*4; gy=Math.random()<.7?0:Math.random()*.7 }
     yaw.t=gx; pitch.t=gy;
   }
-  if(now<talkUntil||petting){ yaw.t=2+(yaw.t-2)*.15; pitch.t*=.15 }   // olha pra quem está lendo enquanto fala
+  if(petting){ yaw.t=2+(yaw.t-2)*.15; pitch.t*=.15 } else if(now<talkUntil){ yaw.t=2+(yaw.t-2)*.6; pitch.t*=.6 }   // olha pra quem está lendo enquanto fala
   yaw.step(dt); pitch.step(dt);
   const fx=clamp(yaw.x,0,4), fy=clamp(pitch.x,0,1);
+  if(DBG) DBG.s={px,py,lastMove:Math.round(now-lastMove),yawT:+yaw.t.toFixed(2),fx:+fx.toFixed(2),fy:+fy.toFixed(2),layer,base,oneShot,talking:now<talkUntil,look:lookCur.join(','),hx:META.hx,r:stage.getBoundingClientRect().left|0}
   // terminou uma animação de uma vez só?
-  if(oneShot && now>oneShotEnd){ oneShot=null; const t=afterShot; afterShot=null; if(t) t() }
+  if(oneShot && shotDone(now)){ oneShot=null; const t=afterShot; afterShot=null; if(t) t() }
   if(!oneShot){ const w=want(); if(layer!==w){ if(useVideo&&SRC[w]&&SRC[w].paused){ const p=SRC[w].play(); if(p&&p.catch) p.catch(()=>{}) } setLayer(w) } }
   render(fx,fy);
   requestAnimationFrame(frame);
