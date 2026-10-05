@@ -662,76 +662,12 @@ main > section[id]::before{content:"";position:absolute;top:0;left:50%;transform
 .magi-motto{display:block;margin-top:6px;color:var(--faint);font:italic 500 11.5px/1.4 Georgia,serif;opacity:0;transition:opacity .4s ease .2s}
 .magi.done .magi-motto{opacity:1}/* ===== cursor de patinha + fio vermelho seguindo ===== */
 @media (pointer:fine){
-  *{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg transform='rotate(-20 16 16)' fill='%23AC00FF' stroke='%23FFFFFF' stroke-width='1.5'%3E%3Cpath d='M16 15.5c4.2 0 7.6 3.2 7.6 6.6 0 2.9-2.4 4.4-4.6 4.4-1.3 0-2-.6-3-.6s-1.7.6-3 .6c-2.2 0-4.6-1.5-4.6-4.4 0-3.4 3.4-6.6 7.6-6.6z'/%3E%3Cellipse cx='8' cy='13.2' rx='2.5' ry='3.2'/%3E%3Cellipse cx='12.6' cy='8.4' rx='2.6' ry='3.4'/%3E%3Cellipse cx='19.4' cy='8.4' rx='2.6' ry='3.4'/%3E%3Cellipse cx='24' cy='13.2' rx='2.5' ry='3.2'/%3E%3C/g%3E%3C/svg%3E") 8 3,auto !important}
-  a,button,summary,label,[role="button"],[data-copy],[data-hex],.emblem,.bsod,.magi,.magi-back,.shot,.stage,.big-heart,.px-stage{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg transform='rotate(-20 16 16)' fill='%23E10022' stroke='%23FFFFFF' stroke-width='1.5'%3E%3Cpath d='M16 15.5c4.2 0 7.6 3.2 7.6 6.6 0 2.9-2.4 4.4-4.6 4.4-1.3 0-2-.6-3-.6s-1.7.6-3 .6c-2.2 0-4.6-1.5-4.6-4.4 0-3.4 3.4-6.6 7.6-6.6z'/%3E%3Cellipse cx='8' cy='13.2' rx='2.5' ry='3.2'/%3E%3Cellipse cx='12.6' cy='8.4' rx='2.6' ry='3.4'/%3E%3Cellipse cx='19.4' cy='8.4' rx='2.6' ry='3.4'/%3E%3Cellipse cx='24' cy='13.2' rx='2.5' ry='3.2'/%3E%3C/g%3E%3C/svg%3E") 8 3,pointer !important}
+  *{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg fill='%23AC00FF' stroke='%23FFFFFF' stroke-width='1.5' stroke-linejoin='round'%3E%3Cpath d='M2.5 2.5 C8 3.6 15.5 6.6 18.2 9.8 C20.6 12.6 12.6 20.6 9.8 18.2 C6.6 15.5 3.6 8 2.5 2.5 Z'/%3E%3Cellipse cx='22.6' cy='11.4' rx='2.3' ry='2.7' transform='rotate(-35 22.6 11.4)'/%3E%3Cellipse cx='21.6' cy='17.8' rx='2.5' ry='2.9' transform='rotate(-45 21.6 17.8)'/%3E%3Cellipse cx='17.8' cy='21.6' rx='2.5' ry='2.9' transform='rotate(-45 17.8 21.6)'/%3E%3Cellipse cx='11.4' cy='22.6' rx='2.3' ry='2.7' transform='rotate(-55 11.4 22.6)'/%3E%3C/g%3E%3C/svg%3E") 2 2,auto !important}
+  a,button,summary,label,[role="button"],[data-copy],[data-hex],.emblem,.bsod,.magi,.magi-back,.shot,.stage,.big-heart{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg fill='%23E10022' stroke='%23FFFFFF' stroke-width='1.5' stroke-linejoin='round'%3E%3Cpath d='M2.5 2.5 C8 3.6 15.5 6.6 18.2 9.8 C20.6 12.6 12.6 20.6 9.8 18.2 C6.6 15.5 3.6 8 2.5 2.5 Z'/%3E%3Cellipse cx='22.6' cy='11.4' rx='2.3' ry='2.7' transform='rotate(-35 22.6 11.4)'/%3E%3Cellipse cx='21.6' cy='17.8' rx='2.5' ry='2.9' transform='rotate(-45 21.6 17.8)'/%3E%3Cellipse cx='17.8' cy='21.6' rx='2.5' ry='2.9' transform='rotate(-45 17.8 21.6)'/%3E%3Cellipse cx='11.4' cy='22.6' rx='2.3' ry='2.7' transform='rotate(-55 11.4 22.6)'/%3E%3C/g%3E%3C/svg%3E") 2 2,pointer !important}
 }
 .red-thread{position:fixed;inset:0;width:100%;height:100%;z-index:150;pointer-events:none;overflow:visible;transition:opacity .3s ease}
 .red-thread g{filter:drop-shadow(0 0 4px rgba(255,0,40,.75))}
 .red-thread line{stroke:#E10022;stroke-linecap:round}
-/* ===== Pixel, a pet 3D do site ===== */
-/* ela só aparece encaixada na margem vazia; sem espaço, vira um botãozinho */
-.pixel{--pw:200px;--ph:300px;--pl:16px;--bw:240px;position:fixed;z-index:40;left:var(--pl);bottom:14px;width:var(--pw);height:var(--ph);pointer-events:none}
-.pixel[hidden]{display:none!important}
-.pixel.in-frame{position:absolute;bottom:auto;top:var(--py,140px);transition:top .9s cubic-bezier(.3,.7,.2,1)}
-.px-stage{position:absolute;inset:0;pointer-events:auto;-webkit-tap-highlight-color:transparent;opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
-.pixel.ready .px-stage{opacity:1;transform:none}
-.px-stage canvas{position:relative;z-index:1;width:100%;height:100%;display:block}
-.px-glow{position:absolute;left:14%;right:14%;bottom:1.5%;height:10%;border-radius:50%;background:radial-gradient(closest-side,rgba(172,0,255,.5),rgba(43,230,168,.16) 60%,transparent);filter:blur(5px);animation:pxGlow 5s ease-in-out infinite}
-@keyframes pxGlow{50%{opacity:.65;transform:scaleX(.92)}}
-.px-x{position:absolute;top:14%;right:2%;z-index:3;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:rgba(23,21,29,.9);color:var(--muted);font:400 18px/1 var(--body);display:grid;place-items:center;pointer-events:auto;opacity:0;transition:opacity .2s ease,color .2s ease,border-color .2s ease}
-.pixel:hover .px-x,.px-x:focus-visible,.pixel.visit .px-x{opacity:1}
-@media (hover:none){ .px-x{opacity:.85} }
-.px-x:hover{color:var(--bone);border-color:var(--mint)}
-.px-bubble{position:absolute;left:4px;bottom:calc(100% - 22px);z-index:4;width:max-content;max-width:var(--bw);padding:11px 14px 12px;border-radius:16px 16px 16px 4px;background:rgba(23,21,29,.96);border:1px solid rgba(43,230,168,.55);box-shadow:0 16px 36px -18px rgba(43,230,168,.6);color:var(--bone);font:500 14px/1.45 var(--body);pointer-events:auto;animation:pxPop .32s cubic-bezier(.2,.9,.3,1.3)}
-.px-bubble::after{content:"";position:absolute;left:22px;top:100%;border:8px solid transparent;border-top-color:rgba(43,230,168,.55);border-bottom:0}
-@keyframes pxPop{from{opacity:0;transform:translateY(8px) scale(.92)}to{opacity:1;transform:none}}
-.px-who{display:block;margin-bottom:3px;font:800 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--mint)}
-/* visita: quando não há margem e a pessoa chama a Pixel pelo botão */
-.pixel.visit{left:10px;bottom:62px;width:150px;height:225px}
-.pixel.visit::before{content:"";position:absolute;inset:8% -6px -6px;border-radius:22px;background:rgba(14,13,18,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(43,230,168,.35);pointer-events:none}
-.pixel.visit .px-bubble{max-width:min(240px,calc(100vw - 24px))}
-.px-call{position:fixed;left:14px;bottom:14px;z-index:40;display:inline-flex;align-items:center;gap:12px;padding:9px 20px 9px 10px;border-radius:24px;border:1px solid rgba(43,230,168,.5);background:linear-gradient(135deg,rgba(43,230,168,.14),rgba(172,0,255,.16)),rgba(18,16,24,.95);color:var(--bone);box-shadow:0 14px 32px -14px rgba(43,230,168,.75),inset 0 1px 0 rgba(255,255,255,.06);transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s ease,border-color .25s ease;animation:pcFloat 3.6s ease-in-out infinite}
-@keyframes pcFloat{50%{transform:translateY(-3px)}}
-.pc-head{position:relative;width:64px;height:48px;flex:none}
-.pc-ear{position:absolute;top:-9px;width:17px;height:22px;background:#2E2838;clip-path:polygon(50% 0,100% 100%,0 100%);transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
-.pc-ear::after{content:"";position:absolute;left:4px;right:4px;top:6px;bottom:0;background:var(--mint);clip-path:polygon(50% 0,100% 100%,0 100%)}
-.pc-ear.l{left:5px;transform:rotate(-16deg)}.pc-ear.r{right:5px;transform:rotate(16deg)}
-.px-call:hover .pc-ear.l{transform:rotate(-26deg) translateY(-2px)}.px-call:hover .pc-ear.r{transform:rotate(26deg) translateY(-2px)}
-.pc-visor{position:absolute;inset:5px 0 0;border-radius:17px 17px 20px 20px;background:radial-gradient(120% 90% at 50% 15%,#1d1729,#050407);border:2px solid #ECE3FF;box-shadow:0 0 0 2px rgba(43,230,168,.35),inset 0 0 14px rgba(43,230,168,.25);display:grid;place-items:center;overflow:hidden}
-.pc-visor::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0 1px,transparent 1px 3px);pointer-events:none}
-.pc-eyes{width:44px;height:20px;fill:var(--mint);stroke:var(--mint);filter:drop-shadow(0 0 4px var(--mint));transition:transform .2s ease-out}
-.pc-eyes .e-open{transform-box:fill-box;transform-origin:center;animation:pcBlink 4.6s infinite}
-@keyframes pcBlink{0%,91%,100%{transform:scaleY(1)}94%{transform:scaleY(.1)}}
-.pc-eyes .e-happy{display:none;fill:none;stroke-width:1.7;stroke-linecap:square}
-.px-call:hover .e-open{display:none}.px-call:hover .e-happy{display:inline}
-.pc-txt{display:grid;gap:4px;text-align:left}
-.pc-txt b{font:800 17px/1 var(--display);letter-spacing:-.01em}
-.pc-txt small{font:600 11px/1 var(--mono);color:var(--muted);letter-spacing:.04em}
-.px-call:hover{animation:none;transform:translateY(-3px) scale(1.04);border-color:var(--mint);box-shadow:0 18px 40px -14px rgba(43,230,168,.95)}
-.px-call.news::after{content:"";position:absolute;top:-4px;right:-4px;width:10px;height:10px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 2px var(--night),0 0 10px var(--mint);animation:pxDot 1.4s ease-in-out infinite}
-@keyframes pxDot{50%{transform:scale(.7);opacity:.6}}
-.px-call.in-frame{position:absolute;top:var(--py,140px);bottom:auto}
-@media (pointer:fine){ .px-stage,.px-call,.px-x{cursor:pointer} }
-/* modo mini: só a cabecinha dela numa bolinha, seguindo o mouse */
-.pixel.px-mini{--pw:84px;--ph:84px;--pl:12px;bottom:12px}
-.pixel.px-mini .px-stage{border-radius:50%;overflow:hidden;background:radial-gradient(circle at 50% 30%,#2b2140,#0E0D12 72%);border:2px solid rgba(43,230,168,.6);box-shadow:0 10px 26px -10px rgba(43,230,168,.75),0 0 0 4px rgba(14,13,18,.65);transition:opacity .6s ease,transform .25s cubic-bezier(.2,.8,.2,1)}
-.pixel.px-mini .px-stage:hover{transform:scale(1.07)}
-.pixel.px-mini .px-glow,.pixel.px-mini .px-x,.pixel.px-mini .px-snd,.pixel.px-mini .px-bubble{display:none}
-.pixel.px-mini.news::after{content:"";position:absolute;top:2px;right:2px;z-index:5;width:13px;height:13px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 2px var(--night),0 0 10px var(--mint);animation:pxDot 1.4s ease-in-out infinite}
-@media (max-width:600px){ .pixel.px-mini{--pw:68px;--ph:68px;--pl:10px;bottom:10px} }
-.px-snd{position:absolute;top:14%;left:2%;z-index:3;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:rgba(23,21,29,.9);color:var(--muted);display:grid;place-items:center;pointer-events:auto;opacity:0;transition:opacity .2s ease,color .2s ease,border-color .2s ease;padding:0}
-.px-snd svg{width:15px;height:15px;fill:currentColor}
-.px-snd svg .w{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
-.px-snd .off,.px-snd[aria-pressed="false"] .on{display:none}
-.px-snd[aria-pressed="false"] .off{display:block}
-.pixel:hover .px-snd,.px-snd:focus-visible,.pixel.visit .px-snd{opacity:1}
-@media (hover:none){ .px-snd{opacity:.85} }
-.px-snd:hover{color:var(--bone);border-color:var(--mint)}
-.px-stage{touch-action:none}
-.px-hearts{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:visible}
-.px-heart{position:absolute;width:18px;height:18px;margin:-9px 0 0 -9px;filter:drop-shadow(0 0 6px currentColor)}
-.px-heart svg{width:100%;height:100%;fill:currentColor}
-@media (pointer:fine){ .px-snd{cursor:pointer} }
 /* tela cheia */
 .kanji-note{display:flex;align-items:center;gap:14px;color:var(--muted);font-size:15px;max-width:62ch}
 .kanji-note b{color:var(--bone)}
@@ -1740,14 +1676,6 @@ footer .brand{font-size:20px;color:var(--bone)}
 </main>
 
 
-<aside class="pixel" id="pixel" aria-label="Pixel, a pet do site" hidden>
-  <div class="px-bubble" id="px-bubble" role="status" aria-live="polite" hidden><span class="px-who">Pixel</span><span class="px-txt" id="px-txt"></span></div>
-  <div class="px-stage" id="px-stage" title="Toca na Pixel!"><span class="px-glow" aria-hidden="true"></span><canvas id="px-cv" aria-hidden="true"></canvas></div>
-  <button class="px-x" id="px-x" type="button" aria-label="Minimizar a Pixel" title="Minimizar">×</button>
-  <button class="px-snd" id="px-snd" type="button" aria-label="Som da Pixel ligado" aria-pressed="true"><svg class="on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path class="w" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg><svg class="off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path class="w" d="M16.5 9.5l5 5M21.5 9.5l-5 5"/></svg></button>
-  <div class="px-hearts" id="px-hearts" aria-hidden="true"></div>
-</aside>
-<button class="px-call" id="px-call" type="button" hidden aria-label="Chamar a Pixel de volta"><span class="pc-head" aria-hidden="true"><i class="pc-ear l"></i><i class="pc-ear r"></i><span class="pc-visor"><svg class="pc-eyes" viewBox="0 0 20 9"><g class="e-open"><rect x="3" y="1" width="2" height="7"/><rect x="2" y="2" width="4" height="5"/><rect x="15" y="1" width="2" height="7"/><rect x="14" y="2" width="4" height="5"/></g><g class="e-happy"><path d="M1.5 6.5 4 3.2l2.5 3.3M13.5 6.5 16 3.2l2.5 3.3"/></g></svg></span></span><span class="pc-txt"><b>Pixel</b><small>toque pra me chamar</small></span></button>
 <footer>
   <div class="wrap">
     <span class="brand">Sr_Bj<span class="o" style="color:var(--violet)">ø</span>rn®</span>
@@ -2152,8 +2080,7 @@ footer .brand{font-size:20px;color:var(--bone)}
 (function(){
   var btn=document.getElementById('nerv'), back=document.getElementById('magi-back'), box=document.getElementById('magi'); if(!btn||!back||!box) return;
   var st=document.getElementById('magi-st'), cells=box.querySelectorAll('.mg'), timers=[], ac=null, nodes=[];
-  function muted(){ try{ return localStorage.getItem('pixel-sound')==='0' }catch(e){ return false } }
-  function ctx(){ if(muted()) return null; if(!ac){ var C=window.AudioContext||window.webkitAudioContext; if(!C) return null; ac=new C() } if(ac.state==='suspended') ac.resume(); return ac }
+  function ctx(){ if(!ac){ var C=window.AudioContext||window.webkitAudioContext; if(!C) return null; ac=new C() } if(ac.state==='suspended') ac.resume(); return ac }
   function tone(type,f1,f2,at,dur,vol,cut){ var a=ctx(); if(!a) return; var t=a.currentTime+at, o=a.createOscillator(), g=a.createGain(), lp=a.createBiquadFilter();
     o.type=type; o.frequency.setValueAtTime(f1,t); if(f2!==f1) o.frequency.exponentialRampToValueAtTime(f2,t+dur*.9); lp.type='lowpass'; lp.frequency.setValueAtTime(cut||1800,t);
     g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vol,t+.02); g.gain.setValueAtTime(vol,t+dur*.6); g.gain.exponentialRampToValueAtTime(.0001,t+dur);
@@ -2182,7 +2109,7 @@ footer .brand{font-size:20px;color:var(--bone)}
   var NS='http://www.w3.org/2000/svg', svg=document.createElementNS(NS,'svg'), g=document.createElementNS(NS,'g');
   svg.setAttribute('class','red-thread'); svg.setAttribute('aria-hidden','true'); svg.appendChild(g); document.body.appendChild(svg);
   var LIFE=420, MAXW=4.2, pts=[], pool=[], running=false;
-  var OX=8, OY=13;                                    // o rastro sai do meio da patinha
+  var OX=12, OY=12;                                    // o rastro sai do meio da patinha
   function seg(i){ var l=pool[i]; if(!l){ l=document.createElementNS(NS,'line'); g.appendChild(l); pool[i]=l } return l }
   document.addEventListener('mousemove',function(e){
     var x=e.clientX+OX, y=e.clientY+OY, last=pts[pts.length-1];
@@ -2203,298 +2130,6 @@ footer .brand{font-size:20px;color:var(--bone)}
     if(n){ requestAnimationFrame(draw) } else { running=false }
   }
 })();
-</script>
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
-<script type="module">
-// ---- Pixel: a pet 3D do site — olha pro cursor, fala, bipa, ronrona e se move com molas suaves ----
-const root=document.getElementById('pixel'), call=document.getElementById('px-call');
-const stage=document.getElementById('px-stage'), cv=document.getElementById('px-cv'), heartsEl=document.getElementById('px-hearts');
-const bubble=document.getElementById('px-bubble'), txt=document.getElementById('px-txt'), closeBtn=document.getElementById('px-x'), sndBtn=document.getElementById('px-snd');
-const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches, touch=matchMedia('(hover:none)').matches;
-const isPC=matchMedia('(hover:hover) and (pointer:fine)').matches;
-const store={ get(k){ try{ return localStorage.getItem(k) }catch(e){ return null } }, set(k,v){ try{ localStorage.setItem(k,v) }catch(e){} } };
-const inFrame=()=>window.innerHeight>=document.documentElement.scrollHeight-4;
-function hasGL(){ try{ const c=document.createElement('canvas'); return !!(c.getContext('webgl2')||c.getContext('webgl')) }catch(e){ return false } }
-
-// ---------- sons (gerados na hora: bip de protogen e ronrono) ----------
-let actx=null, soundOn=store.get('pixel-sound')!=='0', purr=null;
-function audio(){ if(!soundOn) return null; if(!actx){ const C=window.AudioContext||window.webkitAudioContext; if(!C) return null; actx=new C() } if(actx.state==='suspended') actx.resume(); return actx }
-function blip(f1,f2,at,dur,vol){ const a=audio(); if(!a) return; const t=a.currentTime+at, o=a.createOscillator(), g=a.createGain(), lp=a.createBiquadFilter();
-  o.type='square'; o.frequency.setValueAtTime(f1,t); o.frequency.exponentialRampToValueAtTime(f2,t+dur); lp.type='lowpass'; lp.frequency.value=2600;
-  g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vol,t+.008); g.gain.exponentialRampToValueAtTime(.0001,t+dur);
-  o.connect(lp); lp.connect(g); g.connect(a.destination); o.start(t); o.stop(t+dur+.02) }
-const beep={ talk(){ blip(1300,1500,0,.06,.035); blip(1650,1900,.085,.05,.03) }, tap(){ blip(900,1900,0,.13,.04) }, hello(){ blip(1100,1300,0,.05,.03); blip(1400,1600,.07,.05,.03); blip(1800,2100,.14,.07,.03) } };
-function purrStart(){ const a=audio(); if(!a||purr) return;
-  const len=a.sampleRate*2, buf=a.createBuffer(1,len,a.sampleRate), d=buf.getChannelData(0); for(let i=0;i<len;i++) d[i]=Math.random()*2-1;
-  const n=a.createBufferSource(); n.buffer=buf; n.loop=true; const lp=a.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=320;
-  const am=a.createGain(); am.gain.value=.5; const lfo=a.createOscillator(); lfo.frequency.value=24; const depth=a.createGain(); depth.gain.value=.5; lfo.connect(depth); depth.connect(am.gain);
-  const hum=a.createOscillator(); hum.frequency.value=52; const hg=a.createGain(); hg.gain.value=.35;
-  const out=a.createGain(); out.gain.value=0; out.gain.linearRampToValueAtTime(.16,a.currentTime+.35);
-  n.connect(lp); lp.connect(am); hum.connect(hg); hg.connect(am); am.connect(out); out.connect(a.destination); n.start(); lfo.start(); hum.start();
-  purr={out,stop(){ const t=a.currentTime; out.gain.cancelScheduledValues(t); out.gain.setValueAtTime(out.gain.value,t); out.gain.linearRampToValueAtTime(0,t+.5); setTimeout(()=>{ try{ n.stop(); lfo.stop(); hum.stop() }catch(e){} },600) }} }
-function purrStop(){ if(purr){ purr.stop(); purr=null } }
-function setSound(on){ soundOn=on; store.set('pixel-sound',on?'1':'0'); sndBtn.setAttribute('aria-pressed',on?'true':'false'); sndBtn.setAttribute('aria-label','Som da Pixel '+(on?'ligado':'desligado')); if(!on) purrStop() }
-setSound(soundOn);
-sndBtn.addEventListener('click',e=>{ e.stopPropagation(); setSound(!soundOn); if(soundOn) beep.hello() });
-
-// ---------- espaço livre: a Pixel nunca fica na frente do conteúdo ----------
-let mode='off';                      // 'dock' (na margem), 'mini' (cabecinha), 'visit' (corpo inteiro, chamada), 'off' (escondida, só o botão)
-const wrapEl=document.querySelector('main .wrap');
-function space(){
-  const edge=wrapEl ? wrapEl.getBoundingClientRect().left + (parseFloat(getComputedStyle(wrapEl).paddingLeft)||0) : 0;
-  const avail=edge-24; if(avail<130) return null;
-  let pw=Math.min(260,avail), ph=pw*1.5; const maxH=innerHeight*.62; if(ph>maxH){ ph=maxH; pw=ph/1.5 }
-  return {pw:Math.round(pw),ph:Math.round(ph),pl:Math.max(8,Math.round((edge-pw)/2)),bw:Math.round(Math.min(250,edge-20))};
-}
-function clearVars(){ ['--pw','--ph','--pl','--bw'].forEach(v=>root.style.removeProperty(v)) }
-let userMin=store.get('pixel-min')==='1';
-function layout(){
-  if(mode==='off') return;
-  if(userMin){ if(mode!=='mini') setMode('mini'); return }
-  const s=space();
-  if(s){ root.style.setProperty('--pw',s.pw+'px'); root.style.setProperty('--ph',s.ph+'px'); root.style.setProperty('--pl',s.pl+'px'); root.style.setProperty('--bw',s.bw+'px'); if(mode!=='dock') setMode('dock') }
-  else if(mode==='dock'||mode==='boot') setMode('mini');
-}
-function setMode(m){
-  mode=m; if(m!=='dock') clearVars();
-  root.classList.toggle('visit',m==='visit'); root.classList.toggle('px-mini',m==='mini');
-  root.hidden=(m==='off'); call.hidden=(m!=='off');
-  if(m==='mini'||m==='off') bubble.hidden=true;
-  if(m==='dock'||m==='visit'){ root.classList.remove('news'); if(pending){ const p=pending; pending=null; setTimeout(()=>say(p),450) } }
-  if(m!=='off'){ if(!started){ started=true; start3D() } else if(!running) loop() }
-  resizeGL(); frameCam();
-}
-addEventListener('resize',layout);
-
-// ---------- falas ----------
-let typing=null, hideT=null, lastSay=0, lastLine='', talkUntil=0, pending=null;
-function say(text,ms){
-  if(mode==='mini'||mode==='off'){ pending=text; root.classList.add('news'); return }
-  clearInterval(typing); clearTimeout(hideT);
-  bubble.hidden=false; bubble.style.animation='none'; void bubble.offsetWidth; bubble.style.animation='';
-  txt.textContent=''; lastSay=Date.now(); lastLine=text; beep.talk();
-  const chars=[...text]; let n=0; talkUntil=performance.now()+chars.length*24;
-  if(reduce){ txt.textContent=text } else typing=setInterval(()=>{ txt.textContent+=chars[n++]||''; if(n>=chars.length) clearInterval(typing) },24);
-  hideT=setTimeout(()=>{ bubble.hidden=true },ms||Math.max(4200,chars.length*72));
-}
-function pick(list){ let s; do{ s=list[Math.floor(Math.random()*list.length)] }while(list.length>1 && s===lastLine); return s }
-const hour=+new Intl.DateTimeFormat('en-US',{timeZone:'America/Sao_Paulo',hour:'numeric',hourCycle:'h23'}).format(new Date());
-const hi=hour>=5&&hour<12?'Bom dia':hour>=12&&hour<18?'Boa tarde':'Boa noite';
-const SECTION={
-  sobre:'Sabia que o Bjørn é furry desde os 8 anos? Isso é bem mais tempo do que eu existo! 🐾',
-  redes:'Psiu… no Telegram e no WhatsApp ele responde bem mais rápido 💬',
-  ocs:'Toca numa cor da paleta que ela vai direto pro seu copiar e colar ✨',
-  setup:'28 threads e uma RTX 2070 SUPER… é por isso que aqui é sempre quentinho 🔥',
-  games:'13 consoles na estante! Qual desses é o seu favorito? 🎮',
-  manutencao:'PC travando? Chama o Bjørn! Dá até pra resolver pelo Parsec 🛠️',
-  parcerias:'Com o cupom YOSHIRO você ganha desconto e ainda leva um mimo 🎁',
-  yoshiro:'Esse aí é o Sol da vida do Bjørn ☀️',
-  casal:'Toca no coração! Cada toque vira um boop 💜',
-  momentos:'Clica numa foto pra ver ela grandona 📸'
-};
-const TAP=['Ei! Isso faz cócegas no meu visor! 😆','Beep boop! Pixel online 🤖','Sou uma protogen: metade máquina, metade fofura 💜','Já seguiu o Bjørn no Instagram? 👀','Fui feita com carinho por um amigo do Bjørn ✨',touch?'Passa o dedo em mim que eu ronrono! 😽':'Passa o mouse em mim pra fazer carinho 😽','Meu visor brilha mais quando você volta aqui 💚','Dica secreta: tem uma folha vermelha escondida lá no rodapé… 🍁'];
-const FACTS=['polvos têm três corações e sangue azul 🐙','um dia em Vênus é mais longo que um ano em Vênus 🪐','o mel praticamente não estraga: já acharam mel comestível em tumbas egípcias 🍯','os flamingos são cor-de-rosa por causa do que comem 🦩','lontras-marinhas dormem de mãos dadas pra não se perderem 🦦','a Torre Eiffel fica uns 15 cm mais alta no verão, por causa do calor 🗼','bananas são levemente radioativas, por causa do potássio 🍌','os tubarões existem há mais tempo que as árvores 🦈','botanicamente, a banana é uma baga… e o morango não é 🍓','um raio é umas cinco vezes mais quente que a superfície do Sol ⚡','as corujas não conseguem mexer os olhos, por isso giram tanto a cabeça 🦉','o Monte Everest cresce alguns milímetros por ano 🏔️','existem mais estrelas no universo do que grãos de areia em todas as praias da Terra ✨','golfinhos chamam uns aos outros com assobios únicos, tipo nomes 🐬','não dá pra ver a Muralha da China do espaço a olho nu 🧱','o ENIAC, um dos primeiros computadores, pesava cerca de 27 toneladas 💻','axolotes conseguem regenerar patas e até partes do coração 🦎','o primeiro vídeo do YouTube é de 2005 e se chama "Me at the zoo" 📼','os gatos passam boa parte da vida dormindo, uns 12 a 16 horas por dia 😴','as abelhas conseguem reconhecer rostos humanos 🐝','a luz do Sol leva uns 8 minutos pra chegar até a Terra ☀️','o coração de uma baleia-azul é do tamanho de um carro pequeno 🐋'];
-const JOKES=[['Por que o computador foi ao médico?','Porque estava com vírus! 🤒💻'],['O que o zero disse pro oito?','Que cinto bonito! 😆'],['Qual é o café mais perigoso do mundo?','O ex-presso! ☕'],['O que o tomate foi fazer no banco?','Tirar extrato! 🍅'],['Por que o robô saiu de férias?','Pra recarregar as baterias! 🔋🤖'],['O que é um pontinho amarelo no céu?','Um yellowcóptero! 🚁'],['Por que a vaca foi pro espaço?','Pra conhecer a Via Láctea! 🐄🌌'],['O que o pato disse pra pata?','Vem quá! 🦆'],['Qual é o peixe que caiu do décimo andar?','Aaaaaatum! 🐟'],['Como o elétron atende o telefone?','Próton! ⚡'],['Por que protogen não precisa de óculos escuros?','Porque já vem de fábrica com visor! 😎'],['O que o Wi-Fi disse pro roteador?','Sem você eu perco a conexão 💔📶'],['Qual o contrário de volátil?','Vem cá, sobrinho! 😂'],['Por que o Peki é tão travesso?','Porque gato que não apronta não é gato! 😹'],['O que um bit disse pro outro?','A gente se vê no ônibus! 🚌'],['Qual é a fruta mais paciente?','A espera… digo, a pera! 🍐']];
-const SITEFACTS=['O Bjørn nasceu na Rússia e veio pro Brasil ainda recém-nascido 🇧🇷','A Lua lá em cima mostra a fase de verdade de hoje, vista do Brasil 🌙','Bjørn quer dizer "urso" nas línguas nórdicas 🐻','O Lupus Wolf existe desde 2011! 🐺'];
-const PET=['Hmmm… que carinho bom 💜','Prrrr… continua, continua! 😽','Meu visor tá até piscando de felicidade 💚','Ronron.exe ativado 😽'];
-
-// ---------- posição dentro do visualizador (iframe que cresce com a página) ----------
-function framePos(y){ const top=Math.max(90,Math.round(y)); root.style.setProperty('--py',top+'px'); call.style.setProperty('--py',top+'px') }
-if(inFrame()){ root.classList.add('in-frame'); call.classList.add('in-frame'); framePos(140) }
-
-// ---------- botões ----------
-let started=false;
-closeBtn.addEventListener('click',e=>{ e.stopPropagation(); purrStop(); userMin=true; store.set('pixel-min','1'); setMode('mini') });
-call.addEventListener('click',()=>{ store.set('pixel-off','0'); audio(); if(space()){ mode='boot'; layout() } else setMode('mini') });
-
-// ---------- 3D ----------
-let running=false, loop=()=>{}, resizeGL=()=>{}, frameCam=()=>{}, react=()=>{}, tellFact=null;
-async function start3D(){
-  const THREE=await import('three'); const {GLTFLoader}=await import('three/addons/loaders/GLTFLoader.js');
-  const renderer=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true,powerPreference:'high-performance'});
-  renderer.outputColorSpace=THREE.SRGBColorSpace;
-  const scene=new THREE.Scene(), cam=new THREE.PerspectiveCamera(24,2/3,.1,100);
-  scene.add(new THREE.HemisphereLight(0xffffff,0x2a1f3a,1.35));
-  const key=new THREE.DirectionalLight(0xffffff,2.1); key.position.set(3,5,6); scene.add(key);
-  const rim=new THREE.DirectionalLight(0xAC00FF,3.2); rim.position.set(-4,3,-3); scene.add(rim);
-  const rim2=new THREE.DirectionalLight(0x2BE6A8,1.6); rim2.position.set(4,2,-3); scene.add(rim2);
-  resizeGL=function(){ const w=stage.clientWidth, h=stage.clientHeight; if(!w||!h) return;
-    renderer.setPixelRatio(Math.min(3,Math.max(2,(devicePixelRatio||1)*1.5))); renderer.setSize(w,h,false); cam.aspect=w/h; cam.updateProjectionMatrix() };
-  resizeGL(); if('ResizeObserver' in window) new ResizeObserver(resizeGL).observe(stage);
-  const gltf=await new GLTFLoader().loadAsync('img/pet.json');
-  const model=gltf.scene; scene.add(model);
-  const B={}; model.traverse(o=>{ if(o.isBone) B[o.name]=o; if(o.isMesh){ o.frustumCulled=false; const mp=o.material&&o.material.map; if(mp){ mp.anisotropy=renderer.capabilities.getMaxAnisotropy(); mp.needsUpdate=true } } });
-  const rest={}, restP={}; for(const k in B){ rest[k]=B[k].quaternion.clone(); restP[k]=B[k].position.clone() }
-  const E=new THREE.Euler(), Q=new THREE.Quaternion();
-  // poses feitas no Blender com IK (pés no chão, mãos onde devem ficar): cada animação guarda a pose final de cada osso
-  const pg=await new GLTFLoader().loadAsync('img/pixel-poses.json');
-  const POSE={};
-  for(const clip of pg.animations){ const q={}, p={};
-    for(const tr of clip.tracks){ const dot=tr.name.lastIndexOf('.'), bn=tr.name.slice(0,dot), prop=tr.name.slice(dot+1); if(!B[bn]) continue;
-      if(prop==='quaternion'){ const v=new THREE.Quaternion().fromArray(tr.values,0); if(v.angleTo(rest[bn])>.01) q[bn]=v }
-      else if(prop==='position'){ const v=new THREE.Vector3().fromArray(tr.values,0); if(v.distanceTo(restP[bn])>.005) p[bn]=v } }
-    POSE[clip.name]={q,p} }
-  const baseQ=POSE.base?POSE.base.q:{};
-  function setBase(){ for(const k in rest){ B[k].quaternion.copy(baseQ[k]||rest[k]); B[k].position.copy(restP[k]) } }
-  setBase(); model.updateMatrixWorld(true); const headP=new THREE.Vector3(); B.Head_05.getWorldPosition(headP);
-  // chão: base redonda estilo holograma, com sombra suave embaixo dela
-  const pad=new THREE.Group(); scene.add(pad);
-  function radialTex(stops){ const c=document.createElement('canvas'); c.width=c.height=256; const g=c.getContext('2d'), gr=g.createRadialGradient(128,128,0,128,128,128);
-    stops.forEach(s=>gr.addColorStop(s[0],s[1])); g.fillStyle=gr; g.fillRect(0,0,256,256); const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace; return t }
-  const disc=new THREE.Mesh(new THREE.CylinderGeometry(1.75,1.85,.14,64),new THREE.MeshStandardMaterial({color:0x16121f,roughness:.55,metalness:.35}));
-  disc.position.y=-.07; pad.add(disc);
-  const top=new THREE.Mesh(new THREE.CircleGeometry(1.74,64),new THREE.MeshBasicMaterial({map:radialTex([[0,'rgba(172,0,255,.55)'],[.55,'rgba(80,20,120,.25)'],[.9,'rgba(43,230,168,.35)'],[1,'rgba(43,230,168,.0)']]),transparent:true,depthWrite:false}));
-  top.rotation.x=-Math.PI/2; top.position.y=.003; pad.add(top);
-  const ring=new THREE.Mesh(new THREE.TorusGeometry(1.8,.035,8,96),new THREE.MeshBasicMaterial({color:0x2BE6A8})); ring.rotation.x=Math.PI/2; ring.position.y=.0; pad.add(ring);
-  const ring2=new THREE.Mesh(new THREE.TorusGeometry(1.25,.012,6,96),new THREE.MeshBasicMaterial({color:0xC77DFF,transparent:true,opacity:.7})); ring2.rotation.x=Math.PI/2; ring2.position.y=.006; pad.add(ring2);
-  const shadow=new THREE.Mesh(new THREE.CircleGeometry(1.1,48),new THREE.MeshBasicMaterial({map:radialTex([[0,'rgba(0,0,0,.6)'],[.6,'rgba(0,0,0,.25)'],[1,'rgba(0,0,0,0)']]),transparent:true,depthWrite:false}));
-  shadow.rotation.x=-Math.PI/2; shadow.position.set(0,.008,.05); shadow.scale.set(1,1.35,1); pad.add(shadow);
-  function add(name,x,y,z){ const b=B[name]; if(!b) return; E.set(x,y,z); b.quaternion.multiply(Q.setFromEuler(E)) }  const ACTS={ sit:{dur:[9000,14000],fade:950,w:3,lines:['Vou sentar um pouquinho aqui… 😌','Pausa pro descanso 💤','Daqui de baixo o site fica ainda mais bonito ✨']},
-    hips:{dur:[4200,5600],fade:600,w:2,lines:['Tô de olho em tudo por aqui 😎','Pixel, guardiã oficial do site 😤']},
-    stretch:{dur:[2700,3300],fade:700,w:2,lines:['Aaahh… espreguiçar é bom demais 😌','Recalibrando os servos… pronto! 🤖']},
-    think:{dur:[4200,5200],fade:650,w:2,lines:['Hmm… deixa eu pensar 🤔','Pensando numa coisa legal pra te contar… 🤔']} };
-  let act=null, nextAct=performance.now()+7000, sitW=0;
-  const forcedPose=new URLSearchParams(location.search).get('pixelpose');   // pra testar uma pose: ?pixelpose=sit
-  if(forcedPose) console.log('pixel poses:',Object.keys(POSE).map(k=>k+':'+Object.keys(POSE[k].q).length+'/'+Object.keys(POSE[k].p).length).join(' '),'clips:',pg.animations.length,pg.animations[0]&&pg.animations[0].tracks.slice(0,3).map(t=>t.name).join(','));
-  function startAct(name){ if(!POSE[name]) return; const a=ACTS[name]; act={name,t0:performance.now(),dur:a.dur[0]+Math.random()*(a.dur[1]-a.dur[0]),fade:a.fade};
-    if(name==='think'){ say(pick(a.lines),2400); setTimeout(()=>{ if(typeof tellFact==='function') tellFact() },2500) } else if(Math.random()<.6 && Date.now()-lastSay>8000) say(pick(a.lines)) }
-  function stopAct(){ if(!act) return; const k=performance.now()-act.t0; if(k<act.dur-act.fade) act.dur=k+act.fade }
-  function pickAct(){ let tot=0; for(const k in ACTS) tot+=ACTS[k].w; let r=Math.random()*tot; for(const k in ACTS){ r-=ACTS[k].w; if(r<=0) return k } return 'point' }
-  // duas câmeras: corpo inteiro (de lado, 3/4) e só a cabecinha (modo mini)
-  let camAng=.3;
-  frameCam=function(){ if(mode==='mini'){ camAng=.28; cam.fov=24; cam.position.set(headP.x+Math.sin(camAng)*3.4,headP.y+.42,headP.z+Math.cos(camAng)*3.4); cam.lookAt(headP.x,headP.y+.34,headP.z) }
-    else { camAng=.3; cam.fov=24; cam.position.set(Math.sin(camAng)*16.6,3.4,Math.cos(camAng)*16.6); cam.lookAt(0,2.35,-.2) } cam.updateProjectionMatrix() };
-  frameCam(); root.classList.add('ready');
-
-  const spring=(k,d)=>({x:0,v:0,t:0,k,d,step(dt){ const a=this.k*(this.t-this.x)-this.d*this.v; this.v+=a*dt; this.x+=this.v*dt; return this.x }});
-  const yaw=spring(38,11), pitch=spring(38,11), roll=spring(30,9), earL=spring(120,9), earR=spring(120,9), crouch=spring(160,16);
-  yaw.x=camAng;
-  let px=null, py=null, lastMove=-1e9, glanceAt=0, gy=0, gp=.05, tiltUntil=0, happyUntil=0, scrollV=0, lastY=scrollY;
-  const track=e=>{ px=e.clientX; py=e.clientY; lastMove=performance.now() };
-  addEventListener('pointermove',track,{passive:true}); addEventListener('pointerdown',track,{passive:true});
-  addEventListener('scroll',()=>{ scrollV+=(scrollY-lastY); lastY=scrollY },{passive:true});
-  let hopT=-1, waveT=-1, nextEar=performance.now()+2500;
-  // carinho: passar o mouse/dedo por cima dela
-  let petPath=0, petLastX=null, petLastY=null, petLastT=0, petting=false, petEndT=0, heartT=0, petSaid=0;
-  stage.addEventListener('pointermove',e=>{ if(mode==='mini') return; if(e.pointerType==='touch' && e.buttons===0) return;
-    const n=performance.now(); if(petLastX!==null && n-petLastT<200){ petPath+=Math.hypot(e.clientX-petLastX,e.clientY-petLastY) } else petPath=0;
-    petLastX=e.clientX; petLastY=e.clientY; petLastT=n;
-    if(petPath>140){ if(!petting){ petting=true; purrStart(); if(Date.now()-petSaid>9000){ petSaid=Date.now(); say(pick(PET)) } } petEndT=n+650 } });
-  stage.addEventListener('pointerleave',()=>{ petEndT=Math.min(petEndT,performance.now()+250) });
-  function heart(){ const r=stage.getBoundingClientRect(); const s=document.createElement('span'); s.className='px-heart';
-    s.style.color=['#C77DFF','#2BE6A8','#FF6FB5','#AC00FF'][Math.floor(Math.random()*4)];
-    s.innerHTML='<svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.2 0 3.6 1.2 5.3 3.1 1.7-1.9 3.1-3.1 5.3-3.1 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"/></svg>';
-    s.style.left=(r.width*(.38+Math.random()*.3))+'px'; s.style.top=(r.height*(.16+.3*sitW))+'px'; heartsEl.appendChild(s);
-    const dx=(Math.random()-.5)*70, sc=.7+Math.random()*.6;
-    s.animate([{transform:'translate(0,0) scale(.3)',opacity:0},{transform:`translate(${dx*.3}px,-24px) scale(${sc})`,opacity:1,offset:.2},{transform:`translate(${dx}px,-110px) scale(${sc*.8})`,opacity:0}],{duration:1500+Math.random()*500,easing:'cubic-bezier(.2,.7,.3,1)'}).onfinish=()=>s.remove() }
-  react=function(kind){ const n=performance.now(); if(kind==='tap'){ stopAct(); hopT=n; happyUntil=n+3200; tiltUntil=n+1200; crouch.v=-6 } else if(kind==='happy'){ happyUntil=n+2500; tiltUntil=n+1400 } else if(kind==='laugh'){ happyUntil=n+2600; tiltUntil=n+1300; if(!act) hopT=n } };
-  stage.addEventListener('click',()=>{ audio();
-    if(mode==='mini'){ const had=!!pending; userMin=false; store.set('pixel-min','0'); if(space()){ mode='boot'; layout() } else setMode('visit'); setTimeout(()=>{ react('tap'); beep.hello(); if(!had) say(lastSay?'Oi de novo! 💜':hi+'! Eu sou a Pixel, a pet do site do Bjørn 💜') },350); return }
-    if(performance.now()-petLastT<350 && petting) return;
-    react('tap'); beep.tap(); say(pick(TAP)) });
-
-  const clock=new THREE.Clock();
-  document.addEventListener('visibilitychange',()=>{ if(!document.hidden && !running && !root.hidden) loop() });
-  loop=function(){ running=true; clock.getDelta(); requestAnimationFrame(frame) };
-  const ease=k=>k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;
-  function frame(){
-    if(document.hidden || root.hidden){ running=false; purrStop(); return }
-    const dt=Math.min(.05,clock.getDelta()), t=clock.elapsedTime, now=performance.now(), m=reduce?0:1;
-    // fim do carinho
-    if(petting && now>petEndT){ petting=false; petPath=0; purrStop() }
-    if(petting){ happyUntil=Math.max(happyUntil,now+1200); if(now>heartT){ heartT=now+(reduce?600:170); heart() } }
-    // --- pose atual (sentar, apontar…) com entrada e saída suaves ---
-    if(!act && forcedPose && (mode==='dock'||mode==='visit') && !petting && m) startAct(forcedPose);
-    let aw=0; if(act){ const k=now-act.t0; if(k>act.dur){ act=null; nextAct=now+8000+Math.random()*9000 } else aw=Math.min(ease(Math.min(1,k/act.fade)),ease(Math.max(0,Math.min(1,(act.dur-k)/act.fade)))) }
-    if(mode==='mini' && act){ act=null; aw=0 }
-    sitW=act&&act.name==='sit'?aw:0;
-    // --- olhar: vira na direção do cursor (descontando que a câmera está de lado) ---
-    if(px!==null && now-lastMove<4500){
-      const r=stage.getBoundingClientRect(), hx=r.left+r.width*.5, hy=r.top+r.height*(mode==='mini'?.45:.18+.3*sitW);
-      const spanX=mode==='mini'?innerWidth*.5:innerWidth;
-      yaw.t=Math.max(-.75,Math.min(1.3,camAng+(px-hx)/spanX*2.4)); pitch.t=Math.max(-.5,Math.min(.55,.06+(py-hy)/innerHeight*1.6));
-    } else {
-      if(now>glanceAt){ glanceAt=now+2600+Math.random()*3800; const r=Math.random(); gy=r<.4?0:(Math.random()-.5)*1.1; gp=-.06+Math.random()*.24; if(Math.random()<.3) tiltUntil=now+1600 }
-      yaw.t=camAng+gy*m; pitch.t=gp;
-    }
-    if(petting){ pitch.t=-.18; tiltUntil=now+300 }
-    if(act&&act.name==='stretch'){ pitch.t=pitch.t*(1-aw)-.35*aw }
-    scrollV*=.9; pitch.t+=Math.max(-.25,Math.min(.25,scrollV*.004))*m;
-    roll.t=(now<tiltUntil?.16:0)*m;
-    if(now<talkUntil) pitch.t+=Math.sin(now/95)*.035*m;
-    yaw.step(dt); pitch.step(dt); roll.step(dt);
-    if(m && now>nextEar){ nextEar=now+1800+Math.random()*4200; (Math.random()<.5?earL:earR).v+=9+Math.random()*6 }
-    if(petting && m && Math.random()<.04) (Math.random()<.5?earL:earR).v-=6;
-    earL.step(dt); earR.step(dt); crouch.step(dt);
-    const happy=now<happyUntil?1:0;
-    // --- pose ---
-    setBase();
-    const breath=Math.sin(t*1.7), sway=Math.sin(t*.42), sway2=Math.sin(t*.27+1.3);
-    const sm=m*(1-sitW); add('Hips_01',0,sway2*.03*sm,sway*.028*sm); add('Leg_L_065',0,0,-sway*.028*sm); add('Leg_R_068',0,0,-sway*.028*sm);
-    add('Spine_02',breath*.012*m,-sway2*.02*m,-sway*.018*m); add('Chest_03',breath*.022*m,0,0);
-    add('Neck_04',pitch.x*.4,yaw.x*.4,roll.x*.4); add('Head_05',pitch.x*.6+Math.sin(t*.37)*.02*m,yaw.x*.6+Math.sin(t*.53)*.025*m,roll.x*.6+Math.sin(t*.81)*.015*m);
-    add('Ear_L_07',earL.x*.06,0,0); add('Ear_R_010',earR.x*.06,0,0); add('Ear_L001_08',earL.x*.03,0,0); add('Ear_R001_011',earR.x*.03,0,0);
-    const tf=happy?(petting?5.2:4.2):1.6, ta=(happy?(petting?.2:.17):.07+.03*Math.sin(t*.3))*m;
-    ['Tail_060','Tail001_061','Tail002_062','Tail003_063','Tail004_064'].forEach((n,i)=>add(n,Math.sin(t*.8-i*.5)*.025*m,0,Math.sin(t*tf-i*.55)*ta*(1+i*.45)));
-    add('Shoulder_L_018',0,0,breath*.012*m); add('Shoulder_R_039',0,0,-breath*.012*m);
-    add('Arm_R_040',Math.sin(t*1.7+.6)*.025*m,0,-sway*.03*m); add('Elbow_R_041',-Math.sin(t*1.7+.9)*.03*m,0,0);
-    let w=0; if(waveT>0){ const k=(now-waveT)/2100; if(k<1) w=k<.22?ease(k/.22):k>.78?ease((1-k)/.22):1; else waveT=-1 }
-    if(w>0 && m && POSE.wave_a){ const s=(Math.sin((now-waveT)/150)+1)/2, A=POSE.wave_a.q, Z=POSE.wave_b?POSE.wave_b.q:{}; for(const n in A){ Q.copy(A[n]); if(Z[n]) Q.slerp(Z[n],s); B[n].quaternion.slerp(Q,w) } }
-    else { add('Arm_L_019',Math.sin(t*1.7+.6)*.025*m,0,-sway*.03*m); add('Elbow_L_020',-Math.sin(t*1.7+.9)*.03*m,0,0) }
-    if(act && m && POSE[act.name]){ const P=POSE[act.name]; for(const n in P.q) B[n].quaternion.slerp(P.q[n],aw); for(const n in P.p) B[n].position.lerp(P.p[n],aw) }
-    let hop=0; if(hopT>0){ const k=(now-hopT)/620; if(k<1){ const u=Math.max(0,(k-.18)/.82); hop=Math.sin(u*Math.PI)*.42*m; crouch.t=k<.18?-.12:0; if(k>.95) crouch.v-=4 } else hopT=-1 }
-    const mini=mode==='mini';
-    model.position.set(mini?0:sway*.035*m*(1-sitW),mini?breath*.01*m:hop+crouch.x*m+breath*.008*m,0);
-    model.scale.set(1+(-crouch.x)*.25*m,1+crouch.x*.6*m,1+(-crouch.x)*.25*m);
-    pad.visible=!mini; ring2.rotation.z=t*.25; ring.material.color.setHSL(.45,.8,.5+.06*Math.sin(t*2));
-    shadow.scale.set(1+.35*sitW-hop*.6,1.35+.5*sitW-hop*.6,1); shadow.material.opacity=1-hop*1.2;
-    renderer.render(scene,cam);
-    requestAnimationFrame(frame);
-  }
-  loop();
-  if(mode==='dock'){ setTimeout(()=>{ beep.hello(); say(hi+'! Eu sou a Pixel, a pet do site do Bjørn 💜') },600);
-    setTimeout(()=>{ if(Date.now()-lastSay>5000) say(touch?'Passa o dedo em mim que eu ronrono! 😽':'Mexe o mouse que eu te sigo com o olhar 👀') },8000) }
-  else pending=hi+'! Eu sou a Pixel, a pet do site do Bjørn 💜';
-  // curiosidades de tempos em tempos
-  // conversa de tempos em tempos: fatos aleatórios, piadas e uma ou outra do site
-  const deck=l=>{ let q=[]; return ()=>{ if(!q.length) q=l.slice().sort(()=>Math.random()-.5); return q.pop() } };
-  const nextFact=deck(FACTS), nextJoke=deck(JOKES), nextSite=deck(SITEFACTS), lead=['Curiosidade: ','Fato aleatório: ','Você sabia que ','Sabia que '];
-  tellFact=()=>{ const l=pick(lead), f=nextFact(); say(l+(l.endsWith('que ')?f.replace(/ ([^ ]+)$/,'? $1'):f.charAt(0).toUpperCase()+f.slice(1)),7500) };
-  setInterval(()=>{ if(mode!=='dock'&&mode!=='visit') return; if(Date.now()-lastSay<22000||document.hidden) return; const r=Math.random();
-    if(r<.45) tellFact()
-    else if(r<.88){ const j=nextJoke(); say(j[0],3600); setTimeout(()=>{ say(j[1],5200); react('laugh') },3000) }
-    else say(nextSite(),7000) },11000);
-}
-
-// os olhinhos de LED do botão seguem o mouse
-const pcEyes=document.querySelector('.pc-eyes');
-if(pcEyes) addEventListener('pointermove',e=>{ if(call.hidden) return; const r=call.getBoundingClientRect(); const dx=Math.max(-3,Math.min(3,(e.clientX-(r.left+40))/innerWidth*14)), dy=Math.max(-2,Math.min(2,(e.clientY-(r.top+28))/innerHeight*8)); pcEyes.style.transform='translate('+dx.toFixed(1)+'px,'+dy.toFixed(1)+'px)' },{passive:true});
-
-// ---------- começa ----------
-function boot(){ if(!isPC||!hasGL()) return; mode='boot'; layout() }
-if(document.readyState==='complete') setTimeout(boot,900); else addEventListener('load',()=>setTimeout(boot,900));
-// o navegador só libera som depois do primeiro toque/clique
-['pointerdown','keydown'].forEach(ev=>addEventListener(ev,()=>{ if(soundOn&&started) audio() },{once:true,passive:true}));
-
-// ---------- ela comenta as seções (uma vez cada) ----------
-const said={};
-const io=new IntersectionObserver(es=>{ es.forEach(e=>{ if(!e.isIntersecting) return; const id=e.target.id;
-  if(inFrame()) framePos(e.target.offsetTop+110);
-  if(!started||said[id]||!SECTION[id]||mode==='off') return;
-  if(Date.now()-lastSay<6500) return; said[id]=1; say(SECTION[id]) }) },{threshold:.3});
-document.querySelectorAll('main > section[id]').forEach(s=>io.observe(s));
-
-// ---------- reações pelo site ----------
-let swT=0;
-document.addEventListener('click',e=>{
-  if(!started||mode==='off') return;
-  if(e.target.closest('.sw') && Date.now()-swT>8000){ swT=Date.now(); react('happy'); say('Boa escolha! Essa cor é linda 🎨'); return }
-  if(e.target.closest('#nerv')){ setTimeout(()=>say('Os MAGI aprovaram! Agora é oficial 😎'),4200); return }
-  if(e.target.closest('.big-heart,#stage')){ react('happy'); if(Date.now()-lastSay>4000) say('Boop! 💜'); return }
-  if(e.target.closest('#peki')){ const b=document.getElementById('bsod'); const mo=new MutationObserver(()=>{ if(b.hidden){ mo.disconnect(); setTimeout(()=>{ react('happy'); say(pick(['Eu avisei que não era pra mexer no Peki! 😹','Hehehe… o Peki pegou você também? 😹'])) },400) } }); mo.observe(b,{attributes:true,attributeFilter:['hidden']}); }
-},true);
-let idleT; const idle=()=>{ clearTimeout(idleT); idleT=setTimeout(()=>{ if(started&&(mode==='dock'||mode==='visit')) say('Zzz… ah! Ainda tá aí? 👀') },50000) };
-['pointermove','scroll','keydown','touchstart'].forEach(ev=>addEventListener(ev,idle,{passive:true})); idle();
 </script>
 
 </body>
