@@ -3,17 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- segurança: o navegador só carrega o que vem do próprio site, as fontes do Google e a prévia de 30s da Apple; nada de plugins, formulários ou páginas embutidas -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self'; media-src 'self' https://audio-ssl.itunes.apple.com; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="icon" type="image/webp" href="img/paw-bjorn.webp">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://srbjorn.github.io/">
 <meta property="og:site_name" content="Sr_Bjørn">
 <meta property="og:title" content="Sr_Bjørn">
 <meta property="og:description" content="Olá, aqui é o Bjorn ou como preferir seu Jorje, entre pra ver sobre minha biografia e conhecer mais sobre minha pessoa!">
-<meta property="og:image" content="https://srbjorn.github.io/img/og-bjorn.png">
-<meta property="og:image:type" content="image/png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="1200">
-<meta property="og:image:alt" content="O avatar do Bjørn acenando e mostrando a língua">
+<meta property="og:image" content="https://srbjorn.github.io/img/og-rascunho.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="829">
+<meta property="og:image:height" content="829">
+<meta property="og:image:alt" content="Rascunho a lápis de um personagem furry de orelhas grandes e olhar cansado">
 <meta name="twitter:card" content="summary_large_image">
 <style>html{-webkit-text-size-adjust:100%}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Sr_Bjørn</title>
@@ -207,17 +210,7 @@ button.social{width:100%;font:inherit;color:inherit;text-align:left;cursor:point
 :root{--kanji:"Noto Serif JP","Yu Mincho","Hiragino Mincho ProN","MS Mincho",serif}
 main,footer{position:relative;z-index:1}
 .kanji-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.kb-in{position:absolute;inset:0;will-change:transform}
-.kanji-bg span{position:absolute;font:900 var(--s)/1 var(--kanji);color:var(--violet-soft);opacity:.05;animation:kdrift var(--d) ease-in-out infinite alternate}
-.kanji-bg .k1{--s:34vw;--d:38s;left:-4vw;top:6vh}
-.kanji-bg .k2{--s:15vw;--d:46s;right:-1vw;top:28vh;writing-mode:vertical-rl;color:var(--mint);opacity:.035;animation-delay:-12s}
-.kanji-bg .k3{--s:18vw;--d:52s;left:30vw;bottom:-6vh;animation-delay:-20s}
-.kanji-bg .k4{--s:12vw;--d:34s;right:22vw;top:-2vh;color:var(--mint);opacity:.03;animation-delay:-6s}
-@keyframes kdrift{0%{transform:translate(0,0) rotate(-4deg)}100%{transform:translate(2.5vw,-4vh) rotate(4deg)}}
-/* kanjis respirando + vaga-lumes */
-.kanji-bg span{animation:kdrift var(--d) ease-in-out infinite alternate,kbreath 9s ease-in-out infinite}
-.kanji-bg span{will-change:transform,filter}
-@keyframes kbreath{0%,100%{filter:brightness(1)}50%{filter:brightness(2.3)}}
+/* vaga-lumes em 3D no fundo */
 .fireflies{position:absolute;inset:0;width:100%;height:100%}
 /* trilha sonora (Spotify) */
 .track.no-eq{grid-template-columns:auto minmax(0,1fr) auto}
@@ -257,6 +250,17 @@ main,footer{position:relative;z-index:1}
 .track.pv-hint .pv-note{opacity:1;color:#1ED760}
 .track.pv-hint .pv-btn{animation:pvPulse 1s ease-in-out infinite}
 @keyframes pvPulse{50%{box-shadow:0 0 0 8px rgba(30,215,96,.25)}}
+/* playlist: escolher entre Spotify e YouTube Music */
+.pl-duo .pcover{background:linear-gradient(135deg,#1DB954 0%,var(--violet) 52%,#FF0033 100%)}
+.pl-duo .pcover svg{width:30px;height:30px;fill:#fff}
+.pl-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:9px}
+.pl-links a{display:inline-flex;align-items:center;gap:7px;font:700 13px/1 var(--body);padding:9px 13px;border-radius:999px;text-decoration:none;transition:transform .2s ease,box-shadow .2s ease}
+.pl-links svg{width:15px;height:15px;fill:currentColor;flex:none}
+.pl-sp{background:#1ED760;color:#000}
+.pl-yt{background:#FF0033;color:#fff}
+.pl-sp:hover{transform:translateY(-2px);box-shadow:0 8px 18px -8px #1ED760}
+.pl-yt:hover{transform:translateY(-2px);box-shadow:0 8px 18px -8px #FF0033}
+.track.pl-duo:hover{transform:none;border-color:var(--violet-soft);box-shadow:0 14px 34px -16px var(--violet)}
 @media (max-width:900px){ .music{grid-template-columns:minmax(0,1fr)} }
 @media (max-width:420px){ .track .eq{display:none} .track{grid-template-columns:auto minmax(0,1fr) auto} }
 /* selo ESTJ-T */
@@ -348,6 +352,8 @@ footer .wrap{align-items:flex-end}
 @media (max-width:560px){ .foot-txt{margin-left:0;flex-basis:100%} .peki{margin:20px 0 -24px auto} }
 /* tela azul de mentirinha */
 .bsod{position:fixed;inset:0;z-index:200;cursor:pointer}
+/* durante a tela azul e o reinício de mentirinha o ponteiro some, como num travamento de verdade; volta quando aparece o "Pegadinha!" */
+.bsod:not(.gotcha):not(.final),.bsod:not(.gotcha):not(.final) *{cursor:none!important}
 .bsod.in-frame{position:absolute;inset:auto;left:0;right:0;top:0}
 .bsod-black{position:absolute;inset:0;background:#000}
 .bsod-screen{position:absolute;inset:0;background:#0078D7;color:#fff;opacity:0;font-family:"Segoe UI",system-ui,-apple-system,sans-serif}
@@ -527,14 +533,51 @@ main > section[id]::before{content:"";position:absolute;top:0;left:50%;transform
 .magi-res{margin:0;color:var(--bone);font:600 15px/1.4 var(--body);opacity:0;transition:opacity .4s ease}
 .magi.done .magi-res{opacity:1}
 .magi-motto{display:block;margin-top:6px;color:var(--faint);font:italic 500 11.5px/1.4 Georgia,serif;opacity:0;transition:opacity .4s ease .2s}
-.magi.done .magi-motto{opacity:1}/* ===== cursor de patinha + fio vermelho seguindo ===== */
+.magi.done .magi-motto{opacity:1}/* ===== cursor de patinha (pelagem preta, almofadinhas roxo neon, como o Sr_Bjorn) + fio vermelho seguindo ===== */
 @media (pointer:fine){
-  *{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg fill='%23AC00FF' stroke='%23FFFFFF' stroke-width='1.5' stroke-linejoin='round'%3E%3Cpath d='M2.5 2.5 C8 3.6 15.5 6.6 18.2 9.8 C20.6 12.6 12.6 20.6 9.8 18.2 C6.6 15.5 3.6 8 2.5 2.5 Z'/%3E%3Cellipse cx='22.6' cy='11.4' rx='2.3' ry='2.7' transform='rotate(-35 22.6 11.4)'/%3E%3Cellipse cx='21.6' cy='17.8' rx='2.5' ry='2.9' transform='rotate(-45 21.6 17.8)'/%3E%3Cellipse cx='17.8' cy='21.6' rx='2.5' ry='2.9' transform='rotate(-45 17.8 21.6)'/%3E%3Cellipse cx='11.4' cy='22.6' rx='2.3' ry='2.7' transform='rotate(-55 11.4 22.6)'/%3E%3C/g%3E%3C/svg%3E") 2 2,auto !important}
-  a,button,summary,label,[role="button"],[data-copy],[data-hex],.emblem,.bsod,.magi,.magi-back,.mc-stage,.mc-opt{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg fill='%23E10022' stroke='%23FFFFFF' stroke-width='1.5' stroke-linejoin='round'%3E%3Cpath d='M2.5 2.5 C8 3.6 15.5 6.6 18.2 9.8 C20.6 12.6 12.6 20.6 9.8 18.2 C6.6 15.5 3.6 8 2.5 2.5 Z'/%3E%3Cellipse cx='22.6' cy='11.4' rx='2.3' ry='2.7' transform='rotate(-35 22.6 11.4)'/%3E%3Cellipse cx='21.6' cy='17.8' rx='2.5' ry='2.9' transform='rotate(-45 21.6 17.8)'/%3E%3Cellipse cx='17.8' cy='21.6' rx='2.5' ry='2.9' transform='rotate(-45 17.8 21.6)'/%3E%3Cellipse cx='11.4' cy='22.6' rx='2.3' ry='2.7' transform='rotate(-55 11.4 22.6)'/%3E%3C/g%3E%3C/svg%3E") 2 2,pointer !important}
+  *{cursor:url("img/cursor-patinha.png") 7 5,auto !important;cursor:-webkit-image-set(url("img/cursor-patinha.png") 1x,url("img/cursor-patinha@2x.png") 2x) 7 5,auto !important;cursor:image-set(url("img/cursor-patinha.png") 1x,url("img/cursor-patinha@2x.png") 2x) 7 5,auto !important}
+  a,button,summary,label,[role="button"],[data-copy],[data-hex],.emblem,.bsod,.magi,.magi-back,.mc-stage,.mc-opt,.pm-quadro.pm-toque{cursor:url("img/cursor-patinha-aponta.png") 7 5,pointer !important;cursor:-webkit-image-set(url("img/cursor-patinha-aponta.png") 1x,url("img/cursor-patinha-aponta@2x.png") 2x) 7 5,pointer !important;cursor:image-set(url("img/cursor-patinha-aponta.png") 1x,url("img/cursor-patinha-aponta@2x.png") 2x) 7 5,pointer !important}
+  html.apertando,html.apertando *{cursor:url("img/cursor-patinha-aperta.png") 12 11,grabbing !important;cursor:-webkit-image-set(url("img/cursor-patinha-aperta.png") 1x,url("img/cursor-patinha-aperta@2x.png") 2x) 12 11,grabbing !important;cursor:image-set(url("img/cursor-patinha-aperta.png") 1x,url("img/cursor-patinha-aperta@2x.png") 2x) 12 11,grabbing !important}
 }
 .red-thread{position:fixed;inset:0;width:100%;height:100%;z-index:150;pointer-events:none;overflow:visible;transition:opacity .3s ease}
 .red-thread g{filter:drop-shadow(0 0 4px rgba(255,0,40,.75))}
 .red-thread line{stroke:#E10022;stroke-linecap:round}
+/* ===== Protocolo Z: o jogo que eu fiz, com as cores dele (LED ciano e o Z vermelho) ===== */
+@font-face{font-family:"Kurama Pixel";src:url("jogos/protocolo-z/kurama-pixel.ttf") format("truetype");font-display:swap}
+.pz-card{--led:#62F3FF;--zv:#FF3B5C;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(20px,3vw,36px);align-items:center;padding:clamp(14px,2vw,20px);border-radius:24px;background:radial-gradient(120% 90% at 100% 0%,rgba(98,243,255,.1),transparent 55%),linear-gradient(180deg,#0B1016,#07090D);border:1px solid rgba(98,243,255,.28);box-shadow:0 30px 70px -40px rgba(98,243,255,.5)}
+.pz-capa{position:relative;display:block;width:100%;padding:0;border:0;border-radius:16px;overflow:hidden;background:#000;cursor:pointer;box-shadow:0 0 0 1px rgba(98,243,255,.25)}
+.pz-capa img{display:block;width:100%;height:auto;aspect-ratio:16/10;transition:transform .5s ease,filter .4s ease}
+.pz-capa:hover img{transform:scale(1.04);filter:brightness(1.12)}
+.pz-play{position:absolute;left:50%;top:50%;width:74px;height:74px;margin:-37px 0 0 -37px;border-radius:50%;display:grid;place-items:center;background:rgba(6,14,22,.72);border:2px solid var(--led);box-shadow:0 0 24px rgba(98,243,255,.6);transition:transform .25s cubic-bezier(.34,1.56,.64,1)}
+.pz-play svg{width:30px;height:30px;fill:var(--led);margin-left:4px}
+.pz-capa:hover .pz-play{transform:scale(1.12)}
+.pz-capa:focus-visible{outline:2px solid var(--led);outline-offset:3px}
+.pz-info{display:grid;gap:14px;align-content:center;min-width:0}
+.pz-tag{justify-self:start;display:inline-flex;align-items:center;gap:8px;font:700 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--led);padding:8px 12px;border-radius:999px;border:1px solid rgba(98,243,255,.35);background:rgba(98,243,255,.06)}
+.pz-tag i{width:8px;height:8px;border-radius:50%;background:var(--zv);box-shadow:0 0 8px var(--zv);animation:gumPulse 1.6s ease-in-out infinite}
+.pz-nome{font:400 clamp(30px,4vw,46px)/1 "Kurama Pixel",var(--mono);letter-spacing:.04em;color:var(--led);text-shadow:0 0 14px rgba(98,243,255,.55)}
+.pz-nome b{font-weight:400;color:var(--zv);text-shadow:0 0 14px rgba(255,59,92,.7)}
+.pz-info p{color:#C9D6DC;font-size:16.5px;line-height:1.6}
+.pz-fatos{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.pz-fatos li{font:600 13.5px/1 var(--body);padding:8px 11px;border-radius:10px;background:rgba(98,243,255,.07);border:1px solid rgba(98,243,255,.18);color:#E8FBFF}
+.pz-acts{display:flex;flex-wrap:wrap;gap:12px}
+.pz-btn svg{width:17px;height:17px;fill:currentColor;flex:none}
+.pz-btn.btn-ghost svg{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.pz-dica{font-size:14px!important;color:var(--muted)!important}
+.pz-dica kbd{font:600 12px/1 var(--mono);padding:4px 7px;border-radius:6px;border:1px solid var(--line);background:var(--coal-2);color:var(--bone)}
+.pz-celular{display:none;font-size:15px!important;color:var(--led)!important}
+.pz-fotos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.pz-fotos img{display:block;width:100%;height:auto;aspect-ratio:16/10;border-radius:10px;border:1px solid rgba(98,243,255,.18)}
+.pz-janela{position:fixed;inset:0;z-index:300;display:grid;place-items:center;padding:clamp(10px,3vw,40px);background:rgba(4,5,8,.88);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.pz-janela[hidden]{display:none}
+.pz-moldura{width:min(100%,calc((100vh - 2*clamp(10px,3vw,40px))*1.6));aspect-ratio:16/10;max-height:100%;border-radius:14px;overflow:hidden;background:#000;box-shadow:0 0 0 1px rgba(98,243,255,.3),0 30px 90px -20px rgba(98,243,255,.35)}
+.pz-moldura iframe{display:block;width:100%;height:100%;border:0}
+.pz-moldura:fullscreen{width:100%;height:100%;max-height:none;aspect-ratio:auto;border-radius:0}
+.pz-sair{position:absolute;top:12px;right:12px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(14,13,18,.85);color:#fff;font:400 26px/1 var(--body);cursor:pointer}
+.pz-sair:hover{background:#C42B1C}
+@media (max-width:900px){ .pz-card{grid-template-columns:minmax(0,1fr)} }
+@media (hover:none) and (pointer:coarse){ .pz-acts,.pz-dica,.pz-play{display:none} .pz-celular{display:block} .pz-capa{pointer-events:none} }
+@media (prefers-reduced-motion:reduce){ .pz-tag i{animation:none} }
 /* ===== Mascote: o avatar do Bjørn no VRChat, renderizado no Blender ===== */
 /* fica na margem vazia da esquerda; sem espaço, vira uma bolinha com a cabeça dele */
 .mc{--ar:1.97;--pw:200px;--ph:394px;--pl:16px;--bw:240px;position:fixed;z-index:40;left:var(--pl);bottom:14px;width:var(--pw);height:var(--ph);pointer-events:none}
@@ -861,6 +904,8 @@ a.contact-row:hover .cgo i{transform:translateX(4px)}
 .coupon button svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .nova .perk{color:#EDF2F1;font-size:16px}
 .nova .perk b{color:#2BE6A8}
+@keyframes ntglow{50%{box-shadow:0 0 0 4px rgba(47,227,168,.08),0 0 36px rgba(47,227,168,.28)}}
+@keyframes ntwiggle{0%,86%,100%{transform:none}89%{transform:rotate(-6deg) scale(1.08)}92%{transform:rotate(5deg) scale(1.08)}95%{transform:rotate(-2deg)}}
 .nt-links{display:flex;flex-wrap:wrap;gap:12px}
 .nt-btn{display:inline-flex;align-items:center;gap:10px;font:700 16px/1 var(--body);padding:18px 26px;border-radius:999px;text-decoration:none;border:1px solid rgba(255,255,255,.14);color:#EDF2F1;transition:transform .15s ease}
 .nt-btn:hover{transform:translateY(-2px)}
@@ -872,6 +917,96 @@ a.contact-row:hover .cgo i{transform:translateX(4px)}
 .spark{position:absolute;left:50%;top:40%;pointer-events:none;z-index:4;line-height:0}
 .spark svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 6px rgba(43,230,168,.7))}
 .mini{position:absolute;left:50%;top:45%;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;pointer-events:none;z-index:4}
+
+/* ===== serviços: atalhos no topo ===== */
+.hero-svc .chip{text-decoration:none;transition:border-color .2s ease,transform .2s ease}
+.hero-svc .chip:hover{border-color:var(--violet-soft);transform:translateY(-2px)}
+.b-gumroad{background:#FF90E8;color:#000!important;font:900 22px/1 var(--display)}
+.social:has(.b-gumroad){--brand:#FF90E8}
+
+/* ===== sites: o recibo do orçamento e as janelas dos sites que eu fiz ===== */
+.sites-top{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.85fr);gap:clamp(28px,5vw,64px);align-items:center;margin-bottom:clamp(40px,6vw,64px)}
+.sites-top .sec-head{margin-bottom:0}
+.recibo-wrap{justify-self:end;width:min(100%,380px);transform:rotate(1.6deg);filter:drop-shadow(0 24px 30px rgba(0,0,0,.55)) drop-shadow(0 0 1px rgba(255,255,255,.2))}
+.recibo{--zz:9px;display:grid;gap:16px;padding:24px 24px calc(28px + var(--zz));background:#F4F1EA;color:#1B1824;font:500 14px/1.5 var(--mono);
+  -webkit-mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/calc(2*var(--zz)) 100%;
+  mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/calc(2*var(--zz)) 100%}
+.rc-top{text-align:center;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding-bottom:14px;border-bottom:2px dashed rgba(27,24,36,.3)}
+.rc-itens{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.rc-itens li{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 8px}
+.rc-itens i{flex:1 1 16px;border-bottom:2px dotted rgba(27,24,36,.35);transform:translateY(-4px)}
+.rc-itens b{font-weight:700}
+.rc-itens b em{font:700 22px/1 var(--mono);font-style:normal;color:var(--violet-deep)}
+.rc-itens .free{display:inline-block;padding:4px 9px;border:2px solid var(--violet-deep);border-radius:8px;color:var(--violet-deep);transform:rotate(-4deg)}
+.rc-nota{color:#4A4558;font-size:13.5px;padding-top:14px;border-top:2px dashed rgba(27,24,36,.3)}
+.rc-cta{display:grid;gap:8px}
+.rc-cta a{display:block;text-align:center;font:700 15px/1 var(--body);padding:14px 16px;border-radius:12px;text-decoration:none;background:#1B1824;color:#F4F1EA;transition:background .2s ease,transform .2s ease}
+.rc-cta a + a{background:transparent;color:#1B1824;box-shadow:inset 0 0 0 2px #1B1824}
+.rc-cta a:hover{transform:translateY(-2px);background:var(--violet-deep);color:#fff;box-shadow:none}
+.site-shots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(18px,3vw,28px)}
+.site-win{--acc:var(--violet-soft);display:flex;flex-direction:column;border-radius:18px;overflow:hidden;background:var(--coal);border:1px solid var(--line);text-decoration:none;transition:transform .25s ease,border-color .25s ease,box-shadow .3s ease}
+.site-win:hover{transform:translateY(-4px);border-color:var(--acc);box-shadow:0 26px 50px -28px var(--acc)}
+.win-bar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:var(--coal-2);border-bottom:1px solid var(--line)}
+.win-bar i{width:10px;height:10px;border-radius:50%;background:var(--line);flex:none;transition:background .25s ease}
+.site-win:hover .win-bar i:nth-child(1){background:#FF5F57}.site-win:hover .win-bar i:nth-child(2){background:#FEBC2E}.site-win:hover .win-bar i:nth-child(3){background:#28C840}
+.win-url{margin-left:8px;flex:1;min-width:0;font:500 13px/1 var(--mono);color:var(--muted);background:var(--night);padding:7px 12px;border-radius:999px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.site-win img{display:block;width:100%;height:auto;aspect-ratio:16/10}
+.win-cap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 16px;align-items:center;padding:16px 18px 18px;border-top:1px solid var(--line)}
+.win-cap b{font:700 18px/1.2 var(--display)}
+.win-cap small{grid-column:1;color:var(--muted);font-size:14px;line-height:1.45}
+.win-cap .go{grid-row:1/3;grid-column:2;font:700 14px/1 var(--body);color:var(--acc);white-space:nowrap}
+.sites-note{margin-top:22px;color:var(--muted);font-size:15px}
+
+/* ===== avatares: o servidor NVSB Studio's e a Gumroad ===== */
+.ava{display:grid;gap:clamp(22px,3vw,32px)}
+.ava-studio{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);grid-template-areas:"foto head" "foto body";grid-template-rows:auto 1fr;gap:18px clamp(24px,4vw,44px);padding:clamp(16px,2.4vw,24px);border-radius:24px;background:radial-gradient(120% 90% at 0% 0%,rgba(88,101,242,.22),transparent 60%),var(--coal);border:1px solid rgba(88,101,242,.45)}
+.ava-foto{grid-area:foto;align-self:center;margin:0;border-radius:16px;overflow:hidden;background:var(--night);box-shadow:0 18px 40px -20px rgba(88,101,242,.8)}
+.ava-foto img{display:block;width:100%;height:auto;aspect-ratio:16/9}
+.ava-head{grid-area:head;align-self:end;display:grid;gap:10px;padding-top:clamp(4px,1.5vw,16px)}
+.ava-head h3{font-size:clamp(24px,3vw,32px);font-weight:900;letter-spacing:-.01em}
+.ava-body{grid-area:body;align-content:start;display:grid;gap:18px;padding-bottom:clamp(4px,1.5vw,16px)}
+.ava-body p{color:var(--muted);font-size:17px;max-width:56ch}
+.ava-body p b{color:var(--bone);font-weight:600}
+.trio{display:flex;flex-wrap:wrap;gap:8px}
+.trio span{font:600 14px/1 var(--body);padding:9px 13px;border-radius:999px;background:var(--coal-2);border:1px solid var(--line)}
+.trio span:first-child{border-color:var(--violet-soft);color:var(--violet-soft)}
+.ava-acts{display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px}
+.btn-dc{background:#5865F2;color:#fff;box-shadow:0 10px 30px -12px rgba(88,101,242,.9)}
+.btn-dc:hover{background:#6B77F5}
+.selo{display:inline-block;font:900 13px/1.1 var(--display);letter-spacing:.04em;text-transform:uppercase;color:var(--mint);border:2px solid var(--mint);padding:9px 12px;border-radius:10px;transform:rotate(-3deg)}
+.gum{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:20px clamp(24px,4vw,48px);margin-right:8px;padding:clamp(22px,3.5vw,36px);border-radius:24px;background:#FF90E8;color:#000;border:2px solid #000;box-shadow:8px 8px 0 var(--violet)}
+.gum-txt{display:grid;justify-items:start;gap:14px}
+.gum-txt p{max-width:58ch}
+.gum h3{font-size:clamp(24px,3vw,32px);font-weight:900;letter-spacing:-.01em}
+.gum p{font-size:17px;line-height:1.55;color:#1A1A1A}
+.gum-tag{display:inline-flex;align-items:center;gap:8px;font:700 13px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:8px 12px;border:2px solid #000;border-radius:999px;background:#fff}
+.gum-tag i{width:8px;height:8px;border-radius:50%;background:#000;animation:gumPulse 1.6s ease-in-out infinite}
+@keyframes gumPulse{50%{opacity:.25}}
+.gum-btn{display:inline-flex;white-space:nowrap;align-items:center;gap:10px;font:700 16px/1 var(--body);padding:15px 20px;border-radius:999px;text-decoration:none;background:#000;color:#fff;transition:transform .2s ease,box-shadow .2s ease}
+.gum-btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 #fff}
+.svc.parsec.ship{background:linear-gradient(120deg,rgba(43,230,168,.16),rgba(43,230,168,.03) 60%);border-color:rgba(43,230,168,.45)}
+.svc.parsec.ship .pi{background:var(--mint)}
+.svc.parsec.ship .pi svg{stroke:#06241A}
+.svc.parsec.remote{background:var(--coal-2);border-color:var(--line)}
+.svc.remote .pi{background:var(--coal);box-shadow:inset 0 0 0 1px var(--line)}
+@media (max-width:900px){
+  .sites-top{grid-template-columns:minmax(0,1fr)}
+  .recibo-wrap{justify-self:center}
+  .ava-studio{grid-template-columns:minmax(0,1fr);grid-template-areas:"foto" "head" "body";grid-template-rows:auto}
+  .ava-head,.ava-body{padding-inline:clamp(6px,1.2vw,12px)}
+}
+@media (max-width:760px){
+  .gum{grid-template-columns:minmax(0,1fr)}
+  .gum-btn{justify-self:start}
+}
+@media (max-width:640px){
+  .site-shots{grid-template-columns:minmax(0,1fr)}
+  .recibo-wrap{transform:rotate(1deg)}
+  .win-cap{grid-template-columns:minmax(0,1fr)}
+  .win-cap .go{grid-row:auto;grid-column:1;margin-top:4px}
+  .gum{box-shadow:6px 6px 0 var(--violet)}
+}
+@media (prefers-reduced-motion:reduce){ .gum-tag i{animation:none} }
 
 /* ===== poema: a Lua vagando em volta de onde o Sol ficava ===== */
 .poema{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(32px,6vw,88px);align-items:start}
@@ -896,6 +1031,33 @@ a.contact-row:hover .cgo i{transform:translateX(4px)}
 .pm-w.on{color:#F4EDFF;text-shadow:0 0 14px rgba(199,125,255,.9)}
 .pm-dedica{display:flex;align-items:center;gap:12px;font:600 12px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--violet-soft)}
 .pm-dedica::before{content:"";width:36px;height:1px;background:currentColor;flex:none}
+/* o céu do quadro: mar, constelação que a pessoa desenha, estrela cadente e o calor do Sol */
+.pm-quadro{position:relative}
+.pm-quadro svg{position:relative;z-index:1}
+.pm-fx,.pm-mar{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.pm-fx{z-index:0}.pm-mar{z-index:2}
+.pm-quadro.pm-toque{cursor:crosshair;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.pm-dica{position:absolute;left:50%;bottom:clamp(8px,2.4%,14px);z-index:3;transform:translateX(-50%);max-width:calc(100% - 20px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:600 11px/1 var(--mono);letter-spacing:.04em;color:#E4D6FF;background:rgba(11,10,16,.7);padding:7px 11px;border-radius:999px;border:1px solid rgba(199,125,255,.3);pointer-events:none;transition:opacity .6s ease;animation:pmDica 2.6s ease-in-out infinite}
+.pm-dica.off{opacity:0}
+@keyframes pmDica{50%{box-shadow:0 0 0 4px rgba(199,125,255,.14)}}
+/* a voz lendo o poema: botão e palavras que brilham na hora em que são faladas */
+.pm-ouvir{position:relative;overflow:hidden;justify-self:start;display:inline-flex;align-items:center;gap:12px;padding:8px 20px 8px 8px;border-radius:999px;border:1px solid rgba(199,125,255,.4);background:linear-gradient(120deg,rgba(172,0,255,.18),rgba(20,16,32,.92) 62%);color:var(--bone);cursor:pointer;text-align:left;transition:border-color .2s ease,transform .2s ease,box-shadow .3s ease}
+.pm-ouvir:hover{border-color:var(--violet-soft);transform:translateY(-2px);box-shadow:0 12px 30px -14px var(--violet)}
+.pm-ouvir:focus-visible{outline:2px solid var(--violet-soft);outline-offset:3px}
+.pm-ouvir .ic{width:42px;height:42px;flex:none;border-radius:50%;display:grid;place-items:center;background:var(--violet);color:#fff}
+.pm-ouvir .ic svg{width:18px;height:18px;fill:currentColor}
+.pm-ouvir .i-pause{display:none}
+.pm-ouvir.tocando .i-play{display:none}.pm-ouvir.tocando .i-pause{display:block}
+.pm-ouvir.tocando .ic,.pm-ouvir.carregando .ic{animation:pmVoz 1.6s ease-out infinite}
+@keyframes pmVoz{0%{box-shadow:0 0 0 0 rgba(172,0,255,.6)}100%{box-shadow:0 0 0 14px rgba(172,0,255,0)}}
+.pm-ouvir b{display:block;font:700 16px/1.15 var(--body)}
+.pm-ouvir small{display:block;margin-top:4px;font:500 11px/1 var(--mono);letter-spacing:.06em;color:var(--muted)}
+.pm-ouvir .barra{position:absolute;left:0;bottom:0;height:3px;width:0;background:linear-gradient(90deg,var(--violet-soft),var(--mint))}
+.pw{transition:color .3s ease,text-shadow .45s ease,opacity .35s ease}
+.poema.lendo .estrofe .pw{opacity:.5}
+.poema.lendo .estrofe .pw.lida,.poema.lendo .estrofe .pw.fala{opacity:1}
+.pw.fala{color:#fff;text-shadow:0 0 10px rgba(199,125,255,.95),0 0 26px rgba(172,0,255,.6)}
+#poema h2 .pw.fala{color:var(--violet-soft);text-shadow:0 0 18px rgba(199,125,255,.9)}
 @media (max-width:900px){
   .poema{grid-template-columns:minmax(0,1fr);gap:20px}
   .pm-ceu{top:calc(60px + env(safe-area-inset-top,0px));z-index:2;gap:10px;padding:8px 0 12px;background:var(--night)}
@@ -929,6 +1091,23 @@ footer .brand{font-size:20px;color:var(--bone)}
   .body-map{grid-template-columns:96px minmax(0,1fr)}
   .fact{grid-template-columns:minmax(0,1fr);gap:4px}
 }
+
+/* ===== transições: cada seção entra em 3D quando aparece na tela ===== */
+html.rv-on .rv:not(.rv-in){opacity:0;transform:perspective(1100px) translate3d(0,64px,0) rotateX(12deg) scale(.97)}
+html.rv-on .rv-f:not(.rv-in){opacity:0}
+html.rv-on .rv-e:not(.rv-in){opacity:0;transform:translateX(-22px)}
+html.rv-on .rv-h:not(.rv-in){opacity:0;transform:translateY(.45em) skewY(2deg)}
+html.rv-on .rv{transform-origin:50% 0}
+.rv-go{transition:opacity .7s cubic-bezier(.2,.7,.2,1) var(--rd,0s),transform .9s cubic-bezier(.16,.84,.24,1) var(--rd,0s)!important}
+
+/* ===== cartões que inclinam seguindo o mouse ===== */
+.site-win{position:relative}
+.site-win::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(460px circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.12),transparent 62%);opacity:0;transition:opacity .3s ease}
+.site-win.tilt{transform:perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(-6px);transition:transform .12s ease-out,border-color .25s ease,box-shadow .3s ease}
+.site-win.tilt::after{opacity:1}
+.recibo-wrap{transition:transform .4s ease}
+.recibo-wrap.tilt{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) rotate(1.6deg);transition:transform .12s ease-out}
+
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
   html{scroll-behavior:auto}
@@ -938,7 +1117,11 @@ footer .brand{font-size:20px;color:var(--bone)}
 <body>
 
 
-<div class="kanji-bg" aria-hidden="true"><canvas class="fireflies" id="fireflies"></canvas><div class="kb-in"><span class="k1">愛</span><span class="k2">熊士</span><span class="k3">熊</span><span class="k4">愛</span></div></div>
+<div class="pz-janela" id="pz-janela" hidden>
+  <div class="pz-moldura" role="dialog" aria-modal="true" aria-label="Protocolo Z"><iframe id="pz-frame" title="Protocolo Z" allow="fullscreen; autoplay; gamepad" allowfullscreen></iframe></div>
+  <button type="button" class="pz-sair" id="pz-sair" aria-label="Fechar o jogo">×</button>
+</div>
+<div class="kanji-bg" aria-hidden="true"><canvas class="fireflies" id="fireflies"></canvas></div>
 
 <header class="nav">
   <div class="wrap">
@@ -946,12 +1129,15 @@ footer .brand{font-size:20px;color:var(--bone)}
     <nav class="nav-links" aria-label="Seções">
       <a href="#sobre">Sobre</a>
       <a href="#redes">Redes</a>
-      <a href="#ocs">OCs</a>
       <i class="nav-sep" aria-hidden="true"></i>
+      <a href="#sites">Sites</a>
+      <a href="#avatares">Avatares</a>
+      <a href="#manutencao">Manutenção</a>
+      <i class="nav-sep" aria-hidden="true"></i>
+      <a href="#ocs">OCs</a>
       <a href="#setup">Setup</a>
       <a href="#games">Games</a>
       <i class="nav-sep" aria-hidden="true"></i>
-      <a href="#manutencao">Manutenção</a>
       <a href="#parcerias">Parcerias</a>
       <i class="nav-sep" aria-hidden="true"></i>
       <a href="#poema">Poema</a>
@@ -966,9 +1152,14 @@ footer .brand{font-size:20px;color:var(--bone)}
     <div>
       <h1>Sr_Bj<span class="o">ø</span>rn<sup>®</sup></h1>
       <p class="tag">Geminiano, furry desde os 8 anos e <strong>uma Lua que brilha por conta própria</strong>. Trabalho com TI e adoro ajudar quem precisa.</p>
+      <div class="chips hero-svc" aria-label="O que eu faço">
+        <a class="chip" href="#sites"><span class="dot"></span>Sites a partir de R$100</a>
+        <a class="chip" href="#avatares"><span class="dot"></span>Avatares feitos à mão</a>
+        <a class="chip love" href="#manutencao"><span class="dot"></span>Manutenção em Piracicaba</a>
+      </div>
       <div class="cta">
         <a class="btn btn-primary" href="#redes">Minhas redes</a>
-        <a class="btn btn-ghost" href="#manutencao">Precisa de manutenção?</a>
+        <a class="btn btn-ghost" href="#sites">Ver serviços</a>
       </div>
     </div>
     <div class="emblem" id="emblem">
@@ -1037,7 +1228,7 @@ footer .brand{font-size:20px;color:var(--bone)}
         <p>Meus personagens contam essa história. O <em>Lupus Wolf</em>, o lobo azul-acinzentado, nasceu em <em>2011</em> e me acompanhou por mais de uma década. Em <em>2026</em> chegou o <em>Sr_Bjorn</em>, de pelagem preta e roxo neon, que hoje é o meu OC principal.</p>
         <p>Também gosto de criar: ajudo em <em>roteiros e vídeos</em> e dou vida a <em>personagens</em> com a minha voz. Faz tempo que eu brinco com isso: faço <em>dublagem por hobby</em>.</p>
         <p>Sou <em>ESTJ-T</em>, o Executivo. No começo posso parecer meio introvertido, mas eu me solto aos poucos e logo viro aquele que <em>ama animar as pessoas</em> e puxar todo mundo pra cima. Por um tempo estudei <em>Psicologia</em>, que era a área que eu ia seguir; a tecnologia acabou falando mais alto, mas isso nunca me impediu de ouvir. Se você precisar de um conselho ou de ajuda com uma situação complicada, pode vir conversar comigo.</p>
-        <p>O que eu mais gosto mesmo é <em>ajudar pessoas</em>. Sou formado em Ciência da Computação, estou cursando Análise e Desenvolvimento de Sistemas e trabalho com TI em geral. Um PC travando, um notebook esquentando, alguém montando o primeiro full body no VRChat: eu dou um jeito, presencialmente, pelo Parsec ou recebendo a máquina por envio.</p>
+        <p>O que eu mais gosto mesmo é <em>ajudar pessoas</em>. Sou formado em Ciência da Computação, estou cursando Análise e Desenvolvimento de Sistemas e trabalho com TI em geral. Um PC travando, um notebook esquentando, alguém montando o primeiro full body no VRChat: eu dou um jeito, presencialmente aqui em <em>Piracicaba</em>, pelo Parsec ou recebendo a máquina pelos Correios. Também faço <em>sites</em> e estou começando a criar <em>assets para avatares</em>.</p>
         <p>Nos tempos livres eu amo <em>escutar música</em> ou <em>estudar</em> alguma coisa nova. Também gosto de <em>registrar momentos</em> com fotos e gravações: paisagens bonitas, animais, <em>insetos curiosos</em> e flores sempre acabam parando no meu celular. Sou apaixonado por adrenalina e tecnologia e gamer de vários jogos, mas quem me encontra mesmo é no VRChat.</p>
         <div class="mbti" aria-label="Personalidade ESTJ-T, o Executivo">
           <div class="mbti-tiles">
@@ -1062,7 +1253,7 @@ footer .brand{font-size:20px;color:var(--bone)}
         <div class="fact"><dt>Paixão</dt><dd>Ajudar pessoas<small>Pode vir pedir conselho, eu escuto</small></dd></div>
         <div class="fact"><dt>Psicologia</dt><dd>Estudei por um tempo<small>Ia seguir a área, mas a TI me chamou</small></dd></div>
         <div class="fact"><dt>Formação</dt><dd>Bacharel em Ciência da Computação<small>Cursando Análise e Desenvolvimento de Sistemas</small></dd></div>
-        <div class="fact"><dt>Trabalho</dt><dd>TI em geral<small>Manutenção presencial, pelo Parsec ou por envio</small></dd></div>
+        <div class="fact"><dt>Trabalho</dt><dd>TI em geral<small>Presencial em Piracicaba, pelo Parsec ou pelos Correios</small></dd></div>
         <div class="fact"><dt>Tempo livre</dt><dd>Música e estudo<small>E adrenalina sempre que dá</small></dd></div>
         <div class="fact"><dt>Fotografia</dt><dd>Registrar momentos<small>Paisagens, animais, insetos curiosos e flores</small></dd></div>
         <div class="fact"><dt>Jogo</dt><dd>VRChat, entre vários outros<small>Quest 3 + 8 NovaTrackers Lite</small></dd></div>
@@ -1087,11 +1278,12 @@ footer .brand{font-size:20px;color:var(--bone)}
       <a class="social" href="https://steamcommunity.com/id/sr_bjorn/" target="_blank" rel="noopener"><span class="logo b-steam"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.409 1.5 1.009 2.455-.397.957-1.497 1.41-2.454 1.012H7.54zm11.415-9.303c0-1.662-1.353-3.015-3.015-3.015-1.665 0-3.015 1.353-3.015 3.015 0 1.665 1.35 3.015 3.015 3.015 1.663 0 3.015-1.35 3.015-3.015zm-5.273-.005c0-1.252 1.013-2.266 2.265-2.266 1.249 0 2.266 1.014 2.266 2.266 0 1.251-1.017 2.265-2.266 2.265-1.253 0-2.265-1.014-2.265-2.265z"/></svg></span><span><span class="name">Steam</span><span class="handle">/id/sr_bjorn</span></span><span class="go">→</span></a>
       <a class="social" href="https://t.me/Sr_Bjorn" target="_blank" rel="noopener"><span class="logo b-telegram"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></span><span><span class="name">Telegram</span><span class="handle">me chama por lá</span></span><span class="go">→</span></a>
       <button type="button" class="social" data-copy="sr_bjorn"><span class="logo b-discord"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg></span><span><span class="name">Discord</span><span class="handle">sr_bjorn · toque pra copiar</span></span><span class="go"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></span></button>
+      <a class="social" href="https://srbjorn.gumroad.com/" target="_blank" rel="noopener"><span class="logo b-gumroad" aria-hidden="true">G</span><span><span class="name">Gumroad</span><span class="handle">srbjorn · assets em breve</span></span><span class="go">→</span></a>
       <a class="social" href="https://open.spotify.com/user/31o66cheumvt3puhfqfy673h4amm" target="_blank" rel="noopener"><span class="logo b-spotify"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></span><span><span class="name">Spotify</span><span class="handle">o que eu tô ouvindo</span></span><span class="go">→</span></a>
       <a class="social" href="https://wa.me/5519996832789" target="_blank" rel="noopener"><span class="logo b-whatsapp"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></span><span><span class="name">WhatsApp</span><span class="handle">me manda mensagem</span></span><span class="go">→</span></a>
     </div>
 
-    <div class="sub-head music-head"><h3>Trilha sonora</h3><span class="line" aria-hidden="true"></span><span class="eyebrow green">Spotify</span></div>
+    <div class="sub-head music-head"><h3>Trilha sonora</h3><span class="line" aria-hidden="true"></span><span class="eyebrow green">Spotify · YouTube Music</span></div>
     <div class="music">
       <a class="track" id="fav-track" href="https://open.spotify.com/track/7EAMXbLcL0qXmciM5SwMh2" target="_blank" rel="noopener" data-preview="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/e5/50/16/e550166d-f5db-d90a-22e7-845f12b263d2/mzaf_9967103043946189392.plus.aac.p.m4a">
         <span class="vinyl" aria-hidden="true"><span class="vlabel"></span></span>
@@ -1101,11 +1293,127 @@ footer .brand{font-size:20px;color:var(--bone)}
         <span class="pv-bar" aria-hidden="true"><i></i></span>
         <span class="pv-note">Prévia de 30s · Apple Music</span>
       </a>
-      <a class="track no-eq" href="https://open.spotify.com/playlist/3jlUJk7PqRFrwsdVlrx4jn" target="_blank" rel="noopener">
-        <span class="pcover" aria-hidden="true"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></span>
-        <span class="tinfo"><span class="tkind">Minha playlist</span><b>Escutar no Tédio 💜</b><span class="artist">Pra conhecer meu gosto musical</span></span>
-        <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+      <div class="track no-eq pl-duo">
+        <span class="pcover" aria-hidden="true"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg></span>
+        <span class="tinfo"><span class="tkind">Minha playlist</span><b>Escutar no Tédio 💜</b><span class="artist">Pra conhecer meu gosto musical</span>
+          <span class="pl-links"><a class="pl-sp" href="https://open.spotify.com/playlist/3jlUJk7PqRFrwsdVlrx4jn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>Spotify</a><a class="pl-yt" href="https://music.youtube.com/playlist?list=PLJrGcuV4Mjkw" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104-3.18 7.104-7.104 7.104zm0-13.332c-3.432 0-6.228 2.796-6.228 6.228S8.568 18.228 12 18.228s6.228-2.796 6.228-6.228S15.432 5.772 12 5.772zM9.684 15.54V8.46L15.816 12l-6.132 3.54z"/></svg>YouTube Music</a></span>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SITES ================= -->
+<section id="sites">
+  <div class="wrap">
+    <div class="sites-top">
+      <div class="sec-head">
+        <span class="eyebrow">Serviços · Sites</span>
+        <h2>Faço o seu site do zero, a partir de R$100</h2>
+        <p class="lede">Portfólio de artista, página de comissões ou um cantinho pessoal como este aqui. Eu desenho e programo tudo à mão, do jeito que você imaginar. E depois que o site fica pronto, eu não cobro a manutenção.</p>
+      </div>
+      <div class="recibo-wrap">
+        <div class="recibo" aria-label="Quanto custa um site">
+          <span class="rc-top">Sr_Bjørn · orçamento</span>
+          <ul class="rc-itens">
+            <li><span>Site sob medida</span><i aria-hidden="true"></i><b>a partir de <em>R$100</em></b></li>
+            <li><span>Manutenção</span><i aria-hidden="true"></i><b class="free">R$0,00</b></li>
+          </ul>
+          <p class="rc-nota">A manutenção fica por minha conta: eu não cobro por ela.</p>
+          <div class="rc-cta">
+            <a href="https://wa.me/5519996832789" target="_blank" rel="noopener">Pedir no WhatsApp</a>
+            <a href="https://t.me/Sr_Bjorn" target="_blank" rel="noopener">Pedir no Telegram</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-head"><h3>Sites que eu fiz</h3><span class="line" aria-hidden="true"></span><span class="eyebrow">Toque pra visitar</span></div>
+    <div class="site-shots">
+      <a class="site-win" href="https://benndygaleria.github.io/" target="_blank" rel="noopener" style="--acc:#FF8A1F">
+        <span class="win-bar" aria-hidden="true"><i></i><i></i><i></i><span class="win-url">benndygaleria.github.io</span></span>
+        <img src="img/site-benndy.webp" alt="Página inicial do site BenndyGaleria: título Galeria em laranja, menu lateral e a grade de artes" width="1152" height="720" loading="lazy">
+        <span class="win-cap"><b>BenndyGaleria</b><small>Galeria, preços em real e em dólar e pedido de comissão do Benndy, artista digital e animador nordestino.</small><span class="go">Visitar ↗</span></span>
       </a>
+      <a class="site-win" href="https://doremiartz.github.io/" target="_blank" rel="noopener" style="--acc:#FF3D91">
+        <span class="win-bar" aria-hidden="true"><i></i><i></i><i></i><span class="win-url">doremiartz.github.io</span></span>
+        <img src="img/site-doremi.webp" alt="Página inicial do site DoremiArtz: nome com auréola dourada e uma arte de personagem de cabelo azul com óculos de estrela" width="1152" height="720" loading="lazy">
+        <span class="win-cap"><b>DoremiArtz</b><small>Portfólio, processo, preços e pedidos do Doremi, desenhista digital e tradicional.</small><span class="go">Visitar ↗</span></span>
+      </a>
+    </div>
+    <p class="sites-note">E este site que você está vendo agora também fui eu que fiz.</p>
+  </div>
+</section>
+
+<!-- ================= AVATARES ================= -->
+<section id="avatares">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Serviços · Avatares</span>
+      <h2>Avatares do zero, feitos à mão</h2>
+      <p class="lede">Junto com o Vortex e o Neesky eu faço avatares para VRChat, e estou começando a criar os meus próprios assets.</p>
+    </div>
+    <div class="ava">
+      <article class="ava-studio">
+        <figure class="ava-foto"><img src="img/nvsb-trio.webp" alt="Foto no VRChat de três avatares juntos num quarto azul-escuro: um de cabelo preto e chifres vermelhos, um de pelagem clara e suéter azul no meio e um de pelagem vermelha e preta" width="1600" height="900" loading="lazy"></figure>
+        <div class="ava-head"><span class="eyebrow">Discord e grupo no VRChat</span><h3>NVSB Studio's</h3></div>
+        <div class="ava-body">
+          <p>Eu, o <b>Vortex</b> e o <b>Neesky</b> fazemos avatares <b>100% do zero, sem IA e feitos totalmente à mão</b>. No servidor também rola modelagem de roupas e criação de assets.</p>
+          <div class="trio" aria-label="Quem faz"><span>Sr_Bjorn</span><span>Vortex</span><span>Neesky</span></div>
+          <div class="ava-acts">
+            <a class="btn btn-dc" href="https://discord.gg/huyeGgZcz3" target="_blank" rel="noopener">Entrar no Discord <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-ghost" href="https://vrc.group/NVSB.2949" target="_blank" rel="noopener">Grupo no VRChat <span aria-hidden="true">↗</span></a>
+            <span class="selo">Sem IA · 100% à mão</span>
+          </div>
+        </div>
+      </article>
+      <article class="gum">
+        <div class="gum-txt">
+          <span class="gum-tag"><i aria-hidden="true"></i>Gumroad · em breve</span>
+          <h3>Meus assets para avatares</h3>
+          <p>Sou novato nessa área e estou prestes a começar a fazer assets para avatares. Os primeiros vão sair na minha Gumroad.</p>
+        </div>
+        <a class="gum-btn" href="https://srbjorn.gumroad.com/" target="_blank" rel="noopener">srbjorn.gumroad.com <span aria-hidden="true">↗</span></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MANUTENÇÃO ================= -->
+<section id="manutencao">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Serviços</span>
+      <h2>Manutenção de computadores e notebooks</h2>
+      <p class="lede">Trabalho com TI todos os dias e faço manutenção de PCs e notebooks. O atendimento presencial é aqui em <b>Piracicaba (SP)</b>. Mora em outra cidade e quer que eu cuide da sua máquina mesmo assim? É só me enviar pelos Correios, ou resolver remoto pelo Parsec.</p>
+    </div>
+    <div class="maint">
+      <div>
+        <div class="services">
+          <div class="svc parsec local"><span class="pi"><svg viewBox="0 0 24 24"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg></span><div><b>Presencial em Piracicaba (SP)</b><small>É aqui que eu faço o atendimento presencial: você traz a máquina e a gente resolve.</small></div></div>
+          <div class="svc parsec ship"><span class="pi"><svg viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8M7.5 5.5l9 5"/></svg></span><div><b>Fora de Piracicaba? Manda pelos Correios</b><small>Quer que eu atenda mesmo assim? Envia o PC ou o notebook pelos Correios. Eu faço a manutenção, testo tudo e devolvo pronto pra usar.</small></div></div>
+          <div class="svc parsec remote"><span class="pi"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4M9 10l3-3 3 3M12 7v6"/></svg></span><div><b>Suporte remoto pelo Parsec</b><small>Você instala o Parsec, me passa o acesso e eu resolvo na sua máquina em tempo real, de onde você estiver.</small></div></div>
+          <div class="svc"><b>Formatação e Windows</b><small>Instalação limpa, drivers e programas essenciais.</small></div>
+          <div class="svc"><b>Limpeza e pasta térmica</b><small>Poeira fora, temperatura lá embaixo.</small></div>
+          <div class="svc"><b>Upgrades e montagem</b><small>SSD, memória, placa de vídeo e PC completo.</small></div>
+          <div class="svc"><b>Diagnóstico de hardware</b><small>Tela azul, travamento, PC que não liga.</small></div>
+          <div class="svc"><b>Vírus e lentidão</b><small>Remoção de malware e otimização do sistema.</small></div>
+          <div class="svc"><b>Setup de VR</b><small>Quest, Virtual Desktop, SlimeVR e trackers.</small></div>
+        </div>
+      </div>
+      <div>
+        <h3>Como funciona</h3>
+        <ol class="steps">
+          <li><div><b>Me chama</b><small>Conta o problema no WhatsApp ou no Telegram.</small></div></li>
+          <li><div><b>Diagnóstico</b><small>A gente descobre juntos o que está acontecendo.</small></div></li>
+          <li><div><b>Orçamento</b><small>Você sabe o valor antes de qualquer coisa.</small></div></li>
+          <li><div><b>Resolvido</b><small>Presencial em Piracicaba, pelos Correios ou remoto pelo Parsec.</small></div></li>
+        </ol>
+        <div class="contact">
+          <a class="contact-row" href="https://wa.me/5519996832789" target="_blank" rel="noopener" aria-label="Chamar no WhatsApp"><span class="logo b-whatsapp"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></span><div><b class="cname">WhatsApp</b><small>resposta rápida por mensagem</small></div><span class="cgo">Chamar <i aria-hidden="true">→</i></span></a>
+          <a class="contact-row" href="https://t.me/Sr_Bjorn" target="_blank" rel="noopener" aria-label="Chamar no Telegram"><span class="logo b-telegram"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></span><div><b class="cname">Telegram</b><small>resposta rápida por mensagem</small></div><span class="cgo">Chamar <i aria-hidden="true">→</i></span></a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1250,8 +1558,31 @@ footer .brand{font-size:20px;color:var(--bone)}
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">Games &amp; aparelhos</span>
-      <h2>Meus aparelhos e videogames</h2>
-      <p class="lede">O celular que registra tudo, os periféricos RGB do PC e a coleção de consoles aqui de casa.</p>
+      <h2>Meu jogo e meus aparelhos</h2>
+      <p class="lede">Um jogo que eu fiz, o celular que registra tudo e os periféricos RGB do PC.</p>
+    </div>
+
+    <div class="block pz">
+      <div class="sub-head"><h3>Jogo que eu fiz</h3><span class="line" aria-hidden="true"></span><span class="eyebrow">Roda aqui no navegador</span></div>
+      <article class="pz-card">
+        <button type="button" class="pz-capa" data-pz-abrir aria-label="Jogar Protocolo Z">
+          <img src="img/pz-capa.webp" alt="Cena do Protocolo Z em primeira pessoa: a arma da Protogen apontada para o chefão Lobo Alfa num galpão de madeira, com a barra de vida dele no alto" width="1152" height="720" loading="lazy">
+          <span class="pz-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+        </button>
+        <div class="pz-info">
+          <span class="pz-tag"><i aria-hidden="true"></i>FPS de ondas · 5 níveis · 4 chefões</span>
+          <h3 class="pz-nome">PROTOCOLO <b>Z</b></h3>
+          <p>A Protogen contra a matilha corrompida: zumbis furries sobem dos portais, e cada onda é mais forte que a anterior. Os pontos compram armas, portas e módulos, e a Forja melhora as armas até o Mk IV, com fogo, gelo e choque.</p>
+          <ul class="pz-fatos"><li>12 armas</li><li>14 poderes</li><li>16 conquistas</li><li>Trilha de metal tocada na hora</li></ul>
+          <div class="pz-acts">
+            <button type="button" class="btn btn-primary pz-btn" data-pz-abrir><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Jogar</button>
+            <button type="button" class="btn btn-ghost pz-btn" data-pz-abrir="cheia"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>Jogar em tela cheia</button>
+          </div>
+          <p class="pz-dica"><kbd>W A S D</kbd> anda · <kbd>clique</kbd> atira · <kbd>Esc</kbd> pausa e solta o mouse</p>
+          <p class="pz-celular">Esse jogo precisa de teclado e mouse: abre o site no computador pra jogar 💻</p>
+          <div class="pz-fotos" aria-hidden="true"><img src="img/pz-estufa.webp" alt="" width="480" height="300" loading="lazy"><img src="img/pz-nucleo.webp" alt="" width="480" height="300" loading="lazy"><img src="img/pz-menu.webp" alt="" width="480" height="300" loading="lazy"></div>
+        </div>
+      </article>
     </div>
 
     <div class="block">
@@ -1264,77 +1595,6 @@ footer .brand{font-size:20px;color:var(--bone)}
       </div>
     </div>
 
-    <div class="block">
-      <div class="sub-head"><h3>Coleção de consoles</h3><span class="line" aria-hidden="true"></span><span class="con-count"><b>13</b> na estante</span></div>
-      <div class="shelves">
-        <div class="shelf xb">
-          <div class="shelf-brand"><span class="sb-ico"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.102 21.033C6.211 22.881 8.977 24 12 24c3.026 0 5.789-1.119 7.902-2.967 1.877-1.912-4.316-8.709-7.902-11.417-3.582 2.708-9.779 9.505-7.898 11.417zm11.16-14.406c2.5 2.961 7.484 10.313 6.076 12.912C23.002 17.48 24 14.861 24 12.004c0-3.34-1.365-6.362-3.57-8.536 0 0-.027-.022-.082-.042-.063-.022-.152-.045-.281-.045-.592 0-1.985.434-4.805 3.246zM3.654 3.426c-.057.02-.082.041-.086.042C1.365 5.642 0 8.664 0 12.004c0 2.854.998 5.473 2.661 7.533-1.401-2.605 3.579-9.951 6.08-12.91-2.82-2.813-4.216-3.245-4.806-3.245-.131 0-.223.021-.281.046v-.002zM12 3.551S9.055 1.828 6.755 1.746c-.903-.033-1.454.295-1.521.339C7.379.646 9.659 0 11.984 0H12c2.334 0 4.605.646 6.766 2.085-.068-.046-.615-.372-1.52-.339C14.946 1.828 12 3.545 12 3.545v.006z"/></svg></span><b>Xbox</b><small>3 consoles</small></div>
-          <div class="shelf-items">
-            <div class="con xb"><span class="con-ico"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.102 21.033C6.211 22.881 8.977 24 12 24c3.026 0 5.789-1.119 7.902-2.967 1.877-1.912-4.316-8.709-7.902-11.417-3.582 2.708-9.779 9.505-7.898 11.417zm11.16-14.406c2.5 2.961 7.484 10.313 6.076 12.912C23.002 17.48 24 14.861 24 12.004c0-3.34-1.365-6.362-3.57-8.536 0 0-.027-.022-.082-.042-.063-.022-.152-.045-.281-.045-.592 0-1.985.434-4.805 3.246zM3.654 3.426c-.057.02-.082.041-.086.042C1.365 5.642 0 8.664 0 12.004c0 2.854.998 5.473 2.661 7.533-1.401-2.605 3.579-9.951 6.08-12.91-2.82-2.813-4.216-3.245-4.806-3.245-.131 0-.223.021-.281.046v-.002zM12 3.551S9.055 1.828 6.755 1.746c-.903-.033-1.454.295-1.521.339C7.379.646 9.659 0 11.984 0H12c2.334 0 4.605.646 6.766 2.085-.068-.046-.615-.372-1.52-.339C14.946 1.828 12 3.545 12 3.545v.006z"/></svg></span><b>Xbox 360</b><small>Clássico da sétima geração</small></div>
-            <div class="con xb"><span class="con-ico"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.102 21.033C6.211 22.881 8.977 24 12 24c3.026 0 5.789-1.119 7.902-2.967 1.877-1.912-4.316-8.709-7.902-11.417-3.582 2.708-9.779 9.505-7.898 11.417zm11.16-14.406c2.5 2.961 7.484 10.313 6.076 12.912C23.002 17.48 24 14.861 24 12.004c0-3.34-1.365-6.362-3.57-8.536 0 0-.027-.022-.082-.042-.063-.022-.152-.045-.281-.045-.592 0-1.985.434-4.805 3.246zM3.654 3.426c-.057.02-.082.041-.086.042C1.365 5.642 0 8.664 0 12.004c0 2.854.998 5.473 2.661 7.533-1.401-2.605 3.579-9.951 6.08-12.91-2.82-2.813-4.216-3.245-4.806-3.245-.131 0-.223.021-.281.046v-.002zM12 3.551S9.055 1.828 6.755 1.746c-.903-.033-1.454.295-1.521.339C7.379.646 9.659 0 11.984 0H12c2.334 0 4.605.646 6.766 2.085-.068-.046-.615-.372-1.52-.339C14.946 1.828 12 3.545 12 3.545v.006z"/></svg></span><b>Xbox One</b><small>O da geração seguinte</small></div>
-            <div class="con xb forza-ed"><span class="con-ico"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.102 21.033C6.211 22.881 8.977 24 12 24c3.026 0 5.789-1.119 7.902-2.967 1.877-1.912-4.316-8.709-7.902-11.417-3.582 2.708-9.779 9.505-7.898 11.417zm11.16-14.406c2.5 2.961 7.484 10.313 6.076 12.912C23.002 17.48 24 14.861 24 12.004c0-3.34-1.365-6.362-3.57-8.536 0 0-.027-.022-.082-.042-.063-.022-.152-.045-.281-.045-.592 0-1.985.434-4.805 3.246zM3.654 3.426c-.057.02-.082.041-.086.042C1.365 5.642 0 8.664 0 12.004c0 2.854.998 5.473 2.661 7.533-1.401-2.605 3.579-9.951 6.08-12.91-2.82-2.813-4.216-3.245-4.806-3.245-.131 0-.223.021-.281.046v-.002zM12 3.551S9.055 1.828 6.755 1.746c-.903-.033-1.454.295-1.521.339C7.379.646 9.659 0 11.984 0H12c2.334 0 4.605.646 6.766 2.085-.068-.046-.615-.372-1.52-.339C14.946 1.828 12 3.545 12 3.545v.006z"/></svg></span><b>Xbox One</b><small><span class="forza">Forza Horizon Edition</span></small></div>
-          </div>
-        </div>
-        <div class="shelf ps">
-          <div class="shelf-brand"><span class="sb-ico"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.984 2.596v17.547l3.915 1.261V6.688c0-.69.304-1.151.794-.991.636.18.76.814.76 1.505v5.875c2.441 1.193 4.362-.002 4.362-3.152 0-3.237-1.126-4.675-4.438-5.827-1.307-.448-3.728-1.186-5.39-1.502zm4.656 16.241l6.296-2.275c.715-.258.826-.625.246-.818-.586-.192-1.637-.139-2.357.123l-4.205 1.5V14.98l.24-.085s1.201-.42 2.913-.615c1.696-.18 3.785.03 5.437.661 1.848.601 2.04 1.472 1.576 2.072-.465.6-1.622 1.036-1.622 1.036l-8.544 3.107V18.86zM1.807 18.6c-1.9-.545-2.214-1.668-1.352-2.32.801-.586 2.16-1.052 2.16-1.052l5.615-2.013v2.313L4.205 17c-.705.271-.825.632-.239.826.586.195 1.637.15 2.343-.12L8.247 17v2.074c-.12.03-.256.044-.39.073-1.939.331-3.996.196-6.038-.479z"/></svg></span><b>PlayStation</b><small>4 consoles</small></div>
-          <div class="shelf-items">
-            <div class="con ps"><span class="con-ico wide"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.46 13.779v.292h4.142v-3.85h3.796V9.93h-4.115v3.85zm16.248-3.558v1.62h-7.195v2.23H24v-.292h-7.168v-1.646H24V9.929h-7.487v.292zm-16.513 0v1.62H0v2.23h.292v-1.938H7.46V9.929H0v.292Z"/></svg></span><b>PlayStation 2</b><small>O clássico que nunca morre</small></div>
-            <div class="con ps"><span class="con-ico wide"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M0 9.93v.296h7.182v1.626H.001v2.217h.295v-1.921h7.182V9.93zm11.29 0v3.844H7.478v.296h4.124v-3.844h3.813V9.93zm5.233 0v.296h7.182v1.626h-7.182v2.217h.296v-1.921H24V9.93z"/></svg></span><b>PSP</b><small>O PlayStation de bolso</small></div>
-            <div class="con ps"><span class="con-ico wide"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.362 9.433h-3.148c-.97 0-1.446.6-1.446 1.38v2.365c0 .483-.228.83-.71.83H7.304a.035.035 0 00-.035.035v.47c0 .02.01.032.03.032h3.11c.97 0 1.45-.597 1.45-1.377v-2.363c0-.484.224-.832.71-.832h2.781c.02 0 .04-.014.04-.033v-.475c0-.02-.02-.035-.04-.035zm-9.266 0H.038c-.022 0-.038.017-.038.035v.477c0 .02.016.036.038.036h5.694c.48 0 .71.347.71.83s-.228.83-.71.83H1.228c-.7 0-1.227.586-1.227 1.365v1.513c0 .02.02.037.04.037h1.03c.02 0 .04-.016.04-.037v-1.513c0-.48.28-.82.68-.82H6.1c.97 0 1.444-.594 1.444-1.374 0-.778-.473-1.38-1.442-1.38zm17.453 2.498a.04.04 0 010-.056c.3-.25.45-.627.45-1.062 0-.778-.474-1.38-1.446-1.38h-6.057c-.02 0-.036.018-.036.038v.475c0 .02.02.04.04.04h5.7c.48 0 .715.35.715.83s-.23.83-.712.83h-5.7c-.02 0-.036.02-.036.04v.48c0 .02.016.033.037.033h5.7c.63.007.71.62.71.93v.06c0 .485-.23.833-.71.833h-5.7c-.02 0-.036.015-.036.034v.477c0 .02.015.037.036.037h6.05c.973 0 1.446-.645 1.446-1.38v-.057c0-.47-.15-.916-.45-1.19z"/></svg></span><b>PlayStation 3</b><small>Geração de ouro</small></div>
-            <div class="con ps"><span class="con-ico wide"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.4499 14.56905a1.38287 1.38287 0 001.38287-1.38287v-2.37841a.83315.83315 0 01.83416-.83315h2.68403a.03732.03732 0 00.03631-.03732V9.4612a.03631.03631 0 00-.0363-.0363H12.1172a1.38287 1.38287 0 00-1.38388 1.38286v2.38043a.83416.83416 0 01-.83315.83415H7.25347a.03631.03631 0 00-.03631.03632v.47608a.03631.03631 0 00.03631.03631zm6.04488-3.21156V9.4612a.03631.03631 0 01.0363-.0363h7.30772a.03732.03732 0 01.03732.0363v.47609a.03833.03833 0 01-.03732.03732h-6.20929a.03631.03631 0 00-.0363.03631v1.2356a.3954.3954 0 00.3964.39741h4.62267a1.46457 1.46457 0 010 2.9251h-6.0812a.03631.03631 0 01-.0363-.0363v-.47407a.03631.03631 0 01.0363-.03632h5.53047a.91586.91586 0 10-.00706-1.8307h-4.72656a.83315.83315 0 01-.83315-.83416m-10.84608.28645a.83466.83466 0 000-1.66932H.03654a.03732.03732 0 01-.03632-.03732V9.4612a.03631.03631 0 01.03632-.0363h6.1528a1.38388 1.38388 0 010 2.76673H1.9328a.83315.83315 0 00-.83315.83416v1.51299a.03631.03631 0 01-.03631.0363H.03654a.03631.03631 0 01-.03632-.04034v-1.51298a1.38287 1.38287 0 011.38388-1.37783Z"/></svg></span><b>PlayStation 5</b><small>O mais novo da família</small></div>
-          </div>
-        </div>
-        <div class="shelf ns">
-          <div class="shelf-brand"><span class="sb-ico"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="m4.447 12.546-1.202-1.942h-.864v2.793h.864v-1.942l1.202 1.942h.856v-2.793H4.44l.007 1.942Zm6.828-1.001v-.279h-.451v-.376h-.841v.376h-.458v.279h.458v1.852h.841v-1.852h.451Zm-5.491 1.844h.834v-1.852h-.834v1.852Zm0-2.213h.841v-.572h-.841v.572Zm14.663.233c-.676 0-1.224.467-1.224 1.039 0 .572.548 1.039 1.224 1.039.676 0 1.225-.467 1.225-1.039 0-.572-.549-1.039-1.225-1.039Zm.338 1.431c0 .293-.173.414-.338.414-.165 0-.346-.121-.346-.414v-.783c0-.294.173-.414.346-.414.165 0 .338.12.338.414v.783Zm-2.659-1.212a1.093 1.093 0 0 0-.473-.166c-.601-.053-1.067.482-1.067.971 0 .648.496.881.571.919.285.128.646.135.961-.068v.105h.827v-2.785h-.827c.008 0 .008.595.008 1.024Zm.008.828v.331c0 .286-.196.361-.331.361s-.331-.075-.331-.361v-.662c0-.287.196-.362.331-.362.128 0 .33.075.33.362v.331h.001Zm-9.556-1.001a1.02 1.02 0 0 0-.668.278v-.196h-.834v1.852h.834V12.17c0-.158.172-.339.398-.339.225 0 .383.181.383.339v1.219h.834v-1.008c0-.731-.631-.942-.947-.926Zm6.798 0a1.01 1.01 0 0 0-.668.278v-.196h-.834v1.852h.834V12.17c0-.158.173-.339.398-.339.225 0 .383.181.383.339v1.219h.834v-1.008c0-.731-.631-.942-.947-.926Zm-1.75 1.016c0-.572-.556-1.054-1.232-1.054-.683 0-1.232.467-1.232 1.039 0 .572.549 1.039 1.232 1.039.564 0 1.044-.324 1.187-.76h-.834v.112c0 .339-.225.414-.345.414-.128 0-.353-.075-.353-.413v-.385l1.577.008Zm-1.517-.655a.346.346 0 0 1 .293-.166c.112 0 .225.053.293.166.052.09.052.203.052.361h-.698c0-.158.007-.263.06-.361Zm9.893-.866c0-.09-.068-.135-.203-.135h-.188v.474h.113v-.196h.06l.09.196h.128l-.105-.211c.067-.022.105-.068.105-.128Zm-.218.068h-.06v-.136h.052c.068 0 .105.023.105.068 0 .053-.029.068-.097.068Zm.007-.392a.433.433 0 0 0-.428.43c0 .233.196.429.429.429a.429.429 0 0 0 0-.859h-.001Zm0 .776a.35.35 0 0 1-.345-.346.35.35 0 0 1 .346-.347.35.35 0 0 1 .345.347.35.35 0 0 1-.345.346h-.001Zm-.938-2.364H3.132C1.254 9.03 0 10.386 0 12.004s1.254 2.959 3.14 2.959h17.72c1.886 0 3.14-1.34 3.14-2.959-.007-1.618-1.269-2.966-3.147-2.966Zm-.008 5.202H3.14c-1.495.008-2.404-1.001-2.404-2.236 0-1.235.917-2.228 2.404-2.236h17.705c1.487 0 2.404 1.001 2.404 2.236 0 1.235-.909 2.236-2.404 2.236Z"/></svg></span><b>Nintendo</b><small>6 consoles</small></div>
-          <div class="shelf-items">
-            <div class="con fami"><span class="con-ico pad"><svg viewBox="0 0 48 24" aria-hidden="true"><rect x="2" y="5" width="44" height="14" rx="2.5" fill="#B5121B"/><rect x="5" y="8" width="38" height="8" rx="1.5" fill="#D9B45A"/><path d="M10 10.2h2.4v1.6H14v2.4h-1.6v1.6H10v-1.6H8.4v-2.4H10z" fill="#1A1A1A"/><rect x="20.5" y="11.4" width="2.6" height="1.6" rx=".8" fill="#1A1A1A"/><rect x="24.9" y="11.4" width="2.6" height="1.6" rx=".8" fill="#1A1A1A"/><circle cx="34" cy="12.4" r="2" fill="#B5121B"/><circle cx="39" cy="12.4" r="2" fill="#B5121B"/></svg></span><b>Famicom</b><small>Onde tudo começou</small></div>
-            <div class="con snes"><span class="con-ico pad"><svg viewBox="0 0 48 24" aria-hidden="true"><path d="M12 4h24a8 8 0 0 1 0 16H12a8 8 0 0 1 0-16z" fill="#C9C9D3"/><path d="M10.6 8.6h2.8v2.6H16v2.8h-2.6v2.6h-2.8V14H8v-2.8h2.6z" fill="#2A2832"/><rect x="20" y="11.6" width="3" height="1.4" rx=".7" fill="#6E6A7C" transform="rotate(-25 21.5 12.3)"/><rect x="24.6" y="11.6" width="3" height="1.4" rx=".7" fill="#6E6A7C" transform="rotate(-25 26.1 12.3)"/><circle cx="36" cy="8.2" r="2" fill="#2D6CDF"/><circle cx="40.2" cy="12" r="2" fill="#E0303A"/><circle cx="36" cy="15.8" r="2" fill="#F2C230"/><circle cx="31.8" cy="12" r="2" fill="#2DB55D"/></svg></span><b>Super Nintendo</b><small>Clássico dos clássicos</small></div>
-            <div class="con ns"><span class="con-ico"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.653 16.63a.712.712 0 1 0 1.424 0 .712.712 0 1 0-1.424 0m-9.45 4.238h7.575c.3 0 .524-.225.544-.524v-5.175c-.02-.282-.263-.525-.544-.507H8.203a.54.54 0 0 0-.544.525v5.156c0 .301.244.525.544.525zm13.051-3.525a.729.729 0 0 0 .73-.729.73.73 0 1 0-.73.729zm-1.443-.019a.714.714 0 1 0 .001 1.427.714.714 0 0 0-.001-1.427zm-.713-2.137a.712.712 0 1 0 1.424 0 .712.712 0 1 0-1.424 0M2.54 16.612a1.65 1.65 0 1 0 3.3 0 1.65 1.65 0 1 0-3.3 0M21.272 0H2.728A2.73 2.73 0 0 0-.01 2.72v18.542C.009 22.781 1.228 24 2.728 24h18.526a2.753 2.753 0 0 0 2.756-2.719V2.737C23.991 1.219 22.772 0 21.272 0zm1.913 21.281a1.92 1.92 0 0 1-1.912 1.912H2.728a1.92 1.92 0 0 1-1.913-1.912v-8.456h22.369v8.456zm0-9.694H.815v-8.85A1.92 1.92 0 0 1 2.728.824h18.544c1.049 0 1.912.863 1.912 1.913v8.85 M17.409 3.112H6.534c-.3 0-.544.263-.544.563V9.15c0 .3.226.563.544.563h10.875a.548.548 0 0 0 .544-.563V3.656a.543.543 0 0 0-.544-.544z"/></svg></span><b>Nintendo 3DS</b><small>3D sem óculos</small></div>
-            <div class="con wiiu"><span class="con-ico wide"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.133 8.432c-.465 0-.835.359-.835.814.007.454.381.817.835.812.488 0 .873-.358.873-.81 0-.455-.385-.816-.873-.816zm2.93 0c-.465 0-.848.359-.848.814 0 .442.383.812.848.812.477 0 .861-.358.861-.81 0-.455-.385-.816-.861-.816zm3.655.011c-.53 0-.99.335-.99.858v3.315c0 .809.56 1.289 1.377 1.289h4.647c.689 0 1.248-.477 1.248-1.162V9.345c0-.412-.308-.86-.688-.86h-1.075v2.799c0 2.122-3.701 2.104-3.701.04v-2.88h-.818zm1.679 0v2.453c0 1.636 1.934 1.402 1.934.256V8.445h-1.934v-.002zM4.833 8.77c-.465 0-.776.232-.938.756-.152.533-1.116 4.242-1.116 4.242l-1.267-4.94H0s1.451 5.264 1.65 5.881c.15.476.521.86 1.058.86.627 0 .917-.454 1.045-.86.14-.421 1.08-3.895 1.08-3.895s.942 3.476 1.069 3.895c.14.406.431.86 1.047.86.547 0 .906-.385 1.07-.86.196-.617 1.65-5.881 1.65-5.881H8.148l-1.258 4.94s-.963-3.709-1.125-4.242c-.15-.526-.479-.756-.93-.756h-.002zm5.605 2.09v4.662h1.441V10.86h-1.441zm2.916 0v4.662h1.442V10.86h-1.442z"/></svg></span><b>Wii U</b><small>O do controle com tela</small></div>
-            <div class="con ns"><span class="con-ico"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.176 24h3.674c3.376 0 6.15-2.774 6.15-6.15V6.15C24 2.775 21.226 0 17.85 0H14.1c-.074 0-.15.074-.15.15v23.7c-.001.076.075.15.226.15zm4.574-13.199c1.351 0 2.399 1.125 2.399 2.398 0 1.352-1.125 2.4-2.399 2.4-1.35 0-2.4-1.049-2.4-2.4-.075-1.349 1.05-2.398 2.4-2.398zM11.4 0H6.15C2.775 0 0 2.775 0 6.15v11.7C0 21.226 2.775 24 6.15 24h5.25c.074 0 .15-.074.15-.149V.15c.001-.076-.075-.15-.15-.15zM9.676 22.051H6.15c-2.326 0-4.201-1.875-4.201-4.201V6.15c0-2.326 1.875-4.201 4.201-4.201H9.6l.076 20.102zM3.75 7.199c0 1.275.975 2.25 2.25 2.25s2.25-.975 2.25-2.25c0-1.273-.975-2.25-2.25-2.25s-2.25.977-2.25 2.25z"/></svg></span><b>Nintendo Switch</b><small>O primeiro</small></div>
-            <div class="con ns"><span class="con-ico"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.176 24h3.674c3.376 0 6.15-2.774 6.15-6.15V6.15C24 2.775 21.226 0 17.85 0H14.1c-.074 0-.15.074-.15.15v23.7c-.001.076.075.15.226.15zm4.574-13.199c1.351 0 2.399 1.125 2.399 2.398 0 1.352-1.125 2.4-2.399 2.4-1.35 0-2.4-1.049-2.4-2.4-.075-1.349 1.05-2.398 2.4-2.398zM11.4 0H6.15C2.775 0 0 2.775 0 6.15v11.7C0 21.226 2.775 24 6.15 24h5.25c.074 0 .15-.074.15-.149V.15c.001-.076-.075-.15-.15-.15zM9.676 22.051H6.15c-2.326 0-4.201-1.875-4.201-4.201V6.15c0-2.326 1.875-4.201 4.201-4.201H9.6l.076 20.102zM3.75 7.199c0 1.275.975 2.25 2.25 2.25s2.25-.975 2.25-2.25c0-1.273-.975-2.25-2.25-2.25s-2.25.977-2.25 2.25z"/></svg><em class="n2">2</em></span><b>Nintendo Switch 2</b><small>E o sucessor</small></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= MANUTENÇÃO ================= -->
-<section id="manutencao">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">Serviços</span>
-      <h2>Manutenção de computadores e notebooks</h2>
-      <p class="lede">Trabalho com TI todos os dias e faço manutenção de PCs e notebooks. Atendo presencialmente, remoto pelo Parsec direto no seu computador e, se você mora longe, pode me enviar o PC ou o notebook.</p>
-    </div>
-    <div class="maint">
-      <div>
-        <div class="services">
-          <div class="svc parsec"><span class="pi"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4M9 10l3-3 3 3M12 7v6"/></svg></span><div><b>Suporte remoto pelo Parsec</b><small>Você instala o Parsec, me passa o acesso e eu resolvo na sua máquina em tempo real, de onde você estiver.</small></div></div>
-          <div class="svc parsec ship"><span class="pi"><svg viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8M7.5 5.5l9 5"/></svg></span><div><b>Mora longe? Me envia a máquina</b><small>Manda o PC ou o notebook pelos Correios ou transportadora. Eu faço a manutenção, testo tudo e devolvo pronto pra usar.</small></div></div>
-          <div class="svc"><b>Formatação e Windows</b><small>Instalação limpa, drivers e programas essenciais.</small></div>
-          <div class="svc"><b>Limpeza e pasta térmica</b><small>Poeira fora, temperatura lá embaixo.</small></div>
-          <div class="svc"><b>Upgrades e montagem</b><small>SSD, memória, placa de vídeo e PC completo.</small></div>
-          <div class="svc"><b>Diagnóstico de hardware</b><small>Tela azul, travamento, PC que não liga.</small></div>
-          <div class="svc"><b>Vírus e lentidão</b><small>Remoção de malware e otimização do sistema.</small></div>
-          <div class="svc"><b>Setup de VR</b><small>Quest, Virtual Desktop, SlimeVR e trackers.</small></div>
-        </div>
-      </div>
-      <div>
-        <h3>Como funciona</h3>
-        <ol class="steps">
-          <li><div><b>Me chama</b><small>Conta o problema no WhatsApp ou no Telegram.</small></div></li>
-          <li><div><b>Diagnóstico</b><small>A gente descobre juntos o que está acontecendo.</small></div></li>
-          <li><div><b>Orçamento</b><small>Você sabe o valor antes de qualquer coisa.</small></div></li>
-          <li><div><b>Resolvido</b><small>Presencial, remoto pelo Parsec ou por envio da máquina.</small></div></li>
-        </ol>
-        <div class="contact">
-          <a class="contact-row" href="https://wa.me/5519996832789" target="_blank" rel="noopener" aria-label="Chamar no WhatsApp"><span class="logo b-whatsapp"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></span><div><b class="cname">WhatsApp</b><small>resposta rápida por mensagem</small></div><span class="cgo">Chamar <i aria-hidden="true">→</i></span></a>
-          <a class="contact-row" href="https://t.me/Sr_Bjorn" target="_blank" rel="noopener" aria-label="Chamar no Telegram"><span class="logo b-telegram"><svg class="bi" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></span><div><b class="cname">Telegram</b><small>resposta rápida por mensagem</small></div><span class="cgo">Chamar <i aria-hidden="true">→</i></span></a>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -1434,6 +1694,7 @@ footer .brand{font-size:20px;color:var(--bone)}
         <p class="pm-dedica">Feito por: Sr_Bjorn</p>
       </div>
     </div>
+    <script type="application/json" id="pm-voz-tempos">{"dur":91.54,"p":[[0.56,0.264,0],[0.824,0.028,0],[0.852,0.431,0],[1.282,0.514,0],[1.796,0.056,0],[1.852,0.458,0],[4.253,0.139,1],[4.392,0.514,1],[4.906,0.528,1],[5.433,0.056,1],[5.489,0.25,1],[5.739,0.431,1],[7.153,0.333,1],[7.487,0.486,1],[7.973,0.333,1],[8.306,0.667,1],[9.985,0.403,1],[10.388,0.833,1],[11.221,0.042,1],[11.263,0.389,1],[11.651,0.653,1],[13.301,0.25,1],[13.551,0.236,1],[13.787,0.5,1],[14.287,0.222,1],[14.509,0.361,1],[15.853,0.583,1],[16.436,0.097,1],[16.533,0.083,1],[16.617,0.361,1],[16.978,0.208,1],[17.186,0.111,1],[17.297,0.625,1],[20.249,0.125,2],[20.374,0.097,2],[20.471,0.486,2],[20.957,0.347,2],[21.304,0.542,2],[21.846,0.083,2],[21.929,0.556,2],[23.467,0.722,2],[24.189,0.111,2],[24.3,0.361,2],[24.662,0.333,2],[24.995,0.597,2],[26.57,0.819,2],[27.389,0.028,2],[27.417,0.431,2],[27.848,0.139,2],[27.987,0.847,2],[29.833,0.236,2],[30.069,0.403,2],[30.472,0.333,2],[30.806,0.264,2],[31.069,0.736,2],[31.806,0.264,2],[34.396,0.556,3],[34.951,0.125,3],[35.076,0.042,3],[35.118,0.389,3],[35.507,0.236,3],[35.743,0.236,3],[35.979,0.444,3],[37.419,0.111,3],[37.53,0.264,3],[37.794,0.611,3],[38.405,0.056,3],[38.461,0.347,3],[38.808,0.083,3],[38.892,0.625,3],[40.518,0.653,3],[41.17,0.319,3],[41.49,0.667,3],[43.14,0.25,3],[43.39,0.444,3],[43.835,0.625,3],[44.46,0.028,3],[44.488,0.083,3],[44.571,0.153,3],[44.724,0.542,3],[46.26,0.319,3],[46.579,0.75,3],[47.329,0.028,3],[47.357,0.472,3],[47.829,0.569,3],[49.378,0.208,3],[49.586,0.056,3],[49.642,0.389,3],[50.031,0.139,3],[50.17,0.208,3],[50.378,0.153,3],[50.531,0.292,3],[50.822,0.569,3],[53.726,0.306,4],[54.031,0.486,4],[54.518,0.514,4],[55.031,0.708,4],[55.74,0.236,4],[55.976,0.417,4],[57.37,0.819,4],[58.482,0.542,4],[59.384,0.806,4],[60.426,0.528,4],[61.952,0.125,4],[62.077,0.389,4],[62.466,0.444,4],[62.911,0.347,4],[63.258,0.194,4],[63.452,0.653,4],[65.094,0.694,4],[65.789,0.069,4],[65.858,0.514,4],[66.372,0.125,4],[66.497,0.583,4],[67.081,0.444,4],[68.5,0.111,4],[68.612,0.556,4],[69.167,0.139,4],[69.306,0.542,4],[70.922,0.292,4],[71.214,0.556,4],[71.77,0.125,4],[71.895,0.181,4],[72.075,0.542,4],[73.608,0.486,4],[74.095,0.583,4],[74.678,0.042,4],[74.72,0.458,4],[77.53,0.292,5],[77.822,0.403,5],[78.225,0.028,5],[78.253,0.389,5],[78.641,0.556,5],[80.207,0.375,5],[80.582,0.111,5],[80.693,0.431,5],[81.124,0.583,5],[81.707,0.292,5],[82.998,0.361,5],[83.359,0.097,5],[83.456,0.792,5],[85.425,0.167,5],[85.592,0.097,5],[85.689,0.403,5],[86.092,0.653,5],[86.745,0.014,5],[86.759,0.639,5],[88.39,0.528,5],[88.918,0.111,5],[89.029,0.236,5],[89.265,0.514,5],[89.779,0.042,5],[89.821,0.542,5]]}</script>
   </div>
 </section>
 </main>
@@ -1594,31 +1855,57 @@ footer .brand{font-size:20px;color:var(--bone)}
     });
   })();
 
-  // ---- vaga-lumes roxos e verdes subindo devagar no fundo ----
+  // ---- fundo 3D: a câmera voa devagar no meio de vaga-lumes roxos, verdes e dourados ----
+  // os de longe são pontinhos perto do centro, os de perto passam grandes e desfocados; rolar a página acelera
+  // a câmera e eles viram rastros de luz, e o mouse mexe o ponto de vista. Quem pede menos movimento vê um quadro parado.
   (function(){
-    var cv=document.getElementById('fireflies'); if(!cv||reduce||!cv.getContext) return;
-    var ctx=cv.getContext('2d'), W=0, H=0, dpr=Math.min(2,window.devicePixelRatio||1), P=[];
-    var COLORS=[[199,125,255],[43,230,168],[242,201,76]];
-    function size(){ W=cv.clientWidth; H=cv.clientHeight; cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); }
-    function spawn(y){ var c=COLORS[Math.random()<.45?0:Math.random()<.85?1:2];
-      return {x:Math.random()*W, y:y==null?Math.random()*H:y, r:.8+Math.random()*1.8, vy:-(.08+Math.random()*.22), ph:Math.random()*6.28, sw:.3+Math.random()*.6, c:c, tw:.6+Math.random()*1.4}; }
-    size(); var N=Math.round(Math.min(46,Math.max(18,W*H/32000))); for(var i=0;i<N;i++) P.push(spawn());
-    window.addEventListener('resize',size);
-    var last=performance.now(), hidden=false;
-    document.addEventListener('visibilitychange',function(){ hidden=document.hidden; if(!hidden){ last=performance.now(); requestAnimationFrame(loop);} });
+    var cv=document.getElementById('fireflies'); if(!cv||!cv.getContext) return;
+    var ctx=cv.getContext('2d'), W=0, H=0, dpr=Math.min(1.5,window.devicePixelRatio||1), P=[];
+    var COLORS=[[199,125,255],[43,230,168],[242,201,76]], D=2000, NEAR=500, F=800;
+    // o brilho de cada cor é desenhado uma vez só e depois só carimbado
+    var GLOW=COLORS.map(function(c){ var s=document.createElement('canvas'); s.width=s.height=64; var x=s.getContext('2d'), g=x.createRadialGradient(32,32,0,32,32,32);
+      g.addColorStop(0,'rgba('+c+',1)'); g.addColorStop(1,'rgba('+c+',0)'); x.fillStyle=g; x.fillRect(0,0,64,64); return s; });
+    function novo(i,n){ var ci=Math.random()<.45?0:Math.random()<.85?1:2;
+      return {X:(Math.random()*2-1)*.95, Y:(Math.random()*2-1)*.9, z:(i+Math.random())/n*D, r:.6+Math.random()*1.3, vy:.00012+Math.random()*.0003, ph:Math.random()*6.28, sw:.3+Math.random()*.6, ci:ci, c:COLORS[ci], tw:.6+Math.random()*1.4}; }
+    function size(){ W=cv.clientWidth; H=cv.clientHeight; cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr);
+      var n=Math.round(Math.min(110,Math.max(40,W*H/15000))); while(P.length<n) P.push(novo(P.length,n)); if(P.length>n) P.length=n; }
+    size();
+    var hover=window.matchMedia&&matchMedia('(hover:hover) and (pointer:fine)').matches, mx=.5, my=.5, camX=0, camY=0;
+    if(hover&&!reduce) window.addEventListener('pointermove',function(e){ mx=e.clientX/W; my=e.clientY/H; },{passive:true});
+    var camZ=0, intro=reduce?0:34, last=performance.now(), hidden=false, lastSY=window.pageYOffset;
+    function quadro(now,dt,sdy){
+      ctx.setTransform(1,0,0,1,0,0); ctx.globalAlpha=1; ctx.clearRect(0,0,cv.width,cv.height); ctx.setTransform(dpr,0,0,dpr,0,0);
+      var dz=reduce?0:.6*dt+Math.max(-90,Math.min(90,sdy*.9))+intro*dt; camZ+=dz; intro*=Math.pow(.93,dt); if(intro<.05) intro=0;
+      var tx=hover?(mx-.5)*W*.1:Math.sin(now/5200)*W*.025, ty=hover?(my-.5)*H*.08:Math.cos(now/6100)*H*.02;
+      camX+=(tx-camX)*.05*dt; camY+=(ty-camY)*.05*dt;
+      var cx=W/2, cy=H*.45, ex=W*.62, ey=H*.62;
+      ctx.lineCap='round';
+      for(var i=0;i<P.length;i++){
+        var p=P[i];
+        p.ph+=.02*dt*p.tw; p.Y-=p.vy*dt; p.X+=Math.sin(p.ph)*p.sw*.0004*dt; if(p.Y<-.95) p.Y=.95;
+        var zz=((p.z+camZ)%D+D)%D, k=zz/D, z=zz-D+NEAR, s=F/(F-z);
+        var px=cx+(p.X*ex-camX)*s, py=cy+(p.Y*ey-camY)*s, R=Math.min(34,p.r*6*s);
+        if(px<-R-60||px>W+R+60||py<-R-60||py>H+R+60) continue;
+        var tw=.25+.55*(.5+.5*Math.sin(p.ph*1.7)), a=tw*Math.min(1,k/.25)*Math.min(1,(1-k)/.2);
+        if(a<.01) continue;
+        if(Math.abs(dz)>4){
+          var z0=z-dz*3.2, s0=F/(F-z0);
+          if(z0>-D+NEAR&&z0<NEAR+80){
+            ctx.globalAlpha=1; ctx.strokeStyle='rgba('+p.c+','+(a*.5).toFixed(3)+')'; ctx.lineWidth=Math.max(1,R*.28);
+            ctx.beginPath(); ctx.moveTo(cx+(p.X*ex-camX)*s0,cy+(p.Y*ey-camY)*s0); ctx.lineTo(px,py); ctx.stroke();
+          }
+        }
+        ctx.globalAlpha=a*(R>14?.9*14/R+.1:.9); ctx.drawImage(GLOW[p.ci],px-R,py-R,R*2,R*2);
+      }
+    }
+    window.addEventListener('resize',function(){ size(); if(reduce) quadro(performance.now(),1,0); });
+    if(reduce){ quadro(performance.now(),1,0); return; }
+    document.addEventListener('visibilitychange',function(){ hidden=document.hidden; if(!hidden){ last=performance.now(); lastSY=window.pageYOffset; requestAnimationFrame(loop);} });
     function loop(now){
       if(hidden) return;
       var dt=Math.min(50,now-last)/16.7; last=now;
-      ctx.clearRect(0,0,W,H);
-      for(var i=0;i<P.length;i++){
-        var p=P[i]; p.y+=p.vy*dt; p.ph+=.02*dt*p.tw; p.x+=Math.sin(p.ph)*p.sw*.3*dt;
-        if(p.y<-10) P[i]=p=spawn(H+10);
-        var a=.25+.55*(.5+.5*Math.sin(p.ph*1.7));
-        var g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*6);
-        g.addColorStop(0,'rgba('+p.c[0]+','+p.c[1]+','+p.c[2]+','+(a*.9).toFixed(3)+')');
-        g.addColorStop(1,'rgba('+p.c[0]+','+p.c[1]+','+p.c[2]+',0)');
-        ctx.fillStyle=g; ctx.beginPath(); ctx.arc(p.x,p.y,p.r*6,0,6.2832); ctx.fill();
-      }
+      var sy=window.pageYOffset, sdy=sy-lastSY; lastSY=sy;
+      quadro(now,dt,sdy);
       requestAnimationFrame(loop);
     }
     requestAnimationFrame(loop);
@@ -1725,6 +2012,230 @@ footer .brand{font-size:20px;color:var(--bone)}
     draw();
   })();
 
+  // ---- poema: o quadro da Lua ganha mar com maré, constelação que a pessoa desenha, estrela cadente e o calor do Sol ----
+  // "contando os dias pelas marés" e "decorando o nome das estrelas": tocar no céu cria estrelas; com 6 elas viram uma constelação
+  (function(){
+    var q=document.querySelector('.pm-quadro'), svg=q&&q.querySelector('svg'), lua=document.getElementById('pm-lua'), halo=document.getElementById('pm-halo');
+    if(!q||!svg||!lua) return;
+    var fundo=document.createElement('canvas'), mar=document.createElement('canvas'), dica=document.createElement('span');
+    fundo.className='pm-fx'; mar.className='pm-mar'; dica.className='pm-dica'; dica.textContent='✦ toque no céu pra desenhar uma constelação';
+    q.insertBefore(fundo,svg); q.appendChild(mar); q.appendChild(dica); q.classList.add('pm-toque');
+    var cf=fundo.getContext&&fundo.getContext('2d'), cm=mar.getContext&&mar.getContext('2d'); if(!cf||!cm) return;
+    var W=0, H=0, dpr=Math.min(2,window.devicePixelRatio||1), ox=0, oy=0, sc=1, C={x:0,y:0};
+    var MONO=getComputedStyle(document.documentElement).getPropertyValue('--mono')||'monospace';
+    function medir(){
+      var w=q.clientWidth, h=q.clientHeight; if(!w||!h) return;
+      if(w!==W||h!==H){ W=w; H=h; [fundo,mar].forEach(function(c){ c.width=Math.round(W*dpr); c.height=Math.round(H*dpr); }); }
+      var qr=q.getBoundingClientRect(), sr=svg.getBoundingClientRect();
+      sc=sr.width/400; ox=sr.left-qr.left-q.clientLeft; oy=sr.top-qr.top-q.clientTop; C.x=ox+200*sc; C.y=oy+200*sc;
+    }
+    function luaPos(){ var m=/translate\(([-\d.]+)[ ,]+([-\d.]+)\)/.exec(lua.getAttribute('transform')||''); return {x:ox+(m?+m[1]:200)*sc, y:oy+(m?+m[2]:60)*sc}; }
+    function luzAgora(){ var o=parseFloat(halo&&halo.style.opacity); return isNaN(o)?.5:Math.max(0,Math.min(1,(o-.12)/.88)); }
+    function nivelMar(t,luz){ return H*(.885-.035*luz)+Math.sin(t/3800)*H*.006; }   // maré mais alta perto da Lua cheia
+    function brilho(cor){ var s=document.createElement('canvas'); s.width=s.height=64; var x=s.getContext('2d'), g=x.createRadialGradient(32,32,0,32,32,32);
+      g.addColorStop(0,'rgba('+cor+',1)'); g.addColorStop(.3,'rgba('+cor+',.45)'); g.addColorStop(1,'rgba('+cor+',0)'); x.fillStyle=g; x.fillRect(0,0,64,64); return s; }
+    var BR=brilho('240,232,255'), OURO=brilho('242,201,76'), ROXO=brilho('199,125,255');
+    function carimbo(c,img,x,y,r,a){ if(a<=0) return; c.globalAlpha=Math.min(1,a); c.drawImage(img,x-r,y-r,r*2,r*2); c.globalAlpha=1; }
+    function escreve(c,str,x,y,a,fonte,cor){
+      if(a<=0) return; c.font=fonte; c.textAlign='center'; c.textBaseline='middle';
+      var w=c.measureText(str).width; x=Math.max(w/2+10,Math.min(W-w/2-10,x)); y=Math.max(14,Math.min(H-14,y));
+      c.globalAlpha=Math.min(1,a); c.shadowColor='rgba(0,0,0,.85)'; c.shadowBlur=10; c.fillStyle=cor; c.fillText(str,x,y); c.shadowBlur=0; c.globalAlpha=1;
+    }
+    var NOMES=['Ursa do Bjørn','Lobo Azul','Pata de Urso','Coração Roxo','Caminho de Volta','Lua Teimosa','Guardiã das Marés'];
+    var FALAS=['ainda procuro o meu caminho','conto os dias pelas marés','brilho com a luz que ficou','já já eu volto a brilhar'];
+    var estrelas=[], pronta=0, nome='', pulsos=[], frases=[], faiscas=[], cadente=null, proxCadente=0, tocou=false, fl=0, ultNome=-1;
+    var rodando=false, visivel=false, pend=false;
+    function faisca(x,y,cor){ var now=performance.now(); for(var i=0;i<14;i++){ var a=Math.random()*6.2832, v=.6+Math.random()*1.6; faiscas.push({x:x,y:y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-.4,t0:now,cor:cor}); } }
+    function frase(str,x,y,cor){ frases.push({s:str,x:x,y:y,cor:cor,t0:performance.now()}); if(reduce) setTimeout(pedir,2700); }
+
+    function quadro(now){
+      if(q.clientWidth!==W||q.clientHeight!==H) medir();
+      if(!W||!H) return;
+      var t=reduce?0:now, luz=luzAgora(), L=luaPos(), nm=nivelMar(t,luz);
+      cf.setTransform(dpr,0,0,dpr,0,0); cf.clearRect(0,0,W,H);
+      cm.setTransform(dpr,0,0,dpr,0,0); cm.clearRect(0,0,W,H);
+
+      // o calor do Sol: um anel dourado sai de onde ele ficava e a Lua recebe um pouco dessa luz
+      for(var i=pulsos.length-1;i>=0;i--){
+        var p=(now-pulsos[i])/1900; if(p>=1){ pulsos.splice(i,1); continue; }
+        var pv=reduce?.25:p, e=1-pv;
+        carimbo(cf,OURO,C.x,C.y,(70+110*pv)*sc,.55*e);
+        cf.strokeStyle='rgba(242,201,76,'+(.55*e).toFixed(3)+')'; cf.lineWidth=1.5; cf.beginPath(); cf.arc(C.x,C.y,(30+130*pv)*sc,0,6.2832); cf.stroke();
+        carimbo(cf,OURO,L.x,L.y,78*sc,.45*e*(pv<.2&&!reduce?pv/.2:1));
+      }
+
+      // estrela cadente: aparece de vez em quando; quem conseguir tocar nela faz um pedido
+      if(rodando){
+        if(!cadente&&now>proxCadente){ var esq=Math.random()<.5; cadente={x0:esq?W*(.04+Math.random()*.22):W*(.74+Math.random()*.22), y0:H*(.05+Math.random()*.18), dx:(esq?1:-1)*W*(.34+Math.random()*.2), dy:H*(.16+Math.random()*.14), t0:now, dur:1500}; }
+        if(cadente){
+          var pc=(now-cadente.t0)/cadente.dur;
+          if(pc>=1){ cadente=null; proxCadente=now+5000+Math.random()*7000; }
+          else{
+            var ec=pc<.12?pc/.12:pc>.8?(1-pc)/.2:1, hx=cadente.x0+cadente.dx*pc, hy=cadente.y0+cadente.dy*pc, len=Math.hypot(cadente.dx,cadente.dy), ux=cadente.dx/len, uy=cadente.dy/len, tl=Math.min(110,W*.2);
+            cadente.hx=hx; cadente.hy=hy;
+            var gr=cf.createLinearGradient(hx,hy,hx-ux*tl,hy-uy*tl); gr.addColorStop(0,'rgba(255,255,255,'+(.95*ec).toFixed(3)+')'); gr.addColorStop(1,'rgba(199,125,255,0)');
+            cf.strokeStyle=gr; cf.lineWidth=2.2; cf.lineCap='round'; cf.beginPath(); cf.moveTo(hx,hy); cf.lineTo(hx-ux*tl,hy-uy*tl); cf.stroke();
+            carimbo(cf,BR,hx,hy,12,ec);
+          }
+        }
+      }
+
+      // a constelação que a pessoa desenha
+      if(estrelas.length){
+        var fade=1, cheia=pronta&&now>pronta;
+        if(pronta){ var dp=now-pronta; if(dp>5600){ fade=Math.max(0,1-(dp-5600)/1200); if(fade<=0){ estrelas=[]; pronta=0; } } }
+        cf.lineCap='round';
+        for(var j=0;j<estrelas.length;j++){
+          var s=estrelas[j], sx=s.x*W, sy=s.y*H, pg=reduce?1:Math.min(1,(now-s.t0)/380);
+          if(j>0){ var a0=estrelas[j-1], ax=a0.x*W, ay=a0.y*H;
+            cf.strokeStyle='rgba(199,125,255,'+((cheia?.8:.45)*fade).toFixed(3)+')'; cf.lineWidth=cheia?1.7:1.1;
+            cf.beginPath(); cf.moveTo(ax,ay); cf.lineTo(ax+(sx-ax)*pg,ay+(sy-ay)*pg); cf.stroke(); }
+          var pop=reduce?1:Math.min(1,(now-s.t0)/260), tw=reduce?1:.8+.2*Math.sin(now/420+j*1.7);
+          carimbo(cf,cheia?ROXO:BR,sx,sy,(cheia?20:14)*(.4+.6*pop)*tw,.95*fade);
+          cf.globalAlpha=fade; cf.fillStyle='#fff'; cf.beginPath(); cf.arc(sx,sy,1.9,0,6.2832); cf.fill(); cf.globalAlpha=1;
+        }
+        if(cheia&&fade>0&&estrelas.length){
+          var mx=0, my=0, top=H; estrelas.forEach(function(s){ mx+=s.x*W; my+=s.y*H; top=Math.min(top,s.y*H); }); mx/=estrelas.length; my/=estrelas.length;
+          var ap=(reduce?1:Math.min(1,(now-pronta)/600))*fade, ly=top>58?top-34:Math.min(nm-30,my+40);
+          escreve(cm,'VOCÊ CRIOU A CONSTELAÇÃO',mx,ly-14,ap*.9,'600 10px '+MONO,'#E4D6FF');
+          escreve(cm,nome,mx,ly+8,ap,'italic 400 '+Math.round(Math.max(17,Math.min(24,W*.05)))+'px "Fraunces",Georgia,serif','#F4EDFF');
+        }
+      }
+
+      // o mar: três camadas de onda e o brilho da Lua tremendo na água
+      var CAM=[['rgba(52,30,104,.6)',1,.012,.9,0],['rgba(26,18,52,.88)',1.4,.017,-.7,1.3],['rgba(12,10,22,.97)',1.9,.023,.5,2.6]];
+      for(var c=0;c<3;c++){
+        var k=CAM[c], base=nm+c*H*.02, amp=H*.0055*k[1];
+        cm.beginPath();
+        for(var x=0;x<=W+8;x+=8){ var yv=base+Math.sin(x*k[2]+t*.0011*k[3]+k[4])*amp+Math.sin(x*k[2]*2.3+t*.0007+c)*amp*.4; if(x===0) cm.moveTo(x,yv); else cm.lineTo(x,yv); }
+        if(c===0){ cm.strokeStyle='rgba(199,125,255,.4)'; cm.lineWidth=1; cm.stroke(); }
+        cm.lineTo(W,H); cm.lineTo(0,H); cm.closePath(); cm.fillStyle=k[0]; cm.fill();
+        if(c===0&&L.y<nm-2){
+          var n=12, prof=H-nm;
+          for(var g=0;g<n;g++){
+            var yy=nm+prof*(g+.7)/(n+.5), w=(8+g*3.4)*sc*1.15*(.35+.65*luz), fx=Math.sin(t*.003+g*1.9)*w*.35;
+            var al=(.16+.55*luz)*(.55+.45*Math.sin(t*.006+g*2.7))*(1-g/n*.45);
+            cm.strokeStyle='rgba(240,232,255,'+al.toFixed(3)+')'; cm.lineWidth=1.4;
+            cm.beginPath(); cm.moveTo(L.x+fx-w*.5,yy); cm.lineTo(L.x+fx+w*.5,yy); cm.stroke();
+          }
+        }
+      }
+
+      // faíscas e frases por cima de tudo
+      for(var f=faiscas.length-1;f>=0;f--){ var fs=faiscas[f], pf=(now-fs.t0)/900; if(pf>=1||reduce){ faiscas.splice(f,1); continue; }
+        fs.x+=fs.vx; fs.y+=fs.vy; fs.vy+=.03; carimbo(cm,fs.cor==='ouro'?OURO:fs.cor==='roxo'?ROXO:BR,fs.x,fs.y,6*(1-pf)+2,1-pf); }
+      for(var r=frases.length-1;r>=0;r--){ var fr=frases[r], pr=(now-fr.t0)/2600; if(pr>=1){ frases.splice(r,1); continue; }
+        var af=reduce?1:pr<.15?pr/.15:pr>.75?(1-pr)/.25:1;
+        escreve(cm,fr.s,fr.x,fr.y-(reduce?0:pr*14),af,'italic 400 '+Math.round(Math.max(15,Math.min(19,W*.04)))+'px "Fraunces",Georgia,serif',fr.cor); }
+    }
+
+    function loop(now){ if(!rodando) return; quadro(now); requestAnimationFrame(loop); }
+    function pedir(){ if(rodando||pend) return; pend=true; requestAnimationFrame(function(n){ pend=false; quadro(n); }); }
+    function liga(){
+      if(reduce){ pedir(); return; }
+      var deve=visivel&&!document.hidden;
+      if(deve&&!rodando){ rodando=true; if(!proxCadente) proxCadente=performance.now()+2500; requestAnimationFrame(loop); }
+      else if(!deve) rodando=false;
+    }
+
+    q.addEventListener('click',function(e){
+      medir();
+      var qr=q.getBoundingClientRect(), x=e.clientX-qr.left-q.clientLeft, y=e.clientY-qr.top-q.clientTop, now=performance.now(), L=luaPos();
+      if(!tocou){ tocou=true; dica.classList.add('off'); }
+      if(cadente&&cadente.hx!=null&&Math.hypot(x-cadente.hx,y-cadente.hy)<38){
+        faisca(cadente.hx,cadente.hy,'ouro'); frase('pedido feito ✨',cadente.hx,cadente.hy+22,'#F2C94C');
+        cadente=null; proxCadente=now+4500+Math.random()*6000; return pedir();
+      }
+      if(Math.hypot(x-L.x,y-L.y)<44*sc+8){ faisca(L.x,L.y,'branco'); frase(FALAS[fl++%FALAS.length],L.x,L.y>H*.45?L.y-50*sc-10:L.y+50*sc+10,'#F4EDFF'); return pedir(); }
+      if(Math.hypot(x-C.x,y-C.y)<42*sc+8){ pulsos.push(now); frase('ainda aquece',C.x,C.y+44*sc+12,'#F2C94C'); if(reduce) setTimeout(pedir,2000); return pedir(); }
+      if(y>nivelMar(reduce?0:now,luzAgora())-6) return;
+      if(pronta||estrelas.length>=6){ estrelas=[]; pronta=0; }
+      estrelas.push({x:x/W,y:y/H,t0:now});
+      if(estrelas.length===6){
+        pronta=now+(reduce?0:400); var ni; do{ ni=Math.floor(Math.random()*NOMES.length) }while(ni===ultNome&&NOMES.length>1); ultNome=ni; nome=NOMES[ni];
+        faisca(x,y,'roxo'); if(reduce) setTimeout(pedir,6900);
+      }
+      pedir();
+    });
+    if('IntersectionObserver' in window){ new IntersectionObserver(function(es){ visivel=es[0].isIntersecting; liga(); }).observe(q); } else { visivel=true; liga(); }
+    document.addEventListener('visibilitychange',liga);
+    window.addEventListener('resize',function(){ medir(); pedir(); });
+    if(reduce) window.addEventListener('scroll',pedir,{passive:true});
+    medir(); pedir();
+  })();
+
+  // ---- poema: uma voz lê o poema e cada palavra brilha na hora em que é falada ----
+  // o áudio só baixa quando a pessoa aperta o botão; a página acompanha a estrofe que está sendo lida
+  (function(){
+    var box=document.getElementById('poema-box'), dados=document.getElementById('pm-voz-tempos'); if(!box||!dados||!window.Audio) return;
+    var T; try{ T=JSON.parse(dados.textContent) }catch(e){ return; }
+    var P=T.p, texto=box.querySelector('.pm-texto'), titulo=document.querySelector('#poema .sec-head h2'), ceu=box.querySelector('.pm-ceu');
+    var alvos=[titulo].concat([].slice.call(box.querySelectorAll('.estrofe'))); if(!texto||!titulo) return;
+    var PAL; try{ PAL=new RegExp('[\\p{L}\\p{M}]+(?:[-\'’][\\p{L}\\p{M}]+)*|\\p{Nd}+','gu'); }catch(e){ return; }
+    // embrulha cada palavra num <span class="pw">, mas só se a contagem bater com a da voz
+    function nosDeTexto(el){ var w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null,false), out=[], n; while((n=w.nextNode())) out.push(n); return out; }
+    var total=0; alvos.forEach(function(el){ nosDeTexto(el).forEach(function(n){ var m=n.nodeValue.match(PAL); total+=m?m.length:0; }); });
+    if(total!==P.length) return;
+    var spans=[];
+    alvos.forEach(function(el){
+      nosDeTexto(el).forEach(function(n){
+        var s=n.nodeValue, frag=document.createDocumentFragment(), last=0, m; PAL.lastIndex=0;
+        while((m=PAL.exec(s))){ if(m.index>last) frag.appendChild(document.createTextNode(s.slice(last,m.index)));
+          var sp=document.createElement('span'); sp.className='pw'; sp.textContent=m[0]; frag.appendChild(sp); spans.push(sp); last=m.index+m[0].length; }
+        if(last<s.length) frag.appendChild(document.createTextNode(s.slice(last)));
+        n.parentNode.replaceChild(frag,n);
+      });
+    });
+
+    var dur=Math.round(T.dur), btn=document.createElement('button');
+    btn.type='button'; btn.className='pm-ouvir';
+    btn.innerHTML='<span class="ic" aria-hidden="true"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg></span>'
+      +'<span class="tx"><b>Ouvir o poema</b><small>voz sintética · '+Math.floor(dur/60)+'min'+('0'+dur%60).slice(-2)+'</small></span><span class="barra" aria-hidden="true"></span>';
+    texto.insertBefore(btn,texto.firstChild);
+    var rot=btn.querySelector('b'), barra=btn.querySelector('.barra');
+    var a=new Audio(); a.preload='none'; var fonte='audio/poema-lua.mp3', carregou=false;
+    var i0=-1, bloco=-1, manual=0, raf=0;
+    ['wheel','touchmove','keydown'].forEach(function(ev){ window.addEventListener(ev,function(){ manual=performance.now(); },{passive:true}); });
+
+    function mostra(el){
+      if(performance.now()-manual<2500) return;
+      var r=el.getBoundingClientRect(), vh=window.innerHeight, fixo=80;
+      if(ceu&&getComputedStyle(ceu).position==='sticky'&&window.innerWidth<=900) fixo=ceu.getBoundingClientRect().bottom+16;
+      var alvoTopo=window.innerWidth<=900?fixo:vh*.24;
+      if(r.top>=alvoTopo-8&&r.bottom<=vh-20) return;
+      window.scrollTo({top:window.pageYOffset+r.top-alvoTopo,behavior:reduce?'auto':'smooth'});
+    }
+    function marca(){
+      var t=a.currentTime, i=-1, lo=0, hi=P.length-1;
+      while(lo<=hi){ var m=(lo+hi)>>1; if(P[m][0]<=t+.03){ i=m; lo=m+1; } else hi=m-1; }
+      if(i!==i0){
+        if(i0>=0) spans[i0].classList.remove('fala');
+        for(var k=Math.max(0,i0);k<i;k++) spans[k].classList.add('lida');
+        if(i>=0){ var b=P[i][2]; if(b!==bloco){ bloco=b; if(b>0){ alvos[b].classList.add('on'); mostra(alvos[b]); } } }
+        i0=i;
+      }
+      if(i>=0) spans[i].classList.toggle('fala',t<=P[i][0]+P[i][1]+.35);
+      barra.style.width=(a.duration?Math.min(100,t/a.duration*100):0).toFixed(2)+'%';
+    }
+    function laco(){ marca(); raf=requestAnimationFrame(laco); }
+    function limpa(){ spans.forEach(function(s){ s.classList.remove('fala','lida'); }); i0=-1; bloco=-1; }
+    a.addEventListener('playing',function(){ btn.classList.add('tocando'); btn.classList.remove('carregando'); rot.textContent='Pausar a leitura'; box.classList.add('lendo'); cancelAnimationFrame(raf); laco(); });
+    a.addEventListener('waiting',function(){ btn.classList.add('carregando'); rot.textContent='Carregando…'; });
+    a.addEventListener('pause',function(){ cancelAnimationFrame(raf); btn.classList.remove('tocando'); if(!a.ended) rot.textContent='Continuar a leitura'; });
+    a.addEventListener('ended',function(){ cancelAnimationFrame(raf); marca(); btn.classList.remove('tocando'); rot.textContent='Ouvir de novo'; barra.style.width='100%';
+      setTimeout(function(){ if(a.paused){ box.classList.remove('lendo'); limpa(); barra.style.width='0%'; } },2200); });
+    a.addEventListener('error',function(){ btn.classList.remove('tocando','carregando'); rot.textContent='Não deu pra tocar agora'; });
+    btn.addEventListener('click',function(){
+      if(!carregou){ a.src=fonte; carregou=true; }
+      if(a.paused){
+        if(a.ended||a.currentTime>=(a.duration||1e9)-.05){ a.currentTime=0; limpa(); }
+        if('mediaSession' in navigator&&window.MediaMetadata){ try{ navigator.mediaSession.metadata=new MediaMetadata({title:'Quando a Lua perdeu o Sol',artist:'Sr_Bjorn'}); }catch(e){} }
+        if(a.readyState<3){ btn.classList.add('carregando'); rot.textContent='Carregando…'; }
+        var pr=a.play(); if(pr&&pr.catch) pr.catch(function(){ btn.classList.remove('carregando'); rot.textContent='Toque de novo pra ouvir'; });
+      } else a.pause();
+    });
+  })();
+
   // ---- copiar ----
   var toast = document.getElementById('toast'), tt;
   function show(msg){ toast.textContent=msg; toast.classList.add('show'); clearTimeout(tt); tt=setTimeout(function(){toast.classList.remove('show')},2200); }
@@ -1807,13 +2318,54 @@ footer .brand{font-size:20px;color:var(--bone)}
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!back.hidden) close(); });
 })();
 
+// ---- Protocolo Z: o jogo abre numa janela por cima do site e só carrega quando alguém clica ----
+(function(){
+  var jan=document.getElementById('pz-janela'), frame=document.getElementById('pz-frame'), sair=document.getElementById('pz-sair');
+  if(!jan||!frame) return;
+  var mold=jan.querySelector('.pz-moldura'), SRC='jogos/protocolo-z/jogo.html', voltar=null;
+  function cheia(){ return document.fullscreenElement===mold||document.webkitFullscreenElement===mold }
+  function avisa(){ try{ frame.contentWindow.postMessage({pz:'cheia',valor:cheia()},'*') }catch(e){} }
+  function telaCheia(on){
+    if(on){ var rq=mold.requestFullscreen||mold.webkitRequestFullscreen; if(rq){ try{ var pr=rq.call(mold); if(pr&&pr.catch) pr.catch(function(){}) }catch(e){} } }
+    else if(cheia()){ var ex=document.exitFullscreen||document.webkitExitFullscreen; if(ex){ try{ var px=ex.call(document); if(px&&px.catch) px.catch(function(){}) }catch(e){} } }
+  }
+  function abrir(modo,quem){
+    voltar=quem||null;
+    if(frame.getAttribute('src')!==SRC) frame.setAttribute('src',SRC);
+    jan.hidden=false; document.documentElement.style.overflow='hidden';
+    if(modo==='cheia') telaCheia(true);
+    setTimeout(function(){ try{ frame.focus() }catch(e){} },80);
+  }
+  function fechar(){
+    telaCheia(false);
+    jan.hidden=true; document.documentElement.style.overflow='';
+    frame.setAttribute('src','about:blank');   // para o jogo e a música
+    if(voltar){ try{ voltar.focus() }catch(e){} }
+  }
+  document.addEventListener('click',function(e){ var b=e.target.closest&&e.target.closest('[data-pz-abrir]'); if(b) abrir(b.getAttribute('data-pz-abrir'),b); });
+  sair.addEventListener('click',fechar);
+  window.addEventListener('message',function(e){
+    if(e.source!==frame.contentWindow||!e.data) return;
+    if(e.data.pz==='fechar') fechar();
+    else if(e.data.pz==='tela-cheia') telaCheia(!cheia());
+  });
+  document.addEventListener('fullscreenchange',avisa); document.addEventListener('webkitfullscreenchange',avisa);
+  frame.addEventListener('load',avisa);
+})();
+// ---- a patinha fecha enquanto o botão do mouse está apertado ----
+(function(){
+  if(!window.matchMedia||!matchMedia('(pointer:fine)').matches) return;
+  var h=document.documentElement, solta=function(){ h.classList.remove('apertando') };
+  document.addEventListener('pointerdown',function(e){ if(e.pointerType==='mouse'&&e.button===0) h.classList.add('apertando') },{passive:true});
+  document.addEventListener('pointerup',solta,{passive:true}); window.addEventListener('blur',solta); document.addEventListener('dragend',solta);
+})();
 // ---- o rastro vermelho que a patinha deixa pelo caminho ----
 (function(){
   if(!window.matchMedia || !matchMedia('(pointer:fine)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var NS='http://www.w3.org/2000/svg', svg=document.createElementNS(NS,'svg'), g=document.createElementNS(NS,'g');
   svg.setAttribute('class','red-thread'); svg.setAttribute('aria-hidden','true'); svg.appendChild(g); document.body.appendChild(svg);
   var LIFE=420, MAXW=4.2, pts=[], pool=[], running=false;
-  var OX=12, OY=12;                                    // o rastro sai do meio da patinha
+  var OX=17, OY=19;                                    // o rastro sai do meio da patinha
   function seg(i){ var l=pool[i]; if(!l){ l=document.createElementNS(NS,'line'); g.appendChild(l); pool[i]=l } return l }
   document.addEventListener('mousemove',function(e){
     var x=e.clientX+OX, y=e.clientY+OY, last=pts[pts.length-1];
@@ -1855,6 +2407,68 @@ footer .brand{font-size:20px;color:var(--bone)}
   document.addEventListener('visibilitychange',function(){ if(document.hidden) stop() });
 })();
 
+</script>
+<script>
+// ---- seções entrando em 3D e cartões que inclinam (tudo desligado pra quem pede menos movimento) ----
+(function(){
+  var mm=function(q){ return !!(window.matchMedia&&matchMedia(q).matches) };
+  if(mm('(prefers-reduced-motion: reduce)')) return;
+
+  // 1. cada seção entra em 3D quando aparece: o título sobe e os blocos sobem inclinados, um depois do outro
+  (function(){
+    if(!('IntersectionObserver' in window)) return;
+    var alvos=[];
+    function temTransform(el){ var cs=getComputedStyle(el); return cs.transform!=='none'||cs.animationName!=='none'; }
+    function marca(el,tipo,atraso){
+      if(tipo!=='rv-f'&&temTransform(el)) tipo='rv-f';
+      el.classList.add(tipo); el._rv=tipo; if(atraso) el.style.setProperty('--rd',atraso.toFixed(2)+'s'); alvos.push(el);
+    }
+    function cabecalho(h){
+      var n=0; [].forEach.call(h.children,function(c){
+        var tipo=c.matches('h2')?'rv-h':c.matches('.eyebrow')?'rv-e':'rv';
+        marca(c,tipo,Math.min(.4,n*.1)); n++;
+      });
+    }
+    function bloco(box){
+      var n=0; [].forEach.call(box.children,function(c){
+        if(c.matches('.sec-head')){ cabecalho(c); return; }
+        if(c.querySelector(':scope > .sec-head')){ bloco(c); return; }
+        if(c.closest('#poema')) return;
+        var cs=getComputedStyle(c), kids=c.children.length;
+        if((cs.display==='grid'||cs.display==='flex')&&kids>1&&kids<=12&&c.offsetHeight>220){
+          [].forEach.call(c.children,function(k,j){ marca(k,'rv',Math.min(.45,j*.09)); });
+        } else { marca(c,'rv',Math.min(.3,n*.08)); }
+        n++;
+      });
+    }
+    [].forEach.call(document.querySelectorAll('main > section[id] > .wrap'),bloco);
+    document.documentElement.classList.add('rv-on');
+    function limpa(el){ el.classList.remove('rv','rv-f','rv-e','rv-h','rv-go','rv-in'); el.style.removeProperty('--rd'); }
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        var el=e.target;
+        if(e.isIntersecting){
+          io.unobserve(el); el.classList.add('rv-go','rv-in');
+          setTimeout(function(){ limpa(el) },1300+(parseFloat(el.style.getPropertyValue('--rd'))||0)*1000);
+        } else if(e.boundingClientRect.bottom<0){ io.unobserve(el); limpa(el); }
+      });
+    },{rootMargin:'0px 0px -8% 0px',threshold:0});
+    alvos.forEach(function(el){ io.observe(el); });
+  })();
+
+  // 2. as janelas dos sites e o recibo inclinam seguindo o mouse, com um brilho por cima
+  if(mm('(hover:hover) and (pointer:fine)')){
+    [].forEach.call(document.querySelectorAll('.site-win,.recibo-wrap'),function(c){
+      c.addEventListener('pointermove',function(e){
+        var r=c.getBoundingClientRect(), x=(e.clientX-r.left)/r.width, y=(e.clientY-r.top)/r.height;
+        c.classList.add('tilt');
+        c.style.setProperty('--ry',((x-.5)*10).toFixed(2)+'deg'); c.style.setProperty('--rx',((.5-y)*8).toFixed(2)+'deg');
+        c.style.setProperty('--gx',(x*100).toFixed(1)+'%'); c.style.setProperty('--gy',(y*100).toFixed(1)+'%');
+      });
+      c.addEventListener('pointerleave',function(){ c.classList.remove('tilt'); });
+    });
+  }
+})();
 </script>
 <script type="module">
 // ---- Mascote: o avatar do Bjørn no VRChat, renderizado no Blender — olha pro mouse, fala, acena e ganha carinho ----
@@ -2036,10 +2650,12 @@ const SECTION={
   redes:'Psiu… no Telegram e no WhatsApp eu respondo bem mais rápido 💬',
   ocs:'Toca numa cor da paleta que ela vai direto pro seu copiar e colar ✨',
   setup:'16 threads e uma RTX 2070 SUPER… por isso aqui é sempre quentinho 🔥',
-  games:'13 consoles na estante! Qual desses é o seu favorito? 🎮',
-  manutencao:'PC travando? Me chama! Dá até pra resolver pelo Parsec 🛠️',
+  games:'Fiz um jogo! Aperta Jogar no Protocolo Z e encara a matilha 🎮',
+  sites:'Gostou deste site? Eu faço um pra você a partir de R$100 💻',
+  avatares:'No NVSB Studio\'s a gente faz avatar do zero, tudo à mão ✏️',
+  manutencao:'PC travando? Atendo em Piracicaba ou você me manda pelos Correios 📦',
   parcerias:'Com o cupom YOSHIRO você ganha desconto e ainda leva um mimo 🎁',
-  poema:'Lê com calma… a Lua muda de fase enquanto você desce 🌙'
+  poema:'A Lua muda de fase enquanto você lê… e toca no céu dela pra desenhar estrelas ✨'
 };
 const TAP=[['Ei! Isso faz cócegas 😆','laugh'],['Oi oi! 👋','happy'],['Esse sou eu no VRChat! Curtiu o visual? ✨','wink'],['Já me segue no Instagram? 👀','squint'],['Que bom te ver por aqui 💜','blush'],['Dica secreta: tem uma folha vermelha escondida lá no rodapé… 🍁','wink'],['Os óculos na cabeça são só estilo, viu? 😎','squint'],['Bleh! 😛','tongue'],['Opa! Que susto! 😳','surprised']];
 const FACTS=['polvos têm três corações e sangue azul 🐙','um dia em Vênus é mais longo que um ano em Vênus 🪐','o mel praticamente não estraga: já acharam mel comestível em tumbas egípcias 🍯','os flamingos são cor-de-rosa por causa do que comem 🦩','lontras-marinhas dormem de mãos dadas pra não se perderem 🦦','a Torre Eiffel fica uns 15 cm mais alta no verão, por causa do calor 🗼','bananas são levemente radioativas, por causa do potássio 🍌','os tubarões existem há mais tempo que as árvores 🦈','botanicamente, a banana é uma baga… e o morango não é 🍓','um raio é umas cinco vezes mais quente que a superfície do Sol ⚡','as corujas não conseguem mexer os olhos, por isso giram tanto a cabeça 🦉','o Monte Everest cresce alguns milímetros por ano 🏔️','existem mais estrelas no universo do que grãos de areia em todas as praias da Terra ✨','golfinhos chamam uns aos outros com assobios únicos, tipo nomes 🐬','não dá pra ver a Muralha da China do espaço a olho nu 🧱','o ENIAC, um dos primeiros computadores, pesava cerca de 27 toneladas 💻','axolotes conseguem regenerar patas e até partes do coração 🦎','o primeiro vídeo do YouTube é de 2005 e se chama "Me at the zoo" 📼','os gatos passam boa parte da vida dormindo, uns 12 a 16 horas por dia 😴','as abelhas conseguem reconhecer rostos humanos 🐝','a luz do Sol leva uns 8 minutos pra chegar até a Terra ☀️','o coração de uma baleia-azul é do tamanho de um carro pequeno 🐋','os lobos uivam pra reunir a matilha, não pra Lua 🐺'];

@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' blob:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<title>Protocolo Z</title>
+<style>
+@font-face {
+  font-family: "Kurama Pixel";
+  src: url("kurama-pixel.ttf") format("truetype");
+}
+:root {
+  --led: #62f3ff;
+  --led-forte: #b5fbff;
+  --led-escuro: rgba(98, 243, 255, 0.25);
+  --vermelho: #ff3b5c;
+  --ouro: #ffc93c;
+  --vidro: rgba(6, 14, 22, 0.72);
+  --texto: #e8fbff;
+  --pixel: "Kurama Pixel", "Consolas", monospace;
+}
+html, body {
+  margin: 0; height: 100%; overflow: hidden; background: transparent;
+  font-family: "Segoe UI", system-ui, sans-serif; color: var(--texto);
+  user-select: none; -webkit-user-select: none;
+}
+#moldura {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  border-radius: 10px; overflow: hidden; background: #000;
+  box-shadow: inset 0 0 0 1px rgba(98, 243, 255, 0.15);
+}
+#titulo {
+  flex: 0 0 30px; display: flex; align-items: center; background: #0b1016;
+  border-bottom: 1px solid #000; font-family: var(--pixel); font-size: 13px; letter-spacing: 1px; color: #bfeff5;
+}
+#titulo .nome { flex: 1; padding-left: 10px; text-shadow: 0 0 6px rgba(98, 243, 255, 0.5); }
+#titulo .viseira {
+  width: 18px; height: 11px; margin-left: 12px; border-radius: 3px 3px 6px 6px; background: #05080b;
+  box-shadow: inset 0 0 0 1px #2a3a44; position: relative;
+}
+#titulo .viseira::before, #titulo .viseira::after {
+  content: ""; position: absolute; top: 4px; width: 4px; height: 2px; background: var(--led); box-shadow: 0 0 4px var(--led);
+}
+#titulo .viseira::before { left: 3px; } #titulo .viseira::after { right: 3px; }
+#fechar { width: 44px; height: 30px; border: 0; padding: 0; background: transparent; cursor: pointer; position: relative; }
+#fechar::before, #fechar::after { content: ""; position: absolute; left: 50%; top: 50%; width: 14px; height: 2px; background: #cfcfcf; }
+#fechar::before { transform: translate(-50%, -50%) rotate(45deg); }
+#fechar::after { transform: translate(-50%, -50%) rotate(-45deg); }
+#fechar:hover { background: #c42b1c; }
+#telaCheia { width: 40px; height: 30px; border: 0; padding: 0; background: transparent; cursor: pointer; display: grid; place-items: center; color: #cfcfcf; }
+#telaCheia svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+#telaCheia .sai, #telaCheia.cheia .abre { display: none; }
+#telaCheia.cheia .sai { display: block; }
+#telaCheia:hover { background: rgba(98, 243, 255, 0.18); color: var(--led-forte); }
+
+#palco { position: relative; flex: 1; min-height: 0; overflow: hidden; }
+#tela { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.cobre { position: absolute; inset: 0; }
+[hidden] { display: none !important; }
+
+/* ------------------------------------------------------------ a viseira */
+#viseira {
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 120% 95% at 50% 50%, transparent 62%, rgba(0, 8, 14, 0.55) 88%, rgba(0, 4, 8, 0.85) 100%),
+    repeating-linear-gradient(0deg, rgba(98, 243, 255, 0.025) 0 1px, transparent 1px 3px);
+}
+#viseira::before, #viseira::after {
+  content: ""; position: absolute; width: 40px; height: 40px; border: 2px solid rgba(98, 243, 255, 0.35);
+}
+#viseira::before { left: 14px; top: 14px; border-right: 0; border-bottom: 0; border-radius: 8px 0 0 0; }
+#viseira::after { right: 14px; bottom: 14px; border-left: 0; border-top: 0; border-radius: 0 0 8px 0; }
+#sangue { pointer-events: none; opacity: 0; transition: opacity 0.15s;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(255, 20, 60, 0.35) 75%, rgba(140, 0, 30, 0.75) 100%); }
+#glitch { pointer-events: none; opacity: 0; mix-blend-mode: screen; }
+#glitch i { position: absolute; left: 0; right: 0; height: 6px; background: rgba(255, 40, 90, 0.5); }
+#criticoFx, #dobroFx, #escudoFx, #congelarFx, #furiaFx, #vampiroFx, #patasFx, #lentoFx { pointer-events: none; opacity: 0; transition: opacity 0.4s; }
+#vampiroFx { box-shadow: inset 0 0 130px rgba(200, 0, 40, 0.4); }
+#patasFx { box-shadow: inset 0 0 110px rgba(80, 255, 200, 0.25); }
+#lentoFx { box-shadow: inset 0 0 180px rgba(160, 220, 255, 0.55);
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(210, 240, 255, 0.22) 100%); }
+#luneta { pointer-events: none;
+  background: radial-gradient(circle at center, transparent 0 34vmin, rgba(0, 0, 0, 0.97) 34.4vmin); }
+#luneta::before, #luneta::after { content: ""; position: absolute; left: 50%; top: 50%; background: rgba(0, 0, 0, 0.85); }
+#luneta::before { width: 68vmin; height: 2px; transform: translate(-50%, -50%); }
+#luneta::after { width: 2px; height: 68vmin; transform: translate(-50%, -50%); }
+#luneta i { position: absolute; left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%;
+  background: #ff3b5c; box-shadow: 0 0 6px #ff3b5c; }
+#criticoFx { box-shadow: inset 0 0 120px rgba(255, 50, 80, 0.35); }
+#dobroFx { box-shadow: inset 0 0 120px rgba(255, 210, 60, 0.25); }
+#escudoFx { box-shadow: inset 0 0 90px rgba(90, 140, 255, 0.45), inset 0 0 0 3px rgba(120, 170, 255, 0.35); }
+#congelarFx { box-shadow: inset 0 0 160px rgba(170, 230, 255, 0.45);
+  background: linear-gradient(135deg, rgba(200, 240, 255, 0.12), transparent 30%, transparent 70%, rgba(200, 240, 255, 0.12)); }
+#furiaFx { box-shadow: inset 0 0 110px rgba(255, 60, 220, 0.35); }
+.inf { font-family: "Segoe UI Symbol", "Segoe UI", sans-serif; }
+#flash { pointer-events: none; opacity: 0; background: #bff9ff; }
+
+/* ------------------------------------------------------------ a mira */
+#mira { position: absolute; left: 50%; top: 50%; width: 0; height: 0; pointer-events: none; transition: opacity 0.1s; }
+#mira i { position: absolute; background: var(--led-forte); box-shadow: 0 0 4px var(--led), 0 0 1px #000; }
+#mira .c { width: 2px; height: 9px; left: -1px; }
+#mira .l { height: 2px; width: 9px; top: -1px; }
+#mira .p { width: 3px; height: 3px; left: -1.5px; top: -1.5px; border-radius: 50%; }
+#acerto { position: absolute; left: 50%; top: 50%; width: 0; height: 0; pointer-events: none; opacity: 0; }
+#acerto i { position: absolute; width: 11px; height: 2px; background: #fff; box-shadow: 0 0 3px #000; }
+#acerto.morte i { background: var(--vermelho); width: 14px; }
+#acerto.cabeca i { background: var(--ouro); }
+#indicadores { position: absolute; left: 50%; top: 50%; width: 0; height: 0; pointer-events: none; }
+#indicadores b {
+  position: absolute; left: -45px; top: -130px; width: 90px; height: 26px; transform-origin: 45px 130px;
+  border-top: 5px solid rgba(255, 50, 80, 0.85); border-radius: 50% 50% 0 0; filter: drop-shadow(0 0 6px #ff2050);
+}
+
+/* ------------------------------------------------------------ o HUD */
+#hud { pointer-events: none; font-family: var(--pixel); }
+.led { color: var(--led); text-shadow: 0 0 8px rgba(98, 243, 255, 0.7), 0 0 2px #000; }
+#cara { position: absolute; left: 26px; top: 24px; display: flex; align-items: center; gap: 10px; }
+#rosto { width: 80px; height: 60px; background: #06080b; border-radius: 16px 16px 26px 26px;
+  box-shadow: 0 0 0 2px rgba(168, 62, 255, 0.45), 0 0 16px rgba(168, 62, 255, 0.3), inset 0 4px 10px rgba(255, 255, 255, 0.06); }
+#vidas { display: flex; flex-direction: column; gap: 5px; }
+#barraVida { display: flex; gap: 3px; }
+#barraVida i { width: 13px; height: 9px; background: var(--led); box-shadow: 0 0 6px var(--led); transform: skewX(-15deg); }
+#barraVida i.off { background: rgba(98, 243, 255, 0.12); box-shadow: none; }
+#barraVida.baixa i:not(.off) { background: var(--vermelho); box-shadow: 0 0 6px var(--vermelho); }
+#modulos { display: flex; gap: 4px; min-height: 18px; }
+#modulos b { width: 18px; height: 18px; font-size: 11px; line-height: 18px; text-align: center; color: #050505; border-radius: 4px; }
+#folego { width: 140px; height: 3px; background: rgba(98, 243, 255, 0.12); }
+#folego i { display: block; height: 100%; background: #9fe8ff; }
+#uivo { position: relative; width: 140px; height: 5px; background: rgba(168, 62, 255, 0.15); }
+#uivo i { display: block; height: 100%; background: #a86bff; box-shadow: 0 0 6px #a86bff; }
+#uivo b { position: absolute; left: 146px; top: -6px; font-size: 11px; font-weight: normal; color: #a86bff; opacity: 0.4; }
+#uivo.cheio i { background: #d6a8ff; animation: pulsa 0.6s infinite alternate; }
+#uivo.cheio b { opacity: 1; text-shadow: 0 0 8px #c88bff; }
+@keyframes pulsa { from { box-shadow: 0 0 4px #a86bff; } to { box-shadow: 0 0 14px #e0c0ff; } }
+
+#onda { position: absolute; left: 28px; bottom: 76px; font-size: 54px; color: var(--vermelho);
+  text-shadow: 0 0 14px rgba(255, 40, 80, 0.8), 2px 2px 0 #2a0008; letter-spacing: 2px; }
+#onda small { display: block; font-size: 12px; letter-spacing: 3px; color: #ff9fb2; text-shadow: 0 0 6px rgba(255, 40, 80, 0.6); }
+#pontos { position: absolute; left: 28px; bottom: 30px; font-size: 30px; }
+#ganhos { position: absolute; left: 150px; bottom: 34px; width: 120px; height: 120px; }
+#ganhos span { position: absolute; left: 0; bottom: 0; font-size: 16px; color: var(--ouro);
+  text-shadow: 0 0 6px rgba(255, 200, 60, 0.7); animation: sobe 0.9s ease-out forwards; }
+@keyframes sobe { from { transform: translate(0, 0); opacity: 1; } to { transform: translate(30px, -70px); opacity: 0; } }
+#boops { position: absolute; left: 50%; top: calc(50% - 70px); width: 0; height: 0; }
+#boops span { position: absolute; transform: translateX(-50%); font-family: var(--pixel); font-size: 26px; color: #ff7bd0; white-space: nowrap;
+  text-shadow: 0 0 10px #ff4fb0, 2px 2px 0 #3a0026; animation: boop 0.9s ease-out forwards; }
+@keyframes boop { 0% { transform: translate(-50%, 10px) scale(0.6); opacity: 0; } 20% { transform: translate(-50%, 0) scale(1.15); opacity: 1; }
+  100% { transform: translate(-50%, -50px) scale(1); opacity: 0; } }
+.segredo { margin-top: 10px; font-family: var(--pixel); font-size: 12px; letter-spacing: 2px; color: #ff7be6; text-shadow: 0 0 8px #ff4fd8; min-height: 14px; }
+.conqs { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px; width: min(760px, 92%); margin: 14px 0 18px; text-align: left; }
+.conq { padding: 8px 10px; border: 1px solid rgba(98, 243, 255, 0.18); border-radius: 5px; background: rgba(8, 20, 28, 0.6); opacity: 0.5; }
+.conq b { display: block; font-family: var(--pixel); font-weight: normal; font-size: 13px; color: #9fb6bd; letter-spacing: 1px; }
+.conq span { font-size: 12px; color: #8aa3aa; }
+.conq.tem { opacity: 1; border-color: rgba(255, 201, 60, 0.6); box-shadow: 0 0 12px rgba(255, 201, 60, 0.15); }
+.conq.tem b { color: var(--ouro); text-shadow: 0 0 8px rgba(255, 201, 60, 0.6); }
+.conq.tem span { color: #e8fbff; }
+
+#arma { position: absolute; right: 30px; bottom: 28px; text-align: right; }
+#armaNome { font-size: 15px; letter-spacing: 1px; }
+#armaNome.n2 { color: #ff7be6; text-shadow: 0 0 8px rgba(255, 79, 216, 0.8); }
+#armaNome.n3 { color: var(--ouro); text-shadow: 0 0 8px rgba(255, 201, 60, 0.8); }
+#armaNome.n4 { color: #ff7a4a; text-shadow: 0 0 10px rgba(255, 90, 42, 0.9); }
+#municao { font-size: 40px; line-height: 1.1; }
+#municao small { font-size: 20px; opacity: 0.75; }
+#municao.vazio { color: var(--vermelho); text-shadow: 0 0 8px var(--vermelho); }
+#granadas { display: flex; gap: 5px; justify-content: flex-end; margin-top: 4px; }
+#granadas i { width: 10px; height: 10px; border-radius: 50%; background: var(--led); box-shadow: 0 0 6px var(--led); }
+#outra { font-size: 11px; opacity: 0.55; margin-top: 3px; }
+#recarga { position: absolute; left: 50%; top: calc(50% + 40px); transform: translateX(-50%); width: 90px; height: 4px;
+  background: rgba(98, 243, 255, 0.15); }
+#recarga i { display: block; height: 100%; background: var(--led); box-shadow: 0 0 6px var(--led); }
+#aviso { position: absolute; left: 50%; top: calc(50% + 56px); transform: translateX(-50%); font-size: 13px; color: var(--vermelho);
+  text-shadow: 0 0 6px var(--vermelho); letter-spacing: 2px; }
+
+#dica { position: absolute; left: 50%; top: calc(50% + 90px); transform: translateX(-50%); font-family: "Segoe UI", sans-serif;
+  font-size: 15px; padding: 7px 14px; background: var(--vidro); border: 1px solid rgba(98, 243, 255, 0.35); border-radius: 6px;
+  white-space: nowrap; box-shadow: 0 0 18px rgba(98, 243, 255, 0.15); }
+#dica kbd { font-family: var(--pixel); background: var(--led); color: #021014; padding: 1px 6px; border-radius: 3px; margin-right: 6px; }
+#dica .custo { font-family: var(--pixel); color: var(--ouro); margin-left: 8px; }
+#dica .custo.nao { color: var(--vermelho); }
+
+#poderes { position: absolute; right: 30px; top: 24px; display: flex; gap: 10px; }
+#poderes div { text-align: center; font-size: 12px; }
+#poderes canvas { width: 46px; height: 46px; display: block; margin: 0 auto 2px; }
+
+#chefe { position: absolute; left: 50%; top: 22px; transform: translateX(-50%); width: min(520px, 60%); text-align: center; }
+/* janela estreita: a barra do chefe desce para não cobrir o rosto e a vida */
+@media (max-width: 1100px) { #chefe { top: 104px; width: min(520px, 70%); } }
+#chefe .nome { font-size: 14px; letter-spacing: 3px; color: #e9a3ff; text-shadow: 0 0 8px #c94bff; }
+#chefe .barra { height: 10px; margin-top: 5px; background: rgba(201, 75, 255, 0.15); border: 1px solid rgba(201, 75, 255, 0.6); }
+#chefe .barra i { display: block; height: 100%; background: linear-gradient(90deg, #c94bff, #ff3b5c); box-shadow: 0 0 10px #c94bff; transition: width 0.15s; }
+
+#msg { position: absolute; left: 0; right: 0; top: 18%; text-align: center; pointer-events: none; }
+#msg .grande { font-family: var(--pixel); font-size: 46px; letter-spacing: 4px; }
+#msg .sub { font-size: 16px; letter-spacing: 3px; margin-top: 6px; opacity: 0.9; }
+#msg.mostra { animation: msg 3.2s ease-out forwards; }
+@keyframes msg { 0% { opacity: 0; transform: scale(1.15); } 8% { opacity: 1; transform: scale(1); } 80% { opacity: 1; } 100% { opacity: 0; } }
+#reinicio { display: flex; align-items: center; justify-content: center; background: rgba(0, 10, 30, 0.82); font-family: var(--pixel);
+  font-size: 22px; letter-spacing: 3px; color: var(--led); text-shadow: 0 0 10px var(--led); flex-direction: column; gap: 14px; }
+#reinicio .barra { width: 260px; height: 6px; background: rgba(98, 243, 255, 0.15); }
+#reinicio .barra i { display: block; height: 100%; background: var(--led); }
+#fps { position: absolute; left: 8px; top: 6px; font: 12px Consolas, monospace; color: #9fe8ff; opacity: 0.7; }
+
+/* ------------------------------------------------------------ telas */
+/* centralizado quando cabe; quando não cabe, rola a partir do topo (sem cortar o título) */
+.tela > :first-child { margin-top: auto; }
+.tela > :last-child { margin-bottom: auto; }
+.tela { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; text-align: center;
+  background: radial-gradient(ellipse at center, rgba(2, 10, 18, 0.72), rgba(0, 0, 0, 0.92)); overflow: auto; padding: 20px; box-sizing: border-box; }
+.logo { font-family: var(--pixel); font-size: clamp(36px, 7vw, 70px); letter-spacing: 6px; color: var(--led);
+  text-shadow: 0 0 18px rgba(98, 243, 255, 0.8), 0 0 2px #fff, 4px 4px 0 #031a20; animation: tremeLogo 4s infinite; }
+.logo b { color: var(--vermelho); text-shadow: 0 0 18px rgba(255, 40, 80, 0.9), 4px 4px 0 #20030a; font-weight: normal; }
+@keyframes tremeLogo { 0%, 92%, 100% { transform: none; filter: none; } 93% { transform: translate(-3px, 1px) skewX(-6deg); filter: hue-rotate(90deg); } 95% { transform: translate(3px, -1px); } }
+.subtitulo { font-size: 13px; letter-spacing: 5px; color: #9fd9e0; margin: 6px 0 26px; text-transform: uppercase; }
+.botao { width: 300px; max-width: 80vw; height: 42px; margin: 5px 0; font-family: var(--pixel); font-size: 15px; letter-spacing: 2px;
+  color: var(--texto); cursor: pointer; background: rgba(8, 28, 36, 0.85); border: 1px solid rgba(98, 243, 255, 0.45);
+  border-radius: 4px; transition: all 0.12s; }
+.botao:hover:not(:disabled) { background: var(--led); color: #021014; box-shadow: 0 0 20px rgba(98, 243, 255, 0.6); }
+.botao:disabled { opacity: 0.35; cursor: default; }
+.botao.vermelho { border-color: rgba(255, 59, 92, 0.6); }
+.botao.vermelho:hover { background: var(--vermelho); box-shadow: 0 0 20px rgba(255, 59, 92, 0.6); }
+.linha { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.linha .botao { width: 146px; }
+.recorde { margin-top: 18px; font-family: var(--pixel); font-size: 12px; letter-spacing: 2px; color: #7fb7c0; }
+.ajuda { max-width: 640px; font-size: 14px; line-height: 1.7; color: #cdeff4; text-align: left; }
+.ajuda h3 { font-family: var(--pixel); font-weight: normal; color: var(--led); letter-spacing: 2px; margin: 14px 0 4px; font-size: 15px; }
+.ajuda kbd { font-family: var(--pixel); font-size: 12px; background: rgba(98, 243, 255, 0.15); border: 1px solid rgba(98, 243, 255, 0.4);
+  padding: 0 5px; border-radius: 3px; color: var(--led-forte); }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; }
+.opcao { display: grid; grid-template-columns: 150px 220px 56px; align-items: center; gap: 12px; margin: 8px 0; font-size: 14px; text-align: left; }
+.opcao input[type=range] { accent-color: var(--led); }
+.opcao span { font-family: var(--pixel); color: var(--led); }
+.titulo-tela { font-family: var(--pixel); font-size: 40px; letter-spacing: 4px; margin-bottom: 8px; }
+.titulo-tela.vermelho { color: var(--vermelho); text-shadow: 0 0 16px rgba(255, 40, 80, 0.8); }
+.titulo-tela.led { color: var(--led); text-shadow: 0 0 16px rgba(98, 243, 255, 0.8); }
+.titulo-tela.ouro { color: var(--ouro); text-shadow: 0 0 16px rgba(255, 201, 60, 0.8); }
+.stats { display: grid; grid-template-columns: auto auto; gap: 4px 30px; margin: 16px 0 22px; font-size: 15px; text-align: left; }
+.stats b { font-family: var(--pixel); color: var(--led); font-weight: normal; text-align: right; }
+#carregando { display: flex; align-items: center; justify-content: center; background: #02070b; font-family: var(--pixel);
+  color: var(--led); letter-spacing: 3px; text-shadow: 0 0 10px var(--led); font-size: 18px; }
+</style>
+</head>
+<body>
+<div id="moldura">
+  <div id="titulo"><span class="viseira"></span><span class="nome">Protocolo Z</span><button id="telaCheia" title="Tela cheia" aria-label="Tela cheia"><svg class="abre" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><svg class="sai" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg></button><button id="fechar" title="Fechar"></button></div>
+  <div id="palco">
+    <canvas id="tela"></canvas>
+    <div id="criticoFx" class="cobre"></div>
+    <div id="dobroFx" class="cobre"></div>
+    <div id="escudoFx" class="cobre"></div>
+    <div id="congelarFx" class="cobre"></div>
+    <div id="furiaFx" class="cobre"></div>
+    <div id="vampiroFx" class="cobre"></div>
+    <div id="patasFx" class="cobre"></div>
+    <div id="lentoFx" class="cobre"></div>
+    <div id="luneta" class="cobre" hidden><i></i></div>
+    <div id="sangue" class="cobre"></div>
+    <div id="glitch" class="cobre"></div>
+    <div id="flash" class="cobre"></div>
+    <div id="viseira" class="cobre"></div>
+
+    <div id="hud" class="cobre" hidden>
+      <div id="cara">
+        <canvas id="rosto" width="128" height="96"></canvas>
+        <div id="vidas">
+          <div id="barraVida"></div>
+          <div id="folego"><i></i></div>
+          <div id="uivo"><i></i><b>[Z] UIVO</b></div>
+          <div id="modulos"></div>
+        </div>
+      </div>
+      <div id="poderes"></div>
+      <div id="chefe" hidden><div class="nome" id="chefeNome">SENTINELA OMEGA</div><div class="barra"><i></i></div></div>
+      <div id="onda" class="led"></div>
+      <div id="pontos" class="led">500</div>
+      <div id="ganhos"></div>
+      <div id="boops"></div>
+      <div id="arma">
+        <div id="armaNome" class="led"></div>
+        <div id="municao" class="led"></div>
+        <div id="granadas"></div>
+        <div id="outra" class="led"></div>
+      </div>
+      <div id="mira"></div>
+      <div id="acerto"><i style="transform: translate(4px, 4px) rotate(45deg)"></i><i style="transform: translate(-15px, 4px) rotate(-45deg)"></i><i style="transform: translate(4px, -6px) rotate(-45deg)"></i><i style="transform: translate(-15px, -6px) rotate(45deg)"></i></div>
+      <div id="indicadores"></div>
+      <div id="recarga" hidden><i></i></div>
+      <div id="aviso"></div>
+      <div id="dica" hidden></div>
+      <div id="msg"><div class="grande"></div><div class="sub"></div></div>
+      <div id="fps" hidden></div>
+    </div>
+
+    <div id="reinicio" class="cobre" hidden>REINICIANDO SISTEMA<div class="barra"><i></i></div><small style="font-size:12px">backup carregado</small></div>
+
+    <div id="menu" class="cobre tela" hidden>
+      <div class="logo">PROTOCOLO <b>Z</b></div>
+      <div class="subtitulo">A Protogen contra a matilha corrompida</div>
+      <button class="botao" id="jogar">Jogar</button>
+      <div class="linha" id="niveis"></div>
+      <button class="botao" id="btnAjuda">Como jogar</button>
+      <button class="botao" id="btnConquistas">Conquistas</button>
+      <button class="botao" id="btnOpcoes">Opções</button>
+      <button class="botao vermelho" id="sair">Fechar o jogo</button>
+      <div class="recorde" id="recorde"></div>
+      <div class="segredo" id="segredoMenu"></div>
+    </div>
+
+    <div id="conquistas" class="cobre tela" hidden>
+      <div class="titulo-tela ouro">CONQUISTAS</div>
+      <div class="subtitulo" id="conquistasConta"></div>
+      <div class="conqs" id="conquistasLista"></div>
+      <button class="botao" id="conquistasVolta">Voltar</button>
+    </div>
+
+    <div id="pausa" class="cobre tela" hidden>
+      <div class="titulo-tela led">PAUSA</div>
+      <div class="subtitulo" id="pausaInfo"></div>
+      <button class="botao" id="continuar">Voltar ao jogo</button>
+      <button class="botao" id="btnOpcoes2">Opções</button>
+      <button class="botao" id="btnAjuda2">Como jogar</button>
+      <button class="botao" id="recomecar">Recomeçar o nível</button>
+      <button class="botao vermelho" id="paraMenu">Sair para o menu</button>
+    </div>
+
+    <div id="opcoes" class="cobre tela" hidden>
+      <div class="titulo-tela led">OPÇÕES</div>
+      <div class="opcao">Sensibilidade <input type="range" id="optSens" min="0.2" max="3" step="0.05"><span id="vSens"></span></div>
+      <div class="opcao">Volume <input type="range" id="optVol" min="0" max="1" step="0.05"><span id="vVol"></span></div>
+      <div class="opcao">Música <input type="range" id="optMus" min="0" max="1" step="0.05"><span id="vMus"></span></div>
+      <div class="opcao">Campo de visão <input type="range" id="optFov" min="65" max="100" step="1"><span id="vFov"></span></div>
+      <div class="opcao">Resolução <input type="range" id="optRes" min="0.5" max="1" step="0.05"><span id="vRes"></span></div>
+      <div class="opcao">Inverter o mouse <input type="checkbox" id="optInv" style="justify-self:start"><span></span></div>
+      <button class="botao" id="opcoesVolta" style="margin-top:16px">Voltar</button>
+    </div>
+
+    <div id="ajuda" class="cobre tela" hidden>
+      <div class="titulo-tela led">COMO JOGAR</div>
+      <div class="ajuda">
+        Você é a Protogen. O vírus pegou os furries do laboratório: lobos, raposas, gatos e cachorros de jaleco rasgado,
+        protogens corrompidos, hienas, lagartos que cospem, guaxinins inchados, coelhos saltadores, lobos uivadores e touros. Eles sobem dos
+        portais em ondas — cada onda maior e mais forte. São 5 níveis, e do segundo em diante o último é de um chefão.
+        Cada monstro dá pontos: compre armas, portas, módulos e melhorias com eles.
+        <div class="cols">
+          <div>
+            <h3>CONTROLES</h3>
+            <kbd>W A S D</kbd> anda · <kbd>Shift</kbd> corre · <kbd>Espaço</kbd> pula · <kbd>Ctrl</kbd> agacha<br>
+            <kbd>Clique</kbd> atira · <kbd>Botão direito</kbd> mira<br>
+            <kbd>R</kbd> recarrega · <kbd>Q</kbd>, <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> ou a roda trocam de arma<br>
+            <kbd>E</kbd> compra / usa · <kbd>V</kbd> golpe de garra · <kbd>G</kbd> granada<br>
+            <kbd>Z</kbd> <b>Uivo</b> (com a barra roxa cheia) · <kbd>L</kbd> lanterna · <kbd>Esc</kbd> pausa
+          </div>
+          <div>
+            <h3>O QUE COMPRAR</h3>
+            <b>Armas na parede</b>: a moldura acesa. De novo, compra munição.<br>
+            <b>Caixa Glitch</b> (950): uma arma aleatória — só nela saem a Tempestade, o Raio Gama, a Supernova,
+            a Bobina Tesla, a Fornalha (lança-chamas) e a Nevasca (raio de gelo).<br>
+            <b>Forja</b>: Mk II (2500), Mk III (4000, ganha um <b>elemento</b>: fogo, gelo ou choque) e Mk IV (6500).
+            No Mk IV, ela troca o elemento (2000).<br>
+            <b>Módulos</b>: Blindagem, Backup, Turbo, Overclock, Propulsor, <b>Coldre Extra</b> (terceira arma) e
+            <b>Presas de Titânio</b> (garra 4× mais forte).
+          </div>
+        </div>
+        <h3>PODERES QUE CAEM</h3>
+        Os monstros <b>dourados</b>, o Touro e os chefões sempre soltam; os outros, às vezes.<br>
+        Munição máxima · Recarga total · Dano crítico · Pontos em dobro · <b>Bomba atômica</b> · Escudo de plasma ·
+        Congelamento · Fúria · Bônus de pontos · <b>Presas vampiras</b> (cada acerto cura) · <b>Robozinho aliado</b>
+        (o robozinho do widget atira com você) · <b>Patas ligeiras</b> · <b>Liquidação</b> (Caixa por 10) · Backup extra.
+        <h3>O UIVO DA PROTOGEN</h3>
+        Os abates enchem a barra roxa. Cheia, aperte <kbd>Z</kbd>: quem está perto fica tonto e você ganha fúria.
+        <h3>OS CHEFÕES</h3>
+        <b>Lobo Alfa</b> (Fábrica): dá botes enormes — saia do lugar quando ele agachar.
+        <b>Matriarca Gosma</b> (Estufa): chove ácido; não fique nas poças.
+        <b>Urso Glacial</b> (Criogenia): o sopro deixa você lenta; fuja pelos lados.
+        <b>Sentinela Ômega</b> (Núcleo): pule a onda de choque.
+        <h3>SEGREDOS</h3>
+        Dizem que cada nível esconde três robozinhos (escute o bip-bip), que um protogen corrompido gosta de
+        um boop no focinho e que um código bem antigo ainda funciona aqui — no menu ou no meio da partida.
+      </div>
+      <button class="botao" id="ajudaVolta" style="margin-top:16px">Voltar</button>
+    </div>
+
+    <div id="nivelFim" class="cobre tela" hidden>
+      <div class="titulo-tela led">NÍVEL CONCLUÍDO</div>
+      <div class="subtitulo" id="nivelFimNome"></div>
+      <div class="stats" id="nivelFimStats"></div>
+      <button class="botao" id="proximo">Próximo nível</button>
+      <button class="botao vermelho" id="nivelFimMenu">Sair para o menu</button>
+    </div>
+
+    <div id="vitoria" class="cobre tela" hidden>
+      <div class="titulo-tela ouro">PROTOCOLO CONCLUÍDO</div>
+      <div class="subtitulo">O Núcleo caiu. A rede está limpa — por enquanto.</div>
+      <div class="stats" id="vitoriaStats"></div>
+      <button class="botao" id="infinito">Continuar: ondas sem fim</button>
+      <button class="botao vermelho" id="vitoriaMenu">Sair para o menu</button>
+    </div>
+
+    <div id="fim" class="cobre tela" hidden>
+      <div class="titulo-tela vermelho">VOCÊ FOI CORROMPIDA</div>
+      <div class="subtitulo" id="fimInfo"></div>
+      <div class="stats" id="fimStats"></div>
+      <button class="botao" id="denovo">Tentar o nível de novo</button>
+      <button class="botao vermelho" id="fimMenu">Sair para o menu</button>
+    </div>
+
+    <div id="carregando" class="cobre">INICIANDO VISEIRA…</div>
+  </div>
+</div>
+<script src="mapas.js"></script>
+<script src="nucleo.js"></script>
+<script src="modelos.js"></script>
+<script src="render.js"></script>
+<script src="audio.js"></script>
+<script src="trilha.js"></script>
+<script src="jogo.js"></script>
+</body>
+</html>
